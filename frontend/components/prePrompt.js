@@ -1,0 +1,3 @@
+export const prePrompt = "a high quality die cut sticker decal, the decal should include color but should have a white outline around it so it can be cut out, the image should contain only the single sticker on a blank background by itself, the decal should be floating on a completely blank pitch black empty background completely alone"
+
+// export const prePrompt = " sticker decal, pitch black empty background, white outline, make sure the sticker is the only thing in the image"

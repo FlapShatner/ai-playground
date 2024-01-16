@@ -1,30 +1,19 @@
 import { useState } from 'react'
-import { generate } from './utils'
-import { prePrompt } from '../prePrompt'
+import Form from './Form'
+import Image from './Image'
 
 export default function App({ home }) {
-  const [prompt, setPrompt] = useState('')
-  const [generated, setGenerated] = useState('')
-
-  const handleChange = (e) => {
-    setPrompt(e.target.value)
-  }
-
-  const handleClick = () => {
-    if (prompt) {
-      const fullPrompt = prePrompt + prompt
-      generate(fullPrompt).then((res) => {
-        setGenerated(res)
-      })
-    }
-  }
-
+  const [generated, setGenerated] = useState(
+    'https://images.unsplash.com/photo-1682686581663-179efad3cd2f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  )
+  const [caption, setCaption] = useState('')
   return (
-    <div>
-      <h1>APP</h1>
-      <input id='prompt' value={prompt} onChange={handleChange} type='text' />
-      <button onClick={handleClick}>Go</button>
-      {generated && <img src={generated} alt='' />}
+    <div className='p-8'>
+      <h1 className='text-3xl text-center mb-6'>Generate a design with AI</h1>
+      <div className='flex gap-4'>
+        <Form setCaption={setCaption} setGenerated={setGenerated} />
+        <Image caption={caption} generated={generated} />
+      </div>
     </div>
   )
 }

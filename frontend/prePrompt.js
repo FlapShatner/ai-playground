@@ -1,1 +1,0 @@
-export const prePrompt = "a high quality die cut decal, white outline, black background"
