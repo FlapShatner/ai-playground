@@ -4,25 +4,63 @@ import { twMerge } from 'tailwind-merge'
 export function cn(...inputs) {
  return twMerge(clsx(inputs))
 }
+export const formatPrice = (price, quantity) => {    
+    let result = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format((price * quantity) / 100)
+      return result
+  }
+
+  export const getCart = async () => {
+    try {
+      const cart = await fetch(window.Shopify.routes.root + 'cart.js')
+      const cartJson = await cart.json()
+      // console.log("cart", cartJson)
+      return cartJson
+    } catch {
+      console.log('error')
+    }
+}
+
+export const getCurrentUrl = () => {
+    const url = window.location.href
+    return url
+}    
 
 
-// export async function generate(prompt) {
-//     const apiKey = import.meta.env.VITE_DEEPAI_API_KEY
-//     const resp = await fetch('https://api.deepai.org/api/text2img', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'api-key': apiKey
-//         },
-//         body: JSON.stringify({
-//             text: prompt,
-//         })
-//     });
+export const getSelectedVariant =() => {
+    const url = getCurrentUrl()
+    const variantId = url.split('variant=')[1]
+    return variantId
+}
+
+  export const getCurrentProduct = async () => {
+    const url = getCurrentUrl()    
+    const productId = url.split('/products/')[1].split('?')[0]
+   const product = await fetch(window.Shopify.routes.root + 'products/' + productId + '.js')
+    const productJson = await product.json()
+    return productJson
+}
+
+export const addToCart = async (formData) => {
     
-//     const data = await resp.json();
-//     console.log(data);
-//     return data.output_url;
-// }
+    try {
+        const result = await fetch(window.Shopify.routes.root + 'cart/add.js', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        const resultJson = await result.json()
+        // console.log("resultJson", resultJson)
+        return resultJson
+    }
+    catch {
+        console.log('error')
+    }
+}
 
 export async function generate(prompt,imageStyle) {
     const resp = await fetch('/apps/image/prompt', {
@@ -35,5 +73,5 @@ export async function generate(prompt,imageStyle) {
             style: imageStyle
         })
     });
-    return  resp;
+    return resp;
 }

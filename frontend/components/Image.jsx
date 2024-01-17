@@ -2,12 +2,14 @@ import React from 'react'
 
 function Image({ generated, caption }) {
   return (
-    <div className='w-1/2'>
-      {generated && (
+    <div className=''>
+      {generated ? (
         <div>
-          <img src={generated} alt='' />
           <p className='text-center'>{caption}</p>
+          <img src={generated} alt='' />
         </div>
+      ) : (
+        <span className='text-xl'>Describe a design below and our AI will generate it for you!</span>
       )}
     </div>
   )

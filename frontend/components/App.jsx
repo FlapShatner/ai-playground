@@ -1,18 +1,82 @@
-import { useState } from 'react'
-import Form from './Form'
+import { useState, useEffect } from 'react'
+import { addToCart, getCart } from './utils'
+import Prompt from './Prompt'
 import Image from './Image'
+import Form from './Form'
 
 export default function App({ home }) {
-  const [generated, setGenerated] = useState(
-    'https://images.unsplash.com/photo-1682686581663-179efad3cd2f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-  )
+  const [generated, setGenerated] = useState('')
   const [caption, setCaption] = useState('')
+  const [size, setSize] = useState('') // size is a variant id
+  const [quantity, setQuantity] = useState(1)
+  const [isSuccess, setIsSuccess] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  const [cart, setCart] = useState(null)
+
+  const formData = {
+    id: size,
+    quantity: quantity,
+    sections: 'ajax-cart',
+  }
+
+  const cartCount = document.querySelector('.cart-count')
+
+  useEffect(() => {
+    const updateCount = async () => {
+      const cart = await getCart()
+      setCart(cart)
+      if (cartCount) {
+        cartCount.innerHTML = cart.item_count
+        cartCount.classList.remove('hidden')
+      }
+    }
+    updateCount()
+  }, [isSuccess])
+
+  let enabled = generated != '' && size != ''
+
+  const addVariantToCart = async () => {
+    setLoading(true)
+    const res = await addToCart({
+      ...formData,
+      properties: {
+        _image: generated,
+      },
+    })
+    if (res) {
+      console.log(res)
+      const ajaxCart = document.querySelector('.minicart__content')
+      ajaxCart.innerHTML = res.sections['ajax-cart']
+      setLoading(false)
+      setIsSuccess(true)
+      setTimeout(() => {
+        setIsSuccess(false)
+      }, 3000)
+      setSize('')
+    }
+  }
+
   return (
-    <div className='p-8'>
+    <div className='bg-bg-primary'>
       <h1 className='text-3xl text-center mb-6'>Generate a design with AI</h1>
-      <div className='flex gap-4'>
-        <Form setCaption={setCaption} setGenerated={setGenerated} />
-        <Image caption={caption} generated={generated} />
+      <div className='p-8 gap-4 flex'>
+        <div className='w-1/2'>
+          <div className='flex flex-col-reverse gap-4'>
+            <Prompt setCaption={setCaption} generated={generated} setGenerated={setGenerated} />
+            <Image caption={caption} generated={generated} />
+          </div>
+        </div>
+        <Form
+          size={size}
+          setSize={setSize}
+          quantity={quantity}
+          setQuantity={setQuantity}
+          addVariantToCart={addVariantToCart}
+          enabled={enabled}
+          isSuccess={isSuccess}
+          loading={loading}
+        />
       </div>
     </div>
   )

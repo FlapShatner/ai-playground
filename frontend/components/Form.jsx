@@ -1,53 +1,42 @@
-import React, { useState } from 'react'
-import StylePicker from './StylePicker'
-import { generate } from './utils'
-import { prePrompt } from './prePrompt'
-import Loader from './loader/Loader'
+import React from 'react'
+import { useEffect, useState } from 'react'
+import { getCurrentProduct, formatPrice, cn } from './utils'
+import VariantBadge from './VariantBadge'
+import Quantity from './Quantity'
 
-function Form({ setGenerated, setCaption }) {
-  const [prompt, setPrompt] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-  const [imageStyle, setImageStyle] = useState('vivid')
+function Form({ addVariantToCart, size, setSize, quantity, setQuantity, enabled, isSuccess, loading }) {
+  const [product, setProduct] = useState(null)
+  const [productPrice, setProductPrice] = useState('')
 
-  const handleChange = (e) => {
-    setPrompt(e.target.value)
-  }
-
-  const handleClick = () => {
-    if (prompt) {
-      const fullPrompt = prePrompt + prompt
-      setIsLoading(true)
-      generate(fullPrompt, imageStyle).then(async (res) => {
-        const json = await res.json()
-        setGenerated(json.url)
-        setCaption(prompt)
-        console.log(json)
-        setIsLoading(false)
-        setPrompt('')
-      })
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const currentProduct = await getCurrentProduct()
+      setProduct(currentProduct)
+      setProductPrice(currentProduct.price)
     }
-  }
+    fetchProduct()
+  }, [])
+
+  if (!product) return <h1>Loading...</h1>
+
+  const variants = product.variants
+
+  const price = formatPrice(productPrice, quantity)
 
   return (
-    <div className='flex flex-col gap-4 w-1/2'>
-      <textarea
-        className='px-2 py-1 placeholder:opacity-60 border border-border'
-        id='prompt'
-        value={prompt}
-        onChange={handleChange}
-        type='text'
-        placeholder='Enter a design prompt'
-      />
-
-      <div className='border border-border flex justify-center p-2 bg-bg-secondary' onClick={handleClick}>
-        {isLoading ? (
-          <div className='flex items-center justify-center gap-3 text-lg '>
-            <Loader /> Working On It...
-          </div>
-        ) : (
-          <span className='text-lg'>Generate Design</span>
-        )}
+    <div className='w-full sm:w-1/2 flex flex-col gap-4 sm:gap-8 bg-bg-primary text-txt-primary py-12'>
+      <span className='text-3xl font-black text-center sm:text-start'>{price}</span>
+      <label htmlFor='size'>Size</label>
+      <div className='flex flex-wrap gap-2'>
+        {variants.map((variant) => (
+          <VariantBadge key={variant.id} variant={variant} size={size} setSize={setSize} setProductPrice={setProductPrice} />
+        ))}
       </div>
+      <Quantity quantity={quantity} setQuantity={setQuantity} />
+      {isSuccess && <p className='text-accent text-4xl'>Item added to cart</p>}
+      <button className={cn('bg-white text-black p-4', !enabled && 'opacity-30 cursor-default')} onClick={addVariantToCart}>
+        {loading ? 'Adding To Cart...' : 'Add To Cart'}
+      </button>
     </div>
   )
 }
