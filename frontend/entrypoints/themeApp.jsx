@@ -4,7 +4,11 @@ import ReactDOM from 'react-dom/client'
 import App from '@/components/App'
 import './themeApp.css'
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+const app = document.createElement('div')
+app.id = 'ext-root'
+document.body.appendChild(app)
+
+ReactDOM.createRoot(app).render(
   <React.StrictMode>
     <App home={home} />
   </React.StrictMode>

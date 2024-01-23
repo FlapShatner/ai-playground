@@ -36,8 +36,8 @@ export const getSelectedVariant =() => {
 }
 
   export const getCurrentProduct = async () => {
-    const url = getCurrentUrl()    
-    const productId = url.split('/products/')[1].split('?')[0]
+    // const url = getCurrentUrl()    
+    const productId = 'ai-designed-custom-decal'
    const product = await fetch(window.Shopify.routes.root + 'products/' + productId + '.js')
     const productJson = await product.json()
     return productJson

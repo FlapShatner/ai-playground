@@ -58,10 +58,9 @@ export default function App({ home }) {
   }
 
   return (
-    <div className='bg-bg-primary'>
-      <h1 className='text-3xl text-center mb-6'>Generate a design with AI</h1>
-      <div className='p-8 gap-4 flex'>
-        <div className='w-1/2'>
+    <div className='bg-bg-primary max-w-[1080px] m-auto'>
+      <div className='p-8 gap-4 flex flex-col md:flex-row'>
+        <div className='md:w-1/2 w-full'>
           <div className='flex flex-col-reverse gap-4'>
             <Prompt setCaption={setCaption} generated={generated} setGenerated={setGenerated} />
             <Image caption={caption} generated={generated} />

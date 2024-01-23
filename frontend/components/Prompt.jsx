@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import StylePicker from './StylePicker'
-import { generate } from './utils'
+import { generate, cn } from './utils'
 import { prePrompt } from './prePrompt'
 import Loader from './loader/Loader'
 
@@ -44,9 +44,9 @@ function Prompt({ setGenerated, generated, setCaption }) {
         placeholder='Enter a design prompt'
       />
 
-      <div className='border border-border flex justify-center p-2 bg-bg-secondary mt-4' onClick={handleClick}>
+      <div className='cursor-pointer border border-border flex justify-center p-2 bg-bg-secondary mt-4 active:bg-black hover:text-accent' onClick={handleClick}>
         {isLoading ? (
-          <div className='flex items-center justify-center gap-3 text-lg '>
+          <div className={cn('flex items-center justify-center gap-3 text-lg')}>
             <Loader /> Working On It...
           </div>
         ) : !generated ? (
