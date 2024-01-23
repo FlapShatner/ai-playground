@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { addToCart, getCart } from './utils'
+import Gallery from './Gallery'
 import Prompt from './Prompt'
 import Image from './Image'
 import Form from './Form'
@@ -58,8 +59,9 @@ export default function App({ home }) {
   }
 
   return (
-    <div className='bg-bg-primary max-w-[1080px] m-auto'>
-      <div className='p-8 gap-4 flex flex-col md:flex-row'>
+    <div className='bg-bg-primary max-w-[1080px] m-auto flex'>
+      <Gallery setCaption={setCaption} setGenerated={setGenerated} />
+      <div className='gap-4 flex flex-col md:flex-row'>
         <div className='md:w-1/2 w-full'>
           <div className='flex flex-col-reverse gap-4'>
             <Prompt setCaption={setCaption} generated={generated} setGenerated={setGenerated} />

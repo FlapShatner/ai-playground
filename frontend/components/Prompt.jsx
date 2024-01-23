@@ -1,16 +1,27 @@
 import React, { useState } from 'react'
 import StylePicker from './StylePicker'
+import { useLocalStorage } from 'usehooks-ts'
 import { generate, cn } from './utils'
 import { prePrompt } from './prePrompt'
 import Loader from './loader/Loader'
 
 function Prompt({ setGenerated, generated, setCaption }) {
+  const [history, setHistory] = useLocalStorage('history', [])
   const [prompt, setPrompt] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [imageStyle, setImageStyle] = useState('vivid')
 
   const handleChange = (e) => {
     setPrompt(e.target.value)
+  }
+
+  const addToHistory = (prompt, url) => {
+    let newHistory = [...history]
+    if (newHistory.length >= 5) {
+      newHistory.pop()
+    }
+    newHistory.unshift({ prompt, url })
+    setHistory(newHistory)
   }
 
   const handleClick = () => {
@@ -26,6 +37,7 @@ function Prompt({ setGenerated, generated, setCaption }) {
         }
         setGenerated(json.url)
         setCaption(prompt)
+        addToHistory(prompt, json.url)
         console.log(json)
         setIsLoading(false)
         setPrompt('')

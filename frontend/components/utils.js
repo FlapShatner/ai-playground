@@ -75,3 +75,8 @@ export async function generate(prompt,imageStyle) {
     });
     return resp;
 }
+
+// export async function generate(prompt,imageStyle) {
+//    const resp = {prompt: prompt, url: 'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?v=1622146479'}
+//     return JSON.stringify(resp);
+// }
