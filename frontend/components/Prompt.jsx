@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import StylePicker from './StylePicker'
 import { useLocalStorage } from 'usehooks-ts'
 import { generate, cn } from './utils'
-import { prePrompt } from './prePrompt'
+import { prompts } from './prePrompt'
 import Loader from './loader/Loader'
 
 function Prompt({ setGenerated, generated, setCaption }) {
   const [history, setHistory] = useLocalStorage('history', [])
   const [prompt, setPrompt] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [imageStyle, setImageStyle] = useState('vivid')
+  const [imageStyle, setImageStyle] = useState(prompts[0])
 
   const handleChange = (e) => {
     setPrompt(e.target.value)
@@ -26,7 +26,7 @@ function Prompt({ setGenerated, generated, setCaption }) {
 
   const handleClick = () => {
     if (prompt) {
-      const fullPrompt = prePrompt + prompt
+      const fullPrompt = prompt + ' ' + imageStyle
       setIsLoading(true)
       generate(fullPrompt, imageStyle).then(async (res) => {
         const json = await res.json()
@@ -55,7 +55,7 @@ function Prompt({ setGenerated, generated, setCaption }) {
         type='text'
         placeholder='Enter a design prompt'
       />
-
+      <StylePicker imageStyle={imageStyle} setImageStyle={setImageStyle} />
       <div className='cursor-pointer border border-border flex justify-center p-2 bg-bg-secondary mt-4 active:bg-black hover:text-accent' onClick={handleClick}>
         {isLoading ? (
           <div className={cn('flex items-center justify-center gap-3 text-lg')}>
