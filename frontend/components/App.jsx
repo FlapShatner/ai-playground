@@ -61,25 +61,34 @@ export default function App({ home }) {
   }
 
   return (
-    <div className='bg-bg-primary max-w-[1200px] m-auto flex'>
-      <Gallery setImageStyle={setImageStyle} setCaption={setCaption} generated={generated} setGenerated={setGenerated} />
-      <div className='gap-4 flex flex-col md:flex-row p-4'>
-        <div className='md:w-1/2 w-full'>
-          <div className='flex flex-col-reverse gap-4'>
-            <Prompt setCaption={setCaption} generated={generated} setGenerated={setGenerated} imageStyle={imageStyle} setImageStyle={setImageStyle} />
-            <Image caption={caption} generated={generated} />
-          </div>
-        </div>
-        <Form
-          size={size}
-          setSize={setSize}
-          quantity={quantity}
-          setQuantity={setQuantity}
-          addVariantToCart={addVariantToCart}
-          enabled={enabled}
-          isSuccess={isSuccess}
-          loading={loading}
+    <div className='w-full bg-bg-primary'>
+      <div className='m-auto -mb-[80px] bg-bg-primary'>
+        <img
+          className=' m-auto h-[480px]'
+          src='https://res.cloudinary.com/dkxssdk96/image/upload/v1706132249/Fonzie_Logo_PNG_1706127396_uoieys.png'
+          alt='Fonzie AI Generator Logo'
         />
+      </div>
+      <div className='bg-bg-primary max-w-[1200px] m-auto flex'>
+        <Gallery setImageStyle={setImageStyle} setCaption={setCaption} generated={generated} setGenerated={setGenerated} />
+        <div className='gap-4 flex flex-col md:flex-row p-4'>
+          <div className='md:w-1/2 w-full'>
+            <div className='flex flex-col-reverse gap-4'>
+              <Prompt setCaption={setCaption} generated={generated} setGenerated={setGenerated} imageStyle={imageStyle} setImageStyle={setImageStyle} />
+              <Image caption={caption} generated={generated} />
+            </div>
+          </div>
+          <Form
+            size={size}
+            setSize={setSize}
+            quantity={quantity}
+            setQuantity={setQuantity}
+            addVariantToCart={addVariantToCart}
+            enabled={enabled}
+            isSuccess={isSuccess}
+            loading={loading}
+          />
+        </div>
       </div>
     </div>
   )

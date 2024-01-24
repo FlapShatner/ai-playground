@@ -24,7 +24,7 @@ function Form({ addVariantToCart, size, setSize, quantity, setQuantity, enabled,
   const price = formatPrice(productPrice, quantity)
 
   return (
-    <div className='w-full sm:w-1/2 flex flex-col gap-4 sm:gap-8 bg-bg-primary text-txt-primary py-12'>
+    <div className='w-full sm:w-1/2 flex flex-col gap-4 sm:gap-8  text-txt-primary py-12'>
       <span className='text-3xl font-black text-center sm:text-start'>{price}</span>
       <label htmlFor='size'>Size</label>
       <div className='flex flex-wrap gap-2'>
