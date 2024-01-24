@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { addToCart, getCart } from './utils'
+import { prompts } from './prePrompt'
 import Gallery from './Gallery'
 import Prompt from './Prompt'
 import Image from './Image'
@@ -12,6 +13,7 @@ export default function App({ home }) {
   const [quantity, setQuantity] = useState(1)
   const [isSuccess, setIsSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [imageStyle, setImageStyle] = useState(prompts[0])
 
   const [cart, setCart] = useState(null)
 
@@ -59,12 +61,12 @@ export default function App({ home }) {
   }
 
   return (
-    <div className='bg-bg-primary max-w-[1080px] m-auto flex'>
-      <Gallery setCaption={setCaption} setGenerated={setGenerated} />
+    <div className='bg-bg-primary max-w-[1200px] m-auto flex'>
+      <Gallery setImageStyle={setImageStyle} setCaption={setCaption} generated={generated} setGenerated={setGenerated} />
       <div className='gap-4 flex flex-col md:flex-row p-4'>
         <div className='md:w-1/2 w-full'>
           <div className='flex flex-col-reverse gap-4'>
-            <Prompt setCaption={setCaption} generated={generated} setGenerated={setGenerated} />
+            <Prompt setCaption={setCaption} generated={generated} setGenerated={setGenerated} imageStyle={imageStyle} setImageStyle={setImageStyle} />
             <Image caption={caption} generated={generated} />
           </div>
         </div>

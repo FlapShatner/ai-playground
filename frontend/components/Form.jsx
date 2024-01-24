@@ -33,6 +33,10 @@ function Form({ addVariantToCart, size, setSize, quantity, setQuantity, enabled,
         ))}
       </div>
       <Quantity quantity={quantity} setQuantity={setQuantity} />
+      <p className='text-xs'>
+        Disclaimer: Please be aware that objects in the background may be removed and images with complex outlines may be simplified for optimal printing
+        quality.
+      </p>
       {isSuccess && <p className='text-accent text-4xl'>Item added to cart</p>}
       <button className={cn('bg-white text-black p-4', !enabled && 'opacity-30 cursor-default')} onClick={addVariantToCart}>
         {loading ? 'Adding To Cart...' : 'Add To Cart'}

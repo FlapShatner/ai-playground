@@ -62,7 +62,7 @@ export const addToCart = async (formData) => {
     }
 }
 
-export async function generate(prompt,imageStyle) {
+export async function generate(prompt) {
     const resp = await fetch('/apps/image/prompt', {
         method: 'POST',
         headers: {
@@ -70,7 +70,8 @@ export async function generate(prompt,imageStyle) {
         },
         body: JSON.stringify({
             prompt: prompt,
-            style: imageStyle
+            style: "standard",
+            
         })
     });
     return resp;

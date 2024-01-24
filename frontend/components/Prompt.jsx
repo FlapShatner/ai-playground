@@ -2,33 +2,31 @@ import React, { useState } from 'react'
 import StylePicker from './StylePicker'
 import { useLocalStorage } from 'usehooks-ts'
 import { generate, cn } from './utils'
-import { prompts } from './prePrompt'
 import Loader from './loader/Loader'
 
-function Prompt({ setGenerated, generated, setCaption }) {
+function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle }) {
   const [history, setHistory] = useLocalStorage('history', [])
   const [prompt, setPrompt] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [imageStyle, setImageStyle] = useState(prompts[0])
 
   const handleChange = (e) => {
     setPrompt(e.target.value)
   }
 
-  const addToHistory = (prompt, url) => {
+  const addToHistory = (prompt, url, style) => {
     let newHistory = [...history]
     if (newHistory.length >= 5) {
       newHistory.pop()
     }
-    newHistory.unshift({ prompt, url })
+    newHistory.unshift({ prompt, url, style })
     setHistory(newHistory)
   }
 
   const handleClick = () => {
     if (prompt) {
-      const fullPrompt = prompt + ' ' + imageStyle
+      const fullPrompt = prompt + ' ' + imageStyle.prompt
       setIsLoading(true)
-      generate(fullPrompt, imageStyle).then(async (res) => {
+      generate(fullPrompt).then(async (res) => {
         const json = await res.json()
         if (json.error) {
           alert('Something went wrong. Please try again.')
@@ -37,7 +35,7 @@ function Prompt({ setGenerated, generated, setCaption }) {
         }
         setGenerated(json.url)
         setCaption(prompt)
-        addToHistory(prompt, json.url)
+        addToHistory(prompt, json.url, imageStyle.id)
         console.log(json)
         setIsLoading(false)
         setPrompt('')
