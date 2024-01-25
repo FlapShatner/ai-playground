@@ -16,9 +16,9 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
 
   const addToHistory = (prompt, url, style) => {
     let newHistory = [...history]
-    if (newHistory.length >= 5) {
-      newHistory.pop()
-    }
+    // if (newHistory.length >= 5) {
+    //   newHistory.pop()
+    // }
     newHistory.unshift({ prompt, url, style })
     setHistory(newHistory)
   }

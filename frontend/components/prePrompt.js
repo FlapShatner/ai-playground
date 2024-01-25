@@ -3,14 +3,14 @@ export const prompts = [
     id: 'illustrative',
     label: 'Illustrative',
     prompt:
-      'a high quality die cut sticker decal in a illustrative style, the design should be in a realistic, detailed and polished style. the decal should include color but should have a very thin white outline around it so it can be cut out, the image should contain only the single sticker on a blank background by itself, the decal should be floating on a completely blank pitch black empty background completely alone',
+      'An ultrarealistic die cut sticker decal, The design should be extremely detailed and in high definition. the image on the decal should be photorealistic. It is important that the image on the decal looks realistic like a photograph. The decal should include color but should have a very thin white outline around it so it can be cut out, the image should contain only the single sticker on a blank background by itself, the decal should be floating on a completely blank pitch black empty background completely alone',
     img:"https://res.cloudinary.com/dkxssdk96/image/upload/v1706204915/assets/illustrative_uh1v2y.jpg"
   },
   {
     id: 'realistic',
     label: 'Realistic',
     prompt:
-      'An ultrarealistic die cut sticker decal, The design should be extremely detailed and in high definition. It should be photorealistic. The decal should include color but should have a very thin white outline around it so it can be cut out, the image should contain only the single sticker on a blank background by itself, the decal should be floating on a completely blank pitch black empty background completely alone',
+      'An ultrarealistic die cut sticker decal, The design should be extremely detailed and in high definition. The image on the decal should be photorealistic. It is important that the image on the decal looks realistic like a photograph. The decal should include color but should have a very thin white outline around it so it can be cut out, the image should contain only the single sticker on a blank background by itself, the decal should be floating on a completely blank pitch black empty background completely alone',
     img:"https://res.cloudinary.com/dkxssdk96/image/upload/v1706204916/assets/realistic_kxto9r.jpg"
   },
   {
