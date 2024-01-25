@@ -62,15 +62,17 @@ export const addToCart = async (formData) => {
     }
 }
 
-export async function generate(prompt) {
+export async function generate(data) {
+    const { prompt, style, fullPrompt } = data;
     const resp = await fetch('/apps/image/prompt', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+            fullPrompt: fullPrompt,
             prompt: prompt,
-            style: "standard",
+            style: style,
             
         })
     });

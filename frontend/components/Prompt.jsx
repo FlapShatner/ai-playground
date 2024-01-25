@@ -25,8 +25,9 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
   const handleClick = () => {
     if (prompt) {
       const fullPrompt = prompt + ' ' + imageStyle.prompt
+      const data = { prompt: prompt, fullPrompt: fullPrompt, style: imageStyle.id }
       setIsLoading(true)
-      generate(fullPrompt).then(async (res) => {
+      generate(data).then(async (res) => {
         const json = await res.json()
         if (json.error) {
           alert('Something went wrong. Please try again.')

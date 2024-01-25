@@ -61,7 +61,7 @@ export default function App({ home }) {
   }
 
   return (
-    <div className='w-full bg-bg-primary'>
+    <div className='bg-bg-primary'>
       <div className='m-auto -mb-[80px] bg-bg-primary'>
         <img
           className=' m-auto h-[480px]'
