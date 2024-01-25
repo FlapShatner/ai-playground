@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Chevron from './chevron'
+import Chevron from './Chevron'
 
 import { prompts } from './prePrompt'
 import { useLocalStorage } from 'usehooks-ts'
