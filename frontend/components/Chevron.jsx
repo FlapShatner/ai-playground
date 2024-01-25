@@ -1,9 +1,9 @@
 import React from 'react'
 import { cn } from './utils'
 
-function Chevron({ direction }) {
+function Chevron({ direction, className }) {
   return (
-    <div className={cn('flex justify-center opacity-80  w-12 sm:w-20 bg-bg-secondary cursor-pointer', direction == 'down' ? 'bottom-0' : 'top-0')}>
+    <div className={cn('flex justify-center opacity-80  w-12 sm:w-20 bg-bg-secondary cursor-pointer', direction == 'down' ? 'bottom-0' : 'top-0', className)}>
       {direction == 'down' ? (
         <svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 16 16'>
           <path

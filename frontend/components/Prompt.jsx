@@ -3,6 +3,7 @@ import StylePicker from './StylePicker'
 import { useLocalStorage } from 'usehooks-ts'
 import { generate, cn } from './utils'
 import Loader from './loader/Loader'
+import StyleSelect from './StyleSelect'
 
 function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle }) {
   const [history, setHistory] = useLocalStorage('history', [])
@@ -54,8 +55,9 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
         type='text'
         placeholder='Enter a design prompt'
       />
-      <StylePicker imageStyle={imageStyle} setImageStyle={setImageStyle} />
-      <div className='cursor-pointer border border-border flex justify-center p-2 bg-bg-secondary mt-4 active:bg-black hover:text-accent' onClick={handleClick}>
+      {/* <StylePicker imageStyle={imageStyle} setImageStyle={setImageStyle} /> */}
+      <StyleSelect imageStyle={imageStyle} setImageStyle={setImageStyle} />
+      <div className='cursor-pointer border border-border flex justify-center p-2 bg-bg-secondary mt-6 active:bg-black hover:text-accent' onClick={handleClick}>
         {isLoading ? (
           <div className={cn('flex items-center justify-center gap-3 text-lg')}>
             <Loader /> Working On It...

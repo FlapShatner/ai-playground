@@ -69,7 +69,7 @@ export default function App({ home }) {
           alt='Fonzie AI Generator Logo'
         />
       </div>
-      <div className='bg-bg-primary max-w-[1200px] m-auto flex'>
+      <div id='appTop' className='bg-bg-primary max-w-[1200px] m-auto flex'>
         <Gallery setImageStyle={setImageStyle} setCaption={setCaption} generated={generated} setGenerated={setGenerated} />
         <div className='gap-4 flex flex-col md:flex-row p-4'>
           <div className='md:w-1/2 w-full'>
