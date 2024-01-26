@@ -5,6 +5,7 @@ import Gallery from './Gallery'
 import Prompt from './Prompt'
 import Image from './Image'
 import Form from './Form'
+import Suggestions from './Suggestions'
 
 export default function App({ home }) {
   const [generated, setGenerated] = useState('')
@@ -14,6 +15,7 @@ export default function App({ home }) {
   const [isSuccess, setIsSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
   const [imageStyle, setImageStyle] = useState(prompts[0])
+  const [modalIsOpen, setModalIsOpen] = useState(true)
 
   const [cart, setCart] = useState(null)
 
@@ -74,6 +76,7 @@ export default function App({ home }) {
         <div className='gap-4 flex flex-col md:flex-row p-4'>
           <div className='md:w-1/2 w-full'>
             <div className='flex flex-col-reverse gap-4'>
+              {/* <Suggestions modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} /> */}
               <Prompt setCaption={setCaption} generated={generated} setGenerated={setGenerated} imageStyle={imageStyle} setImageStyle={setImageStyle} />
               <Image caption={caption} generated={generated} />
             </div>

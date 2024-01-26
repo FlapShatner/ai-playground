@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { prompts } from './prePrompt'
 import { useLocalStorage } from 'usehooks-ts'
 import { cn } from './utils'
-import HistoryModal from './Modal'
+import HistoryModal from './HistoryModal'
 
 function Gallery({ setCaption, setGenerated, generated, setImageStyle }) {
   const [history, setHistory] = useLocalStorage('history', [])

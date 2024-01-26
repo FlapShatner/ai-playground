@@ -16,7 +16,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 18
-          cache: 'npm'
+
+      - name: Install Bundler
+        run: gem install bundler
 
       - name: Install Shopify CLI
         run: npm install -g @shopify/cli @shopify/theme
