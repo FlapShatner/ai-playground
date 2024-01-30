@@ -11,7 +11,6 @@ const customStyles = {
   },
   content: {
     padding: '0',
-
     top: '60%',
     left: '50%',
     maxWidth: '60%',
