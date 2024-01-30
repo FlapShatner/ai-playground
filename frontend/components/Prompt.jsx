@@ -80,7 +80,7 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
         onClick={handleClick}>
         {isLoading ? (
           <div className={cn('flex items-center justify-center gap-3 text-lg')}>
-            <Loader /> Working On It...
+            <Loader /> Generating...
           </div>
         ) : !generated ? (
           <span className='text-lg'>Generate Design</span>

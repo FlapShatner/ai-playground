@@ -54,6 +54,7 @@ export default function App({ home }) {
       console.log(res)
       const ajaxCart = document.querySelector('.minicart__content')
       ajaxCart.innerHTML = res.sections['ajax-cart']
+      console.log('ajaxCart:', ajaxCart)
       setLoading(false)
       setIsSuccess(true)
       setTimeout(() => {
