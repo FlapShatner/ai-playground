@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Modal from 'react-modal'
 import { cn } from './utils'
 import { useLocalStorage, useLockedBody } from 'usehooks-ts'
-import CloseIcon from './CloseIcon'
+import CloseIcon from './icons/CloseIcon'
 
 function HistoryModal({ setCaption, setGenerated, generated, setImageStyle, isOpen, setIsOpen }) {
   const [locked, setLocked] = useLockedBody(false, 'root')

@@ -66,10 +66,13 @@ export default function App({ home }) {
 
   return (
     <div className='bg-bg-primary'>
+      <p className='text-accent text-base sm:text-2xl text-center pt-4'>
+        Let our AI create a one-of-a-kind design for you and we'll ship it right to your door!
+      </p>
       <div className='m-auto h-auto flex bg-bg-primary'>
         <img
           className='w-full max-w-[900px] m-auto my-4 px-8'
-          src='https://res.cloudinary.com/dkxssdk96/image/upload/v1706302306/Fonzie_Logo_6in_PNG_c92btx.png'
+          src='https://res.cloudinary.com/dkxssdk96/image/upload/v1706647115/Fonzie_Logo_6in_PNG_xuwf99.png'
           alt='Fonzie AI Generator Logo'
         />
       </div>

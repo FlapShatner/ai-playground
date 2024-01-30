@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react'
 import Modal from 'react-modal'
 import { useLockedBody } from 'usehooks-ts'
 import SingleSuggestion from './SingleSuggestion'
-import LeftArrow from './leftArrow'
-import Arrow from './Arrow'
+import LeftArrow from './icons/leftArrow'
+import Arrow from './icons/Arrow'
 
 const customStyles = {
   overlay: {

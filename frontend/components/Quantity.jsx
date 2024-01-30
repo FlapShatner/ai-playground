@@ -1,5 +1,5 @@
 import React from 'react'
-import QuantIcons from './QuantIcons'
+import QuantIcons from './icons/QuantIcons'
 
 function Quantity({ quantity, setQuantity }) {
   const handleIncrement = () => {

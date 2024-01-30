@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import StylePicker from './StylePicker'
 import { useLocalStorage } from 'usehooks-ts'
 import { generate, cn, getSuggest } from './utils'
+import DownArrow from './icons/downArrow'
 import Loader from './loader/Loader'
 import StyleSelect from './StyleSelect'
 import { set } from 'react-hook-form'
@@ -60,12 +61,27 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
     }
   }
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      handleClick()
+    }
+  }
+
+  const handlePaste = () => {
+    setPrompt(history[0].prompt)
+  }
+
   return (
     <form className='flex flex-col'>
+      <div onClick={handlePaste} className='text-xs border border-border p-1 w-max mb-1 ml-auto cursor-pointer flex gap-1 items-center'>
+        click to paste in your last prompt
+      </div>
       <textarea
         className='px-2 py-1 placeholder:opacity-60 border border-border'
         id='prompt'
         value={prompt}
+        onKeyDown={handleKeyDown}
         onChange={handleChange}
         type='text'
         placeholder='Enter a design prompt'

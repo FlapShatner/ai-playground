@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { prompts } from './prePrompt'
 import { cn } from './utils'
-import Chevron from './Chevron'
+import Chevron from './icons/Chevron'
 
 function StyleSelect({ setImageStyle, imageStyle }) {
   const wrapRef = useRef(null)
