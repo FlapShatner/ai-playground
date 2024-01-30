@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
-name = "playground"
-client_id = "32d41d292f9d966cf0c25ccc9bdc5ee4"
+name = "dev"
+client_id = "e53cd4187fef00f0e8a52039a30139db"
 application_url = "https://shopify.dev/apps/default-app-home"
 embedded = true
 
@@ -14,11 +14,6 @@ redirect_urls = [ "https://shopify.dev/apps/default-app-home/api/auth" ]
 
 [webhooks]
 api_version = "2024-01"
-
-[app_proxy]
-url = "https://playground-backend-8j8f.onrender.com/"
-subpath = "image"
-prefix = "apps"
 
 [pos]
 embedded = false

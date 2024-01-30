@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
 import StylePicker from './StylePicker'
 import { useLocalStorage } from 'usehooks-ts'
-import { generate, cn } from './utils'
+import { generate, cn, getSuggest } from './utils'
 import Loader from './loader/Loader'
 import StyleSelect from './StyleSelect'
+import { set } from 'react-hook-form'
 
-function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle }) {
+function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle, setSuggestions, setModalIsOpen }) {
   const [history, setHistory] = useLocalStorage('history', [])
   const [prompt, setPrompt] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [isError, setIsError] = useState(false)
 
   const handleChange = (e) => {
     setPrompt(e.target.value)
@@ -28,13 +30,26 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
       const fullPrompt = prompt + ' ' + imageStyle.prompt
       const data = { prompt: prompt, fullPrompt: fullPrompt, style: imageStyle.id }
       setIsLoading(true)
-      generate(data).then(async (res) => {
-        const json = await res.json()
-        if (json.error) {
-          alert('Something went wrong. Please try again.')
-          setIsLoading(false)
+      getSuggest(prompt).then(async (res) => {
+        console.log('suggestions:', res)
+        if (res.error || res.length === 0) {
           return
         }
+        setSuggestions(res)
+        setModalIsOpen(true)
+      })
+      generate(data).then(async (res) => {
+        console.log('generated:', res)
+        if (!res.ok) {
+          setIsLoading(false)
+          console.log(res.error)
+          setIsError(true)
+          setTimeout(() => {
+            setIsError(false)
+          }, 3000)
+          return
+        }
+        const json = await res.json()
         setGenerated(json.url)
         setCaption(prompt)
         addToHistory(prompt, json.url, imageStyle.id)
@@ -46,7 +61,7 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
   }
 
   return (
-    <div className='flex flex-col'>
+    <form className='flex flex-col'>
       <textarea
         className='px-2 py-1 placeholder:opacity-60 border border-border'
         id='prompt'
@@ -55,9 +70,14 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
         type='text'
         placeholder='Enter a design prompt'
       />
-      {/* <StylePicker imageStyle={imageStyle} setImageStyle={setImageStyle} /> */}
+
       <StyleSelect imageStyle={imageStyle} setImageStyle={setImageStyle} />
-      <div className='cursor-pointer border border-border flex justify-center p-2 bg-bg-secondary mt-6 active:bg-black hover:text-accent' onClick={handleClick}>
+      <span className={cn('text-red-500 text-center mt-2', !isError && 'opacity-0')}>Something went wrong, please try again</span>
+      <div
+        role='button'
+        type='submit'
+        className='cursor-pointer border border-border flex justify-center p-2 bg-bg-secondary active:bg-black hover:text-accent'
+        onClick={handleClick}>
         {isLoading ? (
           <div className={cn('flex items-center justify-center gap-3 text-lg')}>
             <Loader /> Working On It...
@@ -68,7 +88,7 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
           <span className='text-lg text-txt-primary'>Generate A New Design</span>
         )}
       </div>
-    </div>
+    </form>
   )
 }
 

@@ -15,7 +15,8 @@ export default function App({ home }) {
   const [isSuccess, setIsSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
   const [imageStyle, setImageStyle] = useState(prompts[0])
-  const [modalIsOpen, setModalIsOpen] = useState(true)
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [suggestions, setSuggestions] = useState([])
 
   const [cart, setCart] = useState(null)
 
@@ -64,10 +65,10 @@ export default function App({ home }) {
 
   return (
     <div className='bg-bg-primary'>
-      <div className='m-auto -mb-[80px] bg-bg-primary'>
+      <div className='m-auto h-auto flex bg-bg-primary'>
         <img
-          className=' m-auto h-[480px]'
-          src='https://res.cloudinary.com/dkxssdk96/image/upload/v1706132249/Fonzie_Logo_PNG_1706127396_uoieys.png'
+          className='w-full max-w-[900px] m-auto my-4 px-8'
+          src='https://res.cloudinary.com/dkxssdk96/image/upload/v1706302306/Fonzie_Logo_6in_PNG_c92btx.png'
           alt='Fonzie AI Generator Logo'
         />
       </div>
@@ -76,8 +77,17 @@ export default function App({ home }) {
         <div className='gap-4 flex flex-col md:flex-row p-4'>
           <div className='md:w-1/2 w-full'>
             <div className='flex flex-col-reverse gap-4'>
-              {/* <Suggestions modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} /> */}
-              <Prompt setCaption={setCaption} generated={generated} setGenerated={setGenerated} imageStyle={imageStyle} setImageStyle={setImageStyle} />
+              <Suggestions suggestions={suggestions} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
+              <Prompt
+                setCaption={setCaption}
+                generated={generated}
+                setGenerated={setGenerated}
+                imageStyle={imageStyle}
+                setImageStyle={setImageStyle}
+                setSuggestions={setSuggestions}
+                setModalIsOpen={setModalIsOpen}
+              />
+
               <Image caption={caption} generated={generated} />
             </div>
           </div>
