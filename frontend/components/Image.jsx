@@ -9,7 +9,9 @@ function Image({ generated, caption }) {
           <img src={generated} alt='' />
         </div>
       ) : (
-        <span className='text-xl text-accent'>Describe a design below and our AI will generate it for you!</span>
+        <div className='py-8'>
+          <span className='text-xl text-accent'>Describe a design below and our AI will generate it for you!</span>
+        </div>
       )}
     </div>
   )

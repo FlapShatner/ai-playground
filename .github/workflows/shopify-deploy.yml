@@ -31,3 +31,19 @@ jobs:
 
       - name: Read manifest and modify files
         run: node readManifest.js
+
+      - name: Create or switch to a new branch
+        run: git checkout -b workflow-deploy || git checkout workflow-deploy
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "jrobertswebdev@gmail.com"
+          git config --local user.name "Jordan Roberts"
+          git add .
+          git commit -m "Update manifest and files"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: workflow-deploy
