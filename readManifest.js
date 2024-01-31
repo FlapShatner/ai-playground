@@ -3,6 +3,8 @@ const path = require('path');
 
 const manifestPath = path.join(__dirname, 'extensions/uploader/assets/manifest.json');
 const assetsDir = path.join(__dirname, 'extensions/uploader/assets');
+const entryPath = path.join(__dirname, '/extensions/uploader/blocks/entry.liquid');
+
 
 // Function to delete all files except specified ones
 function cleanAssetsDirectory(excludeFiles) {
@@ -22,6 +24,7 @@ function cleanAssetsDirectory(excludeFiles) {
         });
     });
 }
+
 
 // Read the manifest file
 fs.readFile(manifestPath, 'utf8', (err, data) => {
@@ -43,6 +46,7 @@ fs.readFile(manifestPath, 'utf8', (err, data) => {
 
             // Clean the assets directory
             cleanAssetsDirectory([cssFile, jsFile]);
+            editEntry(cssFile);
         } else {
             console.error('Invalid manifest structure');
         }
@@ -50,3 +54,27 @@ fs.readFile(manifestPath, 'utf8', (err, data) => {
         console.error('Error parsing manifest.json:', parseErr);
     }
 });
+
+
+
+
+function editEntry (cssFile){
+fs.readFile(entryPath, 'utf8', (err, data) => {
+  if (err) {
+    console.error('Error reading the file:', err);
+    return;
+  }
+
+  // Use a regular expression to find and replace the stylesheet value
+  const updatedData = data.replace(/("stylesheet":\s*")[^"]+/, `$1${cssFile}`);
+
+  fs.writeFile(entryPath, updatedData, 'utf8', (err) => {
+    if (err) {
+      console.error('Error writing the file:', err);
+      return;
+    }
+
+    console.log('File has been updated with the new stylesheet value.');
+  });
+});
+}

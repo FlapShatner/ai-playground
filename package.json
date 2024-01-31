@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "run-p -sr vite:dev shopify:dev",
     "build": "run-s vite:build shopify:build",
-    "deploy": "run-s cleanup shopify:deploy",
+    "deploy": "run-s build prepare cleanup shopify:deploy",
     "shopify": "shopify",
     "shopify:build": "shopify app build",
     "shopify:dev": "shopify app dev",
@@ -15,6 +15,7 @@
     "shopify:deploy": "shopify app deploy",
     "vite:dev": "vite",
     "vite:build": "vite build",
+    "prepare": "node readManifest.js",
     "cleanup": "rimraf --glob extensions/*/assets/*.{json,geetkeep}"
   },
   "dependencies": {
