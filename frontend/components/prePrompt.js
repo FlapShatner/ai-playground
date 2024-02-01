@@ -3,7 +3,7 @@ export const prompts = [
     id: 'illustrative',
     label: 'Illustrative',
     prompt:
-      'An ultrarealistic die cut sticker decal, The design should be extremely detailed and in high definition. the image on the decal should be photorealistic. It is important that the image on the decal looks realistic like a photograph. The decal should include color but should have a very thin white outline around it so it can be cut out, the image should contain only the single sticker on a blank background by itself, the decal should be floating on a completely blank pitch black empty background completely alone',
+      'An ultrarealistic die cut sticker decal, The design should be extremely detailed and in high definition. the illustrated image on the decal should be in a highly detailed almost photo-real style. The decal should include color but should have a very thin white outline around it so it can be cut out, the image should contain only the single sticker on a blank background by itself, the decal should be floating on a completely blank pitch black empty background completely alone',
     img:"https://res.cloudinary.com/dkxssdk96/image/upload/v1706204915/assets/illustrative_uh1v2y.jpg"
   },
   {

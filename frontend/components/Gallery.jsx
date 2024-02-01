@@ -10,21 +10,21 @@ function Gallery({ setCaption, setGenerated, generated, setImageStyle }) {
   const [isOpen, setIsOpen] = useState(false)
   return (
     <>
-      {history && history.length > 1 && (
-        <div className='flex flex-col pl-1 m-2 bg-bg-secondary relative max-h-[70vh] border border-border'>
-          <p onClick={() => setIsOpen(!isOpen)} className='mt-2 mb-3 mx-auto sm:w-max text-center border-b border-b-border text-txt-primary cursor-pointer'>
-            History
-          </p>
-          <HistoryModal
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-            setCaption={setCaption}
-            setGenerated={setGenerated}
-            generated={generated}
-            setImageStyle={setImageStyle}
-          />
-          <div className='flex flex-col gap-3  max-h-[70vh] overflow-y-scroll px-1'>
-            {history.map((item, i) => {
+      <div className='flex flex-col pl-1 m-2 bg-bg-secondary relative max-h-[70vh] border border-border'>
+        <p onClick={() => setIsOpen(!isOpen)} className='mt-2 mb-3 mx-auto sm:w-max text-center border-b border-b-border text-txt-primary cursor-pointer'>
+          History
+        </p>
+        <HistoryModal
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          setCaption={setCaption}
+          setGenerated={setGenerated}
+          generated={generated}
+          setImageStyle={setImageStyle}
+        />
+        <div className={cn('flex flex-col gap-3  max-h-[70vh] px-2', history.length > 0 && 'overflow-y-scroll px-1')}>
+          {history.length > 0 ? (
+            history.map((item, i) => {
               const isActive = item.url == generated
               const handleClick = () => {
                 setGenerated(item.url)
@@ -42,10 +42,14 @@ function Gallery({ setCaption, setGenerated, generated, setImageStyle }) {
                   <p className='text-center text-txt-primary text-xs w-14 sm:w-20 text-ellipsis overflow-hidden whitespace-nowrap'>{item.prompt}</p>
                 </div>
               )
-            })}
-          </div>
+            })
+          ) : (
+            <div className='overflow-visible flex flex-col items-center w-12 sm:w-20 h-full'>
+              <p className='text-xs text-wrap'>You don't have any previous designs yet</p>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </>
   )
 }
