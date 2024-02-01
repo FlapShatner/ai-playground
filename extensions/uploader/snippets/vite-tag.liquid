@@ -3,7 +3,10 @@
   Do not attempt to modify this file directly, as any changes will be overwritten by the next build.
 {% endcomment %}
 {% assign path = vite-tag | replace: '~/', '../' | replace: '@/', '../' %}
-{% if path == "/frontend/entrypoints/themeApp.jsx" or path == "themeApp.jsx" %}
-  <script src="{{ 'themeApp-b726d2c8.js' | asset_url | split: '?' | first }}" type="module" crossorigin="anonymous"></script>
-  {{ 'themeApp-769993c3.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
+{% if path == "/frontend/entrypoints/themeApp.css" or path == "themeApp.css" %}
+  {{ 'themeApp-2921a195.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
+{% elsif path == "/frontend/entrypoints/themeApp.jsx" or path == "themeApp.jsx" %}
+  <script src="{{ 'themeApp-f1711a20.js' | asset_url | split: '?' | first }}" type="module" crossorigin="anonymous"></script>
+  {{ 'themeApp-a77c5174.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
+  {{ 'themeApp-2921a195.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
 {% endif %}
