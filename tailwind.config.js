@@ -6,6 +6,7 @@ export const theme = {
       "bg-primary": "#0D0E0F",
       "bg-secondary": "#1A1A1A",
       "accent": "#d2ac53",
+      "accent-bright": "#FCC000",
       "btn-bg": "#000",
       "btn-border": "#D9D9D9",
       "txt-primary": "#fff",
@@ -16,7 +17,8 @@ export const theme = {
       "icon": "#898989",
       "backdrop": "#1a1a1a75"
     }
- },
-}
+    }
+ }
+
 export const plugins = []
 export const prefix = ''

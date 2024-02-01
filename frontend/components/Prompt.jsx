@@ -74,9 +74,11 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
 
   return (
     <form className='flex flex-col'>
-      <div onClick={handlePaste} className='text-xs border border-border p-1 w-max mb-1 ml-auto cursor-pointer flex gap-1 items-center'>
-        click to paste in your last prompt
-      </div>
+      {generated && (
+        <div onClick={handlePaste} className='text-xs border border-border p-1 w-max mb-1 ml-auto cursor-pointer flex gap-1 items-center'>
+          click to paste in your last prompt
+        </div>
+      )}
       <textarea
         className='px-2 py-1 placeholder:opacity-60 border border-border'
         id='prompt'

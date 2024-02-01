@@ -6,6 +6,7 @@ import Prompt from './Prompt'
 import Image from './Image'
 import Form from './Form'
 import Suggestions from './Suggestions'
+import Banner from './banner/Banner'
 
 export default function App({ home }) {
   const [generated, setGenerated] = useState('')
@@ -66,6 +67,7 @@ export default function App({ home }) {
 
   return (
     <div className='bg-bg-primary'>
+      <Banner />
       <div className='m-auto h-auto flex bg-bg-primary'>
         <img
           className='w-full max-w-[900px] m-auto my-4 px-8'
@@ -73,9 +75,9 @@ export default function App({ home }) {
           alt='Fonzie AI Generator Logo'
         />
       </div>
-      <p className='text-[#FCC000] text-base sm:text-3xl text-center p-4 font-bold'>
+      {/* <p className='text-[#FCC000] text-base sm:text-3xl text-center p-4 font-bold'>
         Let our AI create a one-of-a-kind design for you!<br></br> We'll ship it right to your door!
-      </p>
+      </p> */}
       <div id='appTop' className='bg-bg-primary max-w-[1200px] m-auto flex'>
         <Gallery setImageStyle={setImageStyle} setCaption={setCaption} generated={generated} setGenerated={setGenerated} />
         <div className='gap-4 flex flex-col md:flex-row p-4'>
@@ -107,6 +109,7 @@ export default function App({ home }) {
           />
         </div>
       </div>
+      <div className='w-full h-[2px] bg-accent'></div>
     </div>
   )
 }
