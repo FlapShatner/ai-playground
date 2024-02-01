@@ -16,7 +16,10 @@ export const theme = {
       "img-bg": "#EEEEEE",
       "icon": "#898989",
       "backdrop": "#1a1a1a75"
-    }
+    },
+    backgroundImage: {
+        'pholder':"url('https://res.cloudinary.com/dkxssdk96/image/upload/v1706821466/square-pholder_iwtdfz.png')"
+      }
     }
  }
 

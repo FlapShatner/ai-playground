@@ -73,20 +73,20 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
   }
 
   return (
-    <form className='flex flex-col'>
+    <form className='flex flex-col '>
       {generated && (
         <div onClick={handlePaste} className='text-xs border border-border p-1 w-max mb-1 ml-auto cursor-pointer flex gap-1 items-center'>
           click to paste in your last prompt
         </div>
       )}
       <textarea
-        className='px-2 py-1 placeholder:opacity-60 border border-border'
+        className='px-2 py-1 h-20 lg:h-40 placeholder:opacity-60 border border-border'
         id='prompt'
         value={prompt}
         onKeyDown={handleKeyDown}
         onChange={handleChange}
         type='text'
-        placeholder='Enter a design prompt'
+        placeholder='A cat wearing ice skates on a frozen pond'
       />
 
       <StyleSelect imageStyle={imageStyle} setImageStyle={setImageStyle} />
@@ -94,7 +94,7 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
       <div
         role='button'
         type='submit'
-        className='cursor-pointer border border-border flex justify-center p-2 bg-bg-secondary active:bg-black hover:text-accent'
+        className='cursor-pointer border flex justify-center p-4 bg-bg-secondary active:scale-95 hover:bg-bg-primary text-accent border-accent'
         onClick={handleClick}>
         {isLoading ? (
           <div className={cn('flex items-center justify-center gap-3 text-lg')}>

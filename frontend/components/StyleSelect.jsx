@@ -15,13 +15,13 @@ function StyleSelect({ setImageStyle, imageStyle }) {
   return (
     <div ref={wrapRef} className='mt-4 grid'>
       <span className='m-auto'>Choose a style</span>
-      <div className='w-72 m-auto'>
+      <div className='w-full m-auto'>
         <div onClick={handleClick} className='cursor-pointer border border-border flex items-center justify-between gap-2 w-full bg-bg-secondary'>
           <div className='flex items-center gap-4'>
             <img className='w-16' src={imageStyle.img} alt={imageStyle.img} />
             <span className='text-xl text-accent'>{imageStyle.label}</span>
           </div>
-          <Chevron className='ml-auto h-16 flex flex-col items-center' direction='down' />
+          <Chevron className='ml-auto h-16 flex flex-col items-center sm:w-12' direction='down' />
         </div>
 
         {isOpen &&

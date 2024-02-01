@@ -75,27 +75,21 @@ export default function App({ home }) {
           alt='Fonzie AI Generator Logo'
         />
       </div>
-      {/* <p className='text-[#FCC000] text-base sm:text-3xl text-center p-4 font-bold'>
-        Let our AI create a one-of-a-kind design for you!<br></br> We'll ship it right to your door!
-      </p> */}
       <div id='appTop' className='bg-bg-primary max-w-[1200px] m-auto flex'>
-        <Gallery setImageStyle={setImageStyle} setCaption={setCaption} generated={generated} setGenerated={setGenerated} />
-        <div className='gap-4 flex flex-col md:flex-row p-4'>
-          <div className='md:w-1/2 w-full'>
-            <div className='flex flex-col-reverse gap-4'>
-              <Suggestions suggestions={suggestions} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
-              <Prompt
-                setCaption={setCaption}
-                generated={generated}
-                setGenerated={setGenerated}
-                imageStyle={imageStyle}
-                setImageStyle={setImageStyle}
-                setSuggestions={setSuggestions}
-                setModalIsOpen={setModalIsOpen}
-              />
-
-              <Image caption={caption} generated={generated} />
-            </div>
+        {/* <Gallery setImageStyle={setImageStyle} setCaption={setCaption} generated={generated} setGenerated={setGenerated} /> */}
+        <div className='gap-4 flex flex-col lg:flex-row justify-center p-4'>
+          <Suggestions suggestions={suggestions} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
+          <div className='flex gap-4'>
+            <Prompt
+              setCaption={setCaption}
+              generated={generated}
+              setGenerated={setGenerated}
+              imageStyle={imageStyle}
+              setImageStyle={setImageStyle}
+              setSuggestions={setSuggestions}
+              setModalIsOpen={setModalIsOpen}
+            />
+            <Image caption={caption} generated={generated} />
           </div>
           <Form
             size={size}
@@ -109,6 +103,7 @@ export default function App({ home }) {
           />
         </div>
       </div>
+      <Gallery setImageStyle={setImageStyle} setCaption={setCaption} generated={generated} setGenerated={setGenerated} />
       <div className='w-full h-[2px] bg-accent'></div>
     </div>
   )

@@ -10,10 +10,10 @@ function Gallery({ setCaption, setGenerated, generated, setImageStyle }) {
   const [isOpen, setIsOpen] = useState(false)
   return (
     <>
-      <div className='flex flex-col pl-1 m-2 bg-bg-secondary relative max-h-[70vh] border border-border'>
-        <p onClick={() => setIsOpen(!isOpen)} className='mt-2 mb-3 mx-auto sm:w-max text-center border-b border-b-border text-txt-primary cursor-pointer'>
-          History
-        </p>
+      <p onClick={() => setIsOpen(!isOpen)} className='mt-2 mb-3 mx-auto sm:w-max text-center border-b border-b-border text-txt-primary cursor-pointer'>
+        History
+      </p>
+      <div className='flex m-auto bg-bg-secondary relative max-w-[600px] border border-border py-2 mb-4 overflow-x-scroll'>
         <HistoryModal
           isOpen={isOpen}
           setIsOpen={setIsOpen}
@@ -22,7 +22,7 @@ function Gallery({ setCaption, setGenerated, generated, setImageStyle }) {
           generated={generated}
           setImageStyle={setImageStyle}
         />
-        <div className={cn('flex flex-col gap-3  max-h-[70vh] px-2', history.length > 0 && 'overflow-y-scroll px-1')}>
+        <div className={cn('flex gap-3 px-2')}>
           {history.length > 0 ? (
             history.map((item, i) => {
               const isActive = item.url == generated
