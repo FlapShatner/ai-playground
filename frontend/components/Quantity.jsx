@@ -13,7 +13,7 @@ function Quantity({ quantity, setQuantity }) {
   return (
     <div className='flex flex-col'>
       <label htmlFor='quantity'>Quantity</label>
-      <div className='flex mt-2'>
+      <div className='flex sm:mt-2'>
         <div onClick={handleDecrement} className='cursor-pointer px-4 border border-txt-secondary border-r-bg-primary flex items-center'>
           <QuantIcons name='minus' size='12' />
         </div>

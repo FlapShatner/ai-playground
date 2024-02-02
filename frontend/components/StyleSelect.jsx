@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { prompts } from './prePrompt'
+import { useWindowSize } from 'usehooks-ts'
 import { cn } from './utils'
 import Chevron from './icons/Chevron'
 
@@ -11,17 +12,19 @@ function StyleSelect({ setImageStyle, imageStyle }) {
     setIsOpen(!isOpen)
   }
   const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop - 400)
+  const { width } = useWindowSize()
+  let noImg = width > 640 && width < 900
 
   return (
-    <div ref={wrapRef} className='mt-4 grid'>
+    <div ref={wrapRef} className='mt-4 grid sm:mt-0'>
       <span className='m-auto'>Choose a style</span>
       <div className='w-full m-auto'>
         <div onClick={handleClick} className='cursor-pointer border border-border flex items-center justify-between gap-2 w-full bg-bg-secondary'>
-          <div className='flex items-center gap-4'>
-            <img className='w-16' src={imageStyle.img} alt={imageStyle.img} />
-            <span className='text-xl text-accent'>{imageStyle.label}</span>
+          <div className='flex items-center gap-4 md:gap-1'>
+            {!noImg && <img className='w-16' src={imageStyle.img} alt={imageStyle.img} />}
+            <span className={cn('text-xl sm:text-base  text-accent', noImg && 'ml-8')}>{imageStyle.label}</span>
           </div>
-          <Chevron className='ml-auto h-16 flex flex-col items-center sm:w-12' direction='down' />
+          <Chevron className='ml-auto h-16 sm:h-auto flex flex-col items-center sm:w-12 md:w-12 md:ml-0' direction='down' />
         </div>
 
         {isOpen &&

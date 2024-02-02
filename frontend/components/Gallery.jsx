@@ -10,10 +10,10 @@ function Gallery({ setCaption, setGenerated, generated, setImageStyle }) {
   const [isOpen, setIsOpen] = useState(false)
   return (
     <>
-      <p onClick={() => setIsOpen(!isOpen)} className='mt-2 mb-3 mx-auto sm:w-max text-center border-b border-b-border text-txt-primary cursor-pointer'>
+      <p onClick={() => setIsOpen(!isOpen)} className='mt-2 mx-auto sm:w-max text-center border-b border-b-border text-txt-primary cursor-pointer'>
         History
       </p>
-      <div className='flex m-auto bg-bg-secondary relative max-w-[600px] border border-border py-2 mb-4 overflow-x-scroll'>
+      <div className='flex m-auto bg-bg-secondary relative max-w-[90vw] sm:max-w-[600px] border border-border py-2 mb-4 overflow-x-scroll'>
         <HistoryModal
           isOpen={isOpen}
           setIsOpen={setIsOpen}

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { addToCart, getCart } from './utils'
+import { useWindowSize } from 'usehooks-ts'
 import { prompts } from './prePrompt'
 import Gallery from './Gallery'
 import Prompt from './Prompt'
@@ -18,6 +19,9 @@ export default function App({ home }) {
   const [imageStyle, setImageStyle] = useState(prompts[0])
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [suggestions, setSuggestions] = useState([])
+
+  const { width } = useWindowSize()
+  let isSmall = width < 640
 
   const [cart, setCart] = useState(null)
 
@@ -66,9 +70,9 @@ export default function App({ home }) {
   }
 
   return (
-    <div className='bg-bg-primary'>
+    <div className='bg-bg-primary w-full'>
       <Banner />
-      <div className='m-auto h-auto flex bg-bg-primary'>
+      <div className='w-full m-auto h-auto flex bg-bg-primary'>
         <img
           className='w-full max-w-[900px] m-auto my-4 px-8'
           src='https://res.cloudinary.com/dkxssdk96/image/upload/v1706647115/Fonzie_Logo_6in_PNG_xuwf99.png'
@@ -77,33 +81,37 @@ export default function App({ home }) {
       </div>
       <div id='appTop' className='bg-bg-primary max-w-[1200px] m-auto flex'>
         {/* <Gallery setImageStyle={setImageStyle} setCaption={setCaption} generated={generated} setGenerated={setGenerated} /> */}
-        <div className='gap-4 flex flex-col lg:flex-row justify-center p-4'>
+        <div className='gap-4 flex flex-col-reverse md:flex-row justify-center p-4'>
           <Suggestions suggestions={suggestions} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
-          <div className='flex gap-4'>
-            <Prompt
-              setCaption={setCaption}
-              generated={generated}
-              setGenerated={setGenerated}
-              imageStyle={imageStyle}
-              setImageStyle={setImageStyle}
-              setSuggestions={setSuggestions}
-              setModalIsOpen={setModalIsOpen}
-            />
-            <Image caption={caption} generated={generated} />
-          </div>
-          <Form
-            size={size}
-            setSize={setSize}
-            quantity={quantity}
-            setQuantity={setQuantity}
-            addVariantToCart={addVariantToCart}
-            enabled={enabled}
-            isSuccess={isSuccess}
-            loading={loading}
+          {isSmall && <Gallery setImageStyle={setImageStyle} setCaption={setCaption} generated={generated} setGenerated={setGenerated} />}
+
+          <Prompt
+            setCaption={setCaption}
+            generated={generated}
+            setGenerated={setGenerated}
+            imageStyle={imageStyle}
+            setImageStyle={setImageStyle}
+            setSuggestions={setSuggestions}
+            setModalIsOpen={setModalIsOpen}
           />
+          <div className='flex flex-row gap-4'>
+            <Image caption={caption} generated={generated} />
+
+            <Form
+              generated={generated}
+              size={size}
+              setSize={setSize}
+              quantity={quantity}
+              setQuantity={setQuantity}
+              addVariantToCart={addVariantToCart}
+              enabled={enabled}
+              isSuccess={isSuccess}
+              loading={loading}
+            />
+          </div>
         </div>
       </div>
-      <Gallery setImageStyle={setImageStyle} setCaption={setCaption} generated={generated} setGenerated={setGenerated} />
+      {!isSmall && <Gallery setImageStyle={setImageStyle} setCaption={setCaption} generated={generated} setGenerated={setGenerated} />}
       <div className='w-full h-[2px] bg-accent'></div>
     </div>
   )

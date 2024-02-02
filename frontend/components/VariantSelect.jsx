@@ -20,7 +20,7 @@ function VariantSelect({ variants, size, setSize, setProductPrice }) {
   useOnClickOutside(ref, handleClickOutside)
 
   return (
-    <div className='mt-4 m-max relative z-10'>
+    <div className='mt-4 m-max relative z-10 mr-auto '>
       <span className='mr-auto'>Size</span>
       <div className=' m-auto'>
         <div onClick={handleClick} className='cursor-pointer border border-border flex items-center justify-between gap-2 w-max bg-bg-secondary px-3'>
