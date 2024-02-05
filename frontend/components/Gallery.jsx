@@ -13,7 +13,7 @@ function Gallery({ setCaption, setGenerated, generated, setImageStyle }) {
       <p onClick={() => setIsOpen(!isOpen)} className='my-2 mx-auto sm:w-max text-center border-b border-b-border text-txt-primary cursor-pointer'>
         History
       </p>
-      <div className='flex m-auto bg-bg-secondary relative max-w-[90vw] sm:max-w-[600px] border border-border py-2 mb-4 '>
+      <div className='flex m-auto bg-bg-secondary relative max-w-[90vw] sm:max-w-[600px] border border-border pt-2 mb-4 '>
         <HistoryModal
           isOpen={isOpen}
           setIsOpen={setIsOpen}

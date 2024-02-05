@@ -50,8 +50,8 @@ function Form({ addVariantToCart, size, setSize, quantity, setQuantity, enabled,
             Disclaimer*
           </p>
           {disclaimer && (
-            <div ref={clickRef} className='p-2 absolute z-40 w-80 right-2 bg-bg-secondary border border-border'>
-              <CloseIcon className='ml-auto' onClick={() => setDisclaimer(false)} />
+            <div ref={clickRef} className='p-3 pt-4 absolute z-40 w-80 right-2 bg-bg-secondary border border-border'>
+              <CloseIcon className='ml-auto absolute right-4 top-2 cursor-pointer' onClick={() => setDisclaimer(false)} />
               <p>
                 Please be aware that objects in the background may be removed and images with complex outlines may be simplified for optimal printing quality.
               </p>
@@ -60,7 +60,10 @@ function Form({ addVariantToCart, size, setSize, quantity, setQuantity, enabled,
         </div>
 
         {isSuccess && <p className='text-accent text-4xl'>Item added to cart</p>}
-        <button disabled={!enabled} className={cn('bg-white text-black p-4', !enabled && 'opacity-30 cursor-default')} onClick={addVariantToCart}>
+        <button
+          disabled={!enabled}
+          className={cn('bg-white cursor-pointer text-black p-4 disabled:opacity-20 disabled:cursor-not-allowed')}
+          onClick={addVariantToCart}>
           {loading ? 'Adding To Cart...' : 'Add To Cart'}
         </button>
       </div>
