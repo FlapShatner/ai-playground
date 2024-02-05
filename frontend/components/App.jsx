@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { addToCart, getCart } from './utils'
+import { addToCart, getCart, cn } from './utils'
 import { useWindowSize } from 'usehooks-ts'
 import { prompts } from './prePrompt'
 import Gallery from './Gallery'
@@ -8,6 +8,7 @@ import Image from './Image'
 import Form from './Form'
 import Suggestions from './Suggestions'
 import Banner from './banner/Banner'
+import MobileForm from './MobileForm'
 
 export default function App({ home }) {
   const [generated, setGenerated] = useState('')
@@ -22,6 +23,7 @@ export default function App({ home }) {
 
   const { width } = useWindowSize()
   let isSmall = width < 640
+  let isMedium = width < 768 && width >= 640
 
   const [cart, setCart] = useState(null)
 
@@ -81,37 +83,63 @@ export default function App({ home }) {
       </div>
       <div id='appTop' className='bg-bg-primary max-w-[1200px] m-auto flex'>
         {/* <Gallery setImageStyle={setImageStyle} setCaption={setCaption} generated={generated} setGenerated={setGenerated} /> */}
-        <div className='gap-4 flex flex-col-reverse md:flex-row justify-center p-4'>
+        <div className='gap-4 flex flex-col-reverse md:flex-row justify-center p-4 m-auto'>
           <Suggestions suggestions={suggestions} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
-          {isSmall && <Gallery setImageStyle={setImageStyle} setCaption={setCaption} generated={generated} setGenerated={setGenerated} />}
 
-          <Prompt
-            setCaption={setCaption}
-            generated={generated}
-            setGenerated={setGenerated}
-            imageStyle={imageStyle}
-            setImageStyle={setImageStyle}
-            setSuggestions={setSuggestions}
-            setModalIsOpen={setModalIsOpen}
-          />
-          <div className='flex flex-row gap-4'>
-            <Image caption={caption} generated={generated} />
-
-            <Form
+          {isMedium && (
+            <Prompt
+              setCaption={setCaption}
               generated={generated}
-              size={size}
-              setSize={setSize}
-              quantity={quantity}
-              setQuantity={setQuantity}
-              addVariantToCart={addVariantToCart}
-              enabled={enabled}
-              isSuccess={isSuccess}
-              loading={loading}
+              setGenerated={setGenerated}
+              imageStyle={imageStyle}
+              setImageStyle={setImageStyle}
+              setSuggestions={setSuggestions}
+              setModalIsOpen={setModalIsOpen}
             />
+          )}
+          <div className={cn('flex flex-row gap-4', isSmall && 'flex-col-reverse')}>
+            {isSmall ||
+              (!isMedium && (
+                <Prompt
+                  setCaption={setCaption}
+                  generated={generated}
+                  setGenerated={setGenerated}
+                  imageStyle={imageStyle}
+                  setImageStyle={setImageStyle}
+                  setSuggestions={setSuggestions}
+                  setModalIsOpen={setModalIsOpen}
+                />
+              ))}
+            <Image caption={caption} generated={generated} />
+            {isSmall ? (
+              <MobileForm
+                size={size}
+                setSize={setSize}
+                quantity={quantity}
+                setQuantity={setQuantity}
+                addVariantToCart={addVariantToCart}
+                enabled={enabled}
+                isSuccess={isSuccess}
+                loading={loading}
+                generated={generated}
+              />
+            ) : (
+              <Form
+                generated={generated}
+                size={size}
+                setSize={setSize}
+                quantity={quantity}
+                setQuantity={setQuantity}
+                addVariantToCart={addVariantToCart}
+                enabled={enabled}
+                isSuccess={isSuccess}
+                loading={loading}
+              />
+            )}
           </div>
         </div>
       </div>
-      {!isSmall && <Gallery setImageStyle={setImageStyle} setCaption={setCaption} generated={generated} setGenerated={setGenerated} />}
+      <Gallery setImageStyle={setImageStyle} setCaption={setCaption} generated={generated} setGenerated={setGenerated} />
       <div className='w-full h-[2px] bg-accent'></div>
     </div>
   )

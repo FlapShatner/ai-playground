@@ -1,7 +1,11 @@
 import React from 'react'
+import { cn } from './utils'
+import { useWindowSize } from 'usehooks-ts'
 import QuantIcons from './icons/QuantIcons'
 
 function Quantity({ quantity, setQuantity }) {
+  const { width } = useWindowSize()
+  let isSmall = width < 640
   const handleIncrement = () => {
     setQuantity(quantity + 1)
   }
@@ -18,7 +22,7 @@ function Quantity({ quantity, setQuantity }) {
           <QuantIcons name='minus' size='12' />
         </div>
         <input
-          className='border border-txt-secondary bg-bg-primary text-txt-primary w-10 h-10 min-h-4 text-center'
+          className={cn('border border-txt-secondary bg-bg-primary text-txt-primary w-10 h-10 min-h-4 text-center', isSmall && 'bg-accent bg-opacity-10')}
           value={quantity}
           readOnly
           id='quantity'

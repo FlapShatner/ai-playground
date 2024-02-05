@@ -10,10 +10,10 @@ function Gallery({ setCaption, setGenerated, generated, setImageStyle }) {
   const [isOpen, setIsOpen] = useState(false)
   return (
     <>
-      <p onClick={() => setIsOpen(!isOpen)} className='mt-2 mx-auto sm:w-max text-center border-b border-b-border text-txt-primary cursor-pointer'>
+      <p onClick={() => setIsOpen(!isOpen)} className='my-2 mx-auto sm:w-max text-center border-b border-b-border text-txt-primary cursor-pointer'>
         History
       </p>
-      <div className='flex m-auto bg-bg-secondary relative max-w-[90vw] sm:max-w-[600px] border border-border py-2 mb-4 overflow-x-scroll'>
+      <div className='flex m-auto bg-bg-secondary relative max-w-[90vw] sm:max-w-[600px] border border-border py-2 mb-4 '>
         <HistoryModal
           isOpen={isOpen}
           setIsOpen={setIsOpen}
@@ -22,7 +22,7 @@ function Gallery({ setCaption, setGenerated, generated, setImageStyle }) {
           generated={generated}
           setImageStyle={setImageStyle}
         />
-        <div className={cn('flex gap-3 px-2')}>
+        <div className={cn('flex gap-3 px-2 overflow-x-scroll')}>
           {history.length > 0 ? (
             history.map((item, i) => {
               const isActive = item.url == generated
@@ -35,11 +35,8 @@ function Gallery({ setCaption, setGenerated, generated, setImageStyle }) {
               }
               return (
                 <div onClick={handleClick} className='flex flex-col items-center cursor-pointer' key={i}>
-                  <img
-                    className={cn('w-12 h-12 sm:w-20 sm:h-20 object-cover  border border-border hover:border-accent', isActive && 'border-accent')}
-                    src={item.url}
-                  />
-                  <p className='text-center text-txt-primary text-xs w-14 sm:w-20 text-ellipsis overflow-hidden whitespace-nowrap'>{item.prompt}</p>
+                  <img className={cn('w-32 h-32 object-cover border border-border hover:border-accent', isActive && 'border-accent')} src={item.url} />
+                  <p className='text-center text-txt-primary text-xs w-32 text-ellipsis overflow-hidden whitespace-nowrap'>{item.prompt}</p>
                 </div>
               )
             })

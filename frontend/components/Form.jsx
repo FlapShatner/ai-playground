@@ -31,11 +31,16 @@ function Form({ addVariantToCart, size, setSize, quantity, setQuantity, enabled,
   const price = formatPrice(productPrice, quantity)
 
   return (
-    <>
-      <div className={cn('w-1/3 flex flex-col gap-4 text-txt-primary border-b border-border p-2 ')}>
-        <span className='text-3xl font-black text-start'>{price}</span>
+    <div className='flex w-full sm:w-1/3'>
+      {isSmall && (
+        <div className='aspect-square mt-4 m-4 w-11/12'>
+          <img src={generated} alt='generated' className='border border-accent' />
+        </div>
+      )}
+      <div className={cn('w-full flex flex-col gap-4 text-txt-primary border-b border-border p-2 ')}>
+        <span className={cn('text-3xl font-black text-start', isSmall && 'text-4xl')}>{price}</span>
 
-        <div className='flex flex-col items-end gap-4 mr-auto '>
+        <div className={cn('flex flex-col items-end gap-4 mr-auto')}>
           <VariantSelect size={size} setSize={setSize} variants={variants} setProductPrice={setProductPrice} />
           <Quantity quantity={quantity} setQuantity={setQuantity} />
         </div>
@@ -59,7 +64,7 @@ function Form({ addVariantToCart, size, setSize, quantity, setQuantity, enabled,
           {loading ? 'Adding To Cart...' : 'Add To Cart'}
         </button>
       </div>
-    </>
+    </div>
   )
 }
 

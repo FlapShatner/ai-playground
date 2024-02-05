@@ -1,4 +1,5 @@
 import React from 'react'
+import { cn } from './utils'
 import LongLeft from './icons/LongLeft'
 import { useWindowSize } from 'usehooks-ts'
 
@@ -16,7 +17,7 @@ function Image({ generated, caption }) {
   return (
     <div className='sm:w-2/3  md:1/3'>
       {generated ? (
-        <div className=''>
+        <div className={cn(isSmall && 'flex flex-col-reverse')}>
           <p className='text-center'>{caption}</p>
           <img src={generated} alt='' />
         </div>
