@@ -100,7 +100,7 @@ export const findSuggProducts = async (tags) => {
     }
   }
   const flatSuggestions = suggestions.flat()
-  console.log('flatSuggestions', flatSuggestions)
+  // console.log('flatSuggestions', flatSuggestions)
   return flatSuggestions
 }
 

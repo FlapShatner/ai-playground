@@ -36,7 +36,7 @@ function Image({ generated, caption }) {
             alt='Placeholder image'
           />
 
-          <ol className='flex flex-col gap-4 p-4 sm:gap-6'>
+          <ol className='flex flex-col gap-2 p-4 sm:gap-6'>
             {isFlex
               ? largeListText.map((item, i) => (
                   <li className='grid grid-cols-12' key={i}>
@@ -46,8 +46,8 @@ function Image({ generated, caption }) {
                 ))
               : listText.map((item, i) => (
                   <li className='grid grid-cols-12' key={i}>
-                    <span className='text-accent-bright text-xl sm:text-xl md:text-lg col-span-1'>{i + 1} .</span>
-                    <p className='text-accent-bright text-xl sm:text-xl md:text-lg col-span-11'>{item}</p>
+                    <span className='text-accent-bright text-lg sm:text-xl md:text-lg col-span-1'>{i + 1} .</span>
+                    <p className='text-accent-bright text-lg sm:text-xl md:text-lg col-span-11'>{item}</p>
                   </li>
                 ))}
           </ol>

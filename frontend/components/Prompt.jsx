@@ -32,7 +32,7 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
       const data = { prompt: prompt, fullPrompt: fullPrompt, style: imageStyle.id }
       setIsLoading(true)
       getSuggest(prompt).then(async (res) => {
-        console.log('suggestions:', res)
+        // console.log('suggestions:', res)
         if (res.error || res.length === 0) {
           return
         }
@@ -40,7 +40,7 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
         setModalIsOpen(true)
       })
       generate(data).then(async (res) => {
-        console.log('generated:', res)
+        // console.log('generated:', res)
         if (!res.ok) {
           setIsLoading(false)
           console.log(res.error)
@@ -54,7 +54,7 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
         setGenerated(json.url)
         setCaption(prompt)
         addToHistory(prompt, json.url, imageStyle.id)
-        console.log(json)
+        // console.log(json)
         setIsLoading(false)
         setPrompt('')
       })

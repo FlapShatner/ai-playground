@@ -58,10 +58,10 @@ export default function App({ home }) {
       },
     })
     if (res) {
-      console.log(res)
+      // console.log(res)
       const ajaxCart = document.querySelector('.minicart__content')
       ajaxCart.innerHTML = res.sections['ajax-cart']
-      console.log('ajaxCart:', ajaxCart)
+      // console.log('ajaxCart:', ajaxCart)
       setLoading(false)
       setIsSuccess(true)
       setTimeout(() => {
@@ -98,18 +98,17 @@ export default function App({ home }) {
             />
           )}
           <div className={cn('flex flex-row gap-4', isSmall && 'flex-col-reverse')}>
-            {isSmall ||
-              (!isMedium && (
-                <Prompt
-                  setCaption={setCaption}
-                  generated={generated}
-                  setGenerated={setGenerated}
-                  imageStyle={imageStyle}
-                  setImageStyle={setImageStyle}
-                  setSuggestions={setSuggestions}
-                  setModalIsOpen={setModalIsOpen}
-                />
-              ))}
+            {!isMedium && (
+              <Prompt
+                setCaption={setCaption}
+                generated={generated}
+                setGenerated={setGenerated}
+                imageStyle={imageStyle}
+                setImageStyle={setImageStyle}
+                setSuggestions={setSuggestions}
+                setModalIsOpen={setModalIsOpen}
+              />
+            )}
             <Image caption={caption} generated={generated} />
             {isSmall ? (
               <MobileForm
