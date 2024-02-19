@@ -7,13 +7,11 @@
 }
 
 .spinner>div {
-    /* background-color: rgba(134, 202, 144, 0.2); */
-    background-color: hsla(207, 100%, 40%, 0.205);
+    background-color: hsla(42, 59%, 57%, 0.199);
     height: 100%;
     position: absolute;
     width: 100%;
-    /* border: 2px solid rgb(19, 252, 0); */
-    border: 2px solid #0071CE
+    border: 2px solid #d2ac53
 }
 
 .spinner div:nth-of-type(1) {

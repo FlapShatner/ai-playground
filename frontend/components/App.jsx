@@ -20,6 +20,7 @@ export default function App({ home }) {
   const [imageStyle, setImageStyle] = useState(prompts[0])
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [suggestions, setSuggestions] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
 
   const { width } = useWindowSize()
   let isSmall = width < 640
@@ -100,6 +101,8 @@ export default function App({ home }) {
           <div className={cn('flex flex-row gap-4', isSmall && 'flex-col-reverse')}>
             {!isMedium && (
               <Prompt
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
                 setCaption={setCaption}
                 generated={generated}
                 setGenerated={setGenerated}
@@ -109,7 +112,7 @@ export default function App({ home }) {
                 setModalIsOpen={setModalIsOpen}
               />
             )}
-            <Image caption={caption} generated={generated} />
+            <Image isLoading={isLoading} caption={caption} generated={generated} />
             {isSmall ? (
               <MobileForm
                 size={size}

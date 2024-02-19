@@ -3,7 +3,7 @@ import { cn } from './utils'
 import LongLeft from './icons/LongLeft'
 import { useWindowSize } from 'usehooks-ts'
 
-function Image({ generated, caption }) {
+function Image({ generated, caption, isLoading }) {
   const { width } = useWindowSize()
   let isSmall = width < 640
   let isFlex = width > 768
@@ -37,19 +37,25 @@ function Image({ generated, caption }) {
           />
 
           <ol className='flex flex-col gap-2 p-4 sm:gap-6'>
-            {isFlex
-              ? largeListText.map((item, i) => (
-                  <li className='grid grid-cols-12' key={i}>
-                    <span className='text-accent-bright text-xl sm:text-xl md:text-lg col-span-1'>{i + 1} .</span>
-                    <p className='text-accent-bright text-xl sm:text-xl md:text-lg col-span-11'>{item}</p>
-                  </li>
-                ))
-              : listText.map((item, i) => (
-                  <li className='grid grid-cols-12' key={i}>
-                    <span className='text-accent-bright text-lg sm:text-xl md:text-lg col-span-1'>{i + 1} .</span>
-                    <p className='text-accent-bright text-lg sm:text-xl md:text-lg col-span-11'>{item}</p>
-                  </li>
-                ))}
+            {isLoading ? (
+              <span className='text-accent-bright text-xl text-center'>Please wait while your new design is created!</span>
+            ) : (
+              <>
+                {isFlex
+                  ? largeListText.map((item, i) => (
+                      <li className='grid grid-cols-12' key={i}>
+                        <span className='text-accent-bright text-xl sm:text-xl md:text-lg col-span-1'>{i + 1} .</span>
+                        <p className='text-accent-bright text-xl sm:text-xl md:text-lg col-span-11'>{item}</p>
+                      </li>
+                    ))
+                  : listText.map((item, i) => (
+                      <li className='grid grid-cols-12' key={i}>
+                        <span className='text-accent-bright text-lg sm:text-xl md:text-lg col-span-1'>{i + 1} .</span>
+                        <p className='text-accent-bright text-lg sm:text-xl md:text-lg col-span-11'>{item}</p>
+                      </li>
+                    ))}
+              </>
+            )}
           </ol>
         </div>
       )}

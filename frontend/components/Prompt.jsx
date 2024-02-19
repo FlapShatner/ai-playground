@@ -7,10 +7,9 @@ import Loader from './loader/Loader'
 import StyleSelect from './StyleSelect'
 import { set } from 'react-hook-form'
 
-function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle, setSuggestions, setModalIsOpen }) {
+function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle, setSuggestions, setModalIsOpen, isLoading, setIsLoading }) {
   const [history, setHistory] = useLocalStorage('history', [])
   const [prompt, setPrompt] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
 
   const handleChange = (e) => {
