@@ -37,7 +37,7 @@ function Form({ addVariantToCart, size, setSize, quantity, setQuantity, enabled,
           <img src={generated} alt='generated' className='border border-accent' />
         </div>
       )}
-      <div className={cn('w-full flex flex-col gap-4 text-txt-primary border-b border-border p-2 ')}>
+      <div className={cn('w-full flex flex-col gap-4 text-txt-primary border-b border-border p-2 pl-0 ')}>
         <span className={cn('text-3xl font-black text-start', isSmall && 'text-4xl')}>{price}</span>
 
         <div className={cn('flex flex-col items-end gap-4 mr-auto')}>

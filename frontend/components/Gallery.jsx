@@ -22,8 +22,8 @@ function Gallery({ setCaption, setGenerated, generated, setImageStyle }) {
           generated={generated}
           setImageStyle={setImageStyle}
         />
-        <div className={cn('flex gap-3 px-2 overflow-x-scroll')}>
-          {history.length > 0 ? (
+        <div className={cn('flex gap-3 px-2 overflow-x-scroll w-full min-h-28')}>
+          {history.length > 0 &&
             history.map((item, i) => {
               const isActive = item.url == generated
               const handleClick = () => {
@@ -39,12 +39,7 @@ function Gallery({ setCaption, setGenerated, generated, setImageStyle }) {
                   <p className='text-center text-txt-primary text-xs w-32 text-ellipsis overflow-hidden whitespace-nowrap'>{item.prompt}</p>
                 </div>
               )
-            })
-          ) : (
-            <div className='overflow-visible flex flex-col items-center w-12 sm:w-20 h-full'>
-              <p className='text-xs text-wrap'>You don't have any previous designs yet</p>
-            </div>
-          )}
+            })}
         </div>
       </div>
     </>
