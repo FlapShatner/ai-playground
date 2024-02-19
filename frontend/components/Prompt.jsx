@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
-import StylePicker from './StylePicker'
 import { useLocalStorage } from 'usehooks-ts'
 import { generate, cn, getSuggest } from './utils'
+import Guide from './Guide'
+import Help from './icons/Help'
 import DownArrow from './icons/downArrow'
 import Loader from './loader/Loader'
 import StyleSelect from './StyleSelect'
-import { set } from 'react-hook-form'
 
 function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle, setSuggestions, setModalIsOpen, isLoading, setIsLoading }) {
   const [history, setHistory] = useLocalStorage('history', [])
   const [prompt, setPrompt] = useState('')
   const [isError, setIsError] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   const handleChange = (e) => {
     setPrompt(e.target.value)
@@ -73,6 +74,12 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
 
   return (
     <form className='flex flex-col md:w-1/3'>
+      <span
+        onClick={() => setIsOpen(true)}
+        className='flex gap-1 items-center text-accent underline font-bold justify-end cursor-pointer hover:text-accent-bright'>
+        <Help size='20px' color='rgb(210 172 83)' /> User Guide
+      </span>
+      <Guide isOpen={isOpen} setIsOpen={setIsOpen} />
       {generated && (
         <div onClick={handlePaste} className='text-xs border border-border p-1 w-max mb-1 ml-auto cursor-pointer flex gap-1 items-center'>
           click to paste in your last prompt
