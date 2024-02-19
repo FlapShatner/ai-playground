@@ -22,7 +22,7 @@ function VariantSelect({ variants, size, setSize, setProductPrice }) {
   useOnClickOutside(ref, handleClickOutside)
 
   return (
-    <div className={cn('mt-4 m-max relative z-10 mr-auto')}>
+    <div className={cn('mt-4 m-max relative mr-auto')}>
       <span className={cn('mr-auto')}>Size</span>
       <div className=' m-auto'>
         <div
@@ -34,7 +34,7 @@ function VariantSelect({ variants, size, setSize, setProductPrice }) {
           <p className='text-lg font-bold'>{label}</p>
           <Chevron className='ml-auto h-10 w-12 sm:w-8 flex flex-col items-center bg-accent bg-opacity-[.0125]' direction='down' />
         </div>
-        <div ref={ref} className='absolute bg-bg-secondary '>
+        <div ref={ref} className='absolute bg-bg-secondary  z-10'>
           {isOpen &&
             variants.map((item, i) => {
               const handleClick = () => {

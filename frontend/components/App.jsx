@@ -85,8 +85,6 @@ export default function App({ home }) {
       <div id='appTop' className='bg-bg-primary max-w-[1200px] m-auto flex'>
         {/* <Gallery setImageStyle={setImageStyle} setCaption={setCaption} generated={generated} setGenerated={setGenerated} /> */}
         <div className='gap-4 flex flex-col-reverse md:flex-row justify-center p-4 m-auto'>
-          <Suggestions suggestions={suggestions} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
-
           {isMedium && (
             <Prompt
               setCaption={setCaption}
@@ -141,6 +139,7 @@ export default function App({ home }) {
           </div>
         </div>
       </div>
+      <Suggestions suggestions={suggestions} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
       <Gallery setImageStyle={setImageStyle} setCaption={setCaption} generated={generated} setGenerated={setGenerated} />
       <div className='w-full h-[2px] bg-accent'></div>
     </div>

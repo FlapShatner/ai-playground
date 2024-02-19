@@ -80,22 +80,24 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
         <Help size='20px' color='rgb(210 172 83)' /> User Guide
       </span>
       <Guide isOpen={isOpen} setIsOpen={setIsOpen} />
-      {generated && (
-        <div onClick={handlePaste} className='text-xs border border-border p-1 w-max mb-1 ml-auto cursor-pointer flex gap-1 items-center'>
-          click to paste in your last prompt
-        </div>
-      )}
-      <div className='sm:flex sm:justify-between sm:items-end sm:gap-4 md:flex-col md:items-start'>
-        <textarea
-          className='px-2 py-1 h-12 placeholder:opacity-60 border border-border sm:w-2/3 md:w-full'
-          id='prompt'
-          value={prompt}
-          onKeyDown={handleKeyDown}
-          onChange={handleChange}
-          type='text'
-          placeholder='Enter a prompt here'
-        />
 
+      <div className='sm:flex sm:justify-between sm:items-end sm:gap-4 md:flex-col md:items-start'>
+        <div className=' sm:w-2/3 md:w-full'>
+          <textarea
+            className='px-2 py-1 h-12 placeholder:opacity-60 border border-border'
+            id='prompt'
+            value={prompt}
+            onKeyDown={handleKeyDown}
+            onChange={handleChange}
+            type='text'
+            placeholder='Enter a prompt here'
+          />
+          {generated && (
+            <div onClick={handlePaste} className='text-xs border border-border px-1 py-[2px] w-max mt-1 ml-auto cursor-pointer flex gap-1 items-center'>
+              click to paste in your last prompt
+            </div>
+          )}
+        </div>
         <div className='sm:w-1/3 md:w-full'>
           <StyleSelect imageStyle={imageStyle} setImageStyle={setImageStyle} />
           <span className={cn('text-red-500 text-center mt-2', !isError && 'hidden')}>Something went wrong, please try again</span>
