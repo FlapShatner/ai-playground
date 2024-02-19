@@ -19,7 +19,7 @@ function Guide({ setIsOpen, isOpen }) {
       padding: '0',
       top: '40%',
       left: '50%',
-      maxWidth: '80%',
+      maxWidth: '900px',
       maxHeight: '70%',
       backgroundColor: '#1A1A1A',
       right: 'auto',
