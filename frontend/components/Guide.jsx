@@ -17,10 +17,10 @@ function Guide({ setIsOpen, isOpen }) {
     },
     content: {
       padding: '0',
-      top: '40%',
+      top: '50%',
       left: '50%',
       maxWidth: '900px',
-      maxHeight: '70%',
+      maxHeight: '80%',
       backgroundColor: '#1A1A1A',
       right: 'auto',
       bottom: 'auto',

@@ -26,7 +26,9 @@ function Image({ generated, caption, isLoading }) {
       {generated ? (
         <div className={cn(isSmall && 'flex flex-col-reverse')}>
           <p className='text-center'>{caption}</p>
-          <img src={generated} alt='' />
+          <div className='aspect-square overflow-hidden relative border border-border'>
+            <img src={generated} alt='' />
+          </div>
         </div>
       ) : (
         <div className='aspect-square overflow-hidden relative border border-border p-4 '>
@@ -38,7 +40,7 @@ function Image({ generated, caption, isLoading }) {
 
           <ol className='flex flex-col gap-2 p-4 sm:gap-6'>
             {isLoading ? (
-              <span className='text-accent-bright text-xl text-center'>Please wait while your new design is created!</span>
+              <span className='text-accent-bright text-2xl text-center'>Please wait while your new design is created!</span>
             ) : (
               <>
                 {isFlex
