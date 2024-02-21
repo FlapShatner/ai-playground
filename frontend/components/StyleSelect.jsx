@@ -43,11 +43,13 @@ function StyleSelect({ setImageStyle, imageStyle }) {
                 onMouseEnter={() => setIsHover(item.id)}
                 onMouseLeave={() => setIsHover(null)}
                 className={cn(
-                  'cursor-pointer border border-border flex items-center gap-4 hover:border-accent hover:bg-bg-secondary transition-transform ease-in-out',
+                  'cursor-pointer border border-border flex items-center gap-4 hover:border-accent hover:bg-bg-secondary transition-transform ease-in-out ',
                   isActive && 'hidden',
                   isHover == item.id && 'scale-110'
                 )}>
-                <img className={cn(' w-16 ')} src={item.img} alt={item.label} />
+                <div className='h-[67px]'>
+                  <img className={cn(' w-16 ')} src={item.img} alt={item.label} />
+                </div>
                 <span className={cn('text-txt-primary text-xl', isActive && 'text-accent')}>{item.label}</span>
               </div>
             )
