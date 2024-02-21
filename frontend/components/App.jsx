@@ -21,6 +21,7 @@ export default function App({ home }) {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [suggestions, setSuggestions] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const [notes, setNotes] = useState('')
 
   const { width } = useWindowSize()
   let isSmall = width < 640
@@ -56,6 +57,7 @@ export default function App({ home }) {
       ...formData,
       properties: {
         _image: generated,
+        notes: notes,
       },
     })
     if (res) {
@@ -73,16 +75,16 @@ export default function App({ home }) {
   }
 
   return (
-    <div className='bg-bg-primary w-full'>
+    <div className='bg-bg-primary w-full '>
       <Banner />
-      <div className='w-full m-auto h-auto flex bg-bg-primary'>
+      <div className='w-full m-auto h-auto flex bg-bg-primary '>
         <img
           className='w-full max-w-[900px] m-auto my-4 px-8'
           src='https://res.cloudinary.com/dkxssdk96/image/upload/v1706647115/Fonzie_Logo_6in_PNG_xuwf99.png'
           alt='Fonzie AI Generator Logo'
         />
       </div>
-      <div id='appTop' className='bg-bg-primary max-w-[1200px] m-auto flex'>
+      <div id='appTop' className='bg-bg-primary max-w-[1200px] m-auto flex '>
         {/* <Gallery setImageStyle={setImageStyle} setCaption={setCaption} generated={generated} setGenerated={setGenerated} /> */}
         <div className='gap-4 flex flex-col-reverse md:flex-row justify-center p-4 m-auto'>
           {isMedium && (
@@ -134,6 +136,8 @@ export default function App({ home }) {
                 enabled={enabled}
                 isSuccess={isSuccess}
                 loading={loading}
+                notes={notes}
+                setNotes={setNotes}
               />
             )}
           </div>

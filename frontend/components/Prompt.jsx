@@ -103,6 +103,7 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
           <span className={cn('text-red-500 text-center mt-2', !isError && 'hidden')}>Something went wrong, please try again</span>
         </div>
       </div>
+
       <div
         role='button'
         type='submit'

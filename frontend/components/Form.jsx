@@ -6,7 +6,7 @@ import { useWindowSize, useOnClickOutside } from 'usehooks-ts'
 import VariantSelect from './VariantSelect'
 import Quantity from './Quantity'
 
-function Form({ addVariantToCart, size, setSize, quantity, setQuantity, enabled, isSuccess, loading, generated }) {
+function Form({ addVariantToCart, size, setSize, quantity, setQuantity, enabled, isSuccess, loading, generated, notes, setNotes }) {
   const [product, setProduct] = useState(null)
   const [productPrice, setProductPrice] = useState('')
   const [disclaimer, setDisclaimer] = useState(false)
@@ -57,6 +57,12 @@ function Form({ addVariantToCart, size, setSize, quantity, setQuantity, enabled,
               </p>
             </div>
           )}
+          <div className='mt-4'>
+            <label className='text-sm' htmlFor='notes'>
+              Special instructions:
+            </label>
+            <input value={notes} onChange={(e) => setNotes(e.target.value)} type='text' className='h-8' name='notes' id='notes' rows='2' />
+          </div>
         </div>
 
         {isSuccess && <p className='text-accent text-4xl'>Item added to cart</p>}
