@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Form from './Form'
 import Chevron from './icons/Chevron'
 
-function MobileForm({ generated, size, setSize, quantity, setQuantity, addVariantToCart, enabled, isSuccess, loading }) {
+function MobileForm({ generated, size, setSize, quantity, setQuantity, addVariantToCart, enabled, isSuccess, loading, notes, setNotes }) {
   const [open, setOpen] = useState(false)
   return (
     <div className='border-2 border-accent-bright bg-accent bg-opacity-20'>
@@ -23,6 +23,8 @@ function MobileForm({ generated, size, setSize, quantity, setQuantity, addVarian
           enabled={enabled}
           isSuccess={isSuccess}
           loading={loading}
+          notes={notes}
+          setNotes={setNotes}
         />
       )}
     </div>

@@ -61,7 +61,15 @@ function Form({ addVariantToCart, size, setSize, quantity, setQuantity, enabled,
             <label className='text-sm' htmlFor='notes'>
               Special instructions:
             </label>
-            <input value={notes} onChange={(e) => setNotes(e.target.value)} type='text' className='h-8' name='notes' id='notes' rows='2' />
+            <input
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              type='text'
+              className={cn('h-8', isSmall && 'bg-transparent border border-border')}
+              name='notes'
+              id='notes'
+              rows='2'
+            />
           </div>
         </div>
 

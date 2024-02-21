@@ -124,6 +124,8 @@ export default function App({ home }) {
                 isSuccess={isSuccess}
                 loading={loading}
                 generated={generated}
+                notes={notes}
+                setNotes={setNotes}
               />
             ) : (
               <Form
