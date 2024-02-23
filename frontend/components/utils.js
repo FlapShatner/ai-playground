@@ -62,15 +62,13 @@ export const addToCart = async (formData) => {
 export async function generate(data) {
   const { prompt, style, fullPrompt } = data
   try {
-    const resp = await fetch('/apps/image/prompt', {
+    const resp = await fetch('/a/image/gen', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        fullPrompt: fullPrompt,
         prompt: prompt,
-        style: style,
       }),
     })
     if (!resp.ok) {
@@ -79,8 +77,8 @@ export async function generate(data) {
     return resp
   } catch {
     console.log('error')
-    return {ok: false, error: 'Failed to generate image'}
-}
+    return { ok: false, error: 'Failed to generate image' }
+  }
 }
 
 export const findSuggProducts = async (tags) => {
@@ -105,7 +103,7 @@ export const findSuggProducts = async (tags) => {
 }
 
 export const getSuggest = async (prompt) => {
-  const resp = await fetch('/apps/image/suggest', {
+  const resp = await fetch('/a/image/suggest', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -128,3 +126,24 @@ export const getProductByHandle = async (handle) => {
 //    const resp = {prompt: prompt, url: 'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?v=1622146479'}
 //     return JSON.stringify(resp);
 // }
+
+export const getQuadrants = (url) => {
+  const parts = url.split('/upload/')
+  const baseUrl = parts[0] + '/upload/'
+  const fileName = parts[1]
+
+  // Define the transformations
+  const transformations = {
+    topleft: 't_topleft',
+    topright: 't_topright',
+    btmleft: 't_btmleft',
+    btmright: 't_btmright',
+  }
+
+  // Generate URLs with transformations
+  return Object.entries(transformations).map(([key, value]) => {
+    return { label: key, url: `${baseUrl}${value}/${fileName}` }
+  })
+}
+
+

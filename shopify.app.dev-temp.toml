@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
-name = "dev"
-client_id = "e53cd4187fef00f0e8a52039a30139db"
+name = "dev-temp"
+client_id = "bd3767bb96e284f3b719f4dde6599b71"
 application_url = "https://shopify.dev/apps/default-app-home"
 embedded = true
 
@@ -14,11 +14,6 @@ redirect_urls = [ "https://shopify.dev/apps/default-app-home/api/auth" ]
 
 [webhooks]
 api_version = "2024-01"
-
-[app_proxy]
-url = "https://tunnel.ink-dev.com/"
-subpath = "image"
-prefix = "a"
 
 [pos]
 embedded = false

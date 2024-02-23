@@ -1,4 +1,5 @@
 import React from 'react'
+import Grid from './image/Grid'
 import { cn } from './utils'
 import LongLeft from './icons/LongLeft'
 import { useWindowSize } from 'usehooks-ts'
@@ -22,23 +23,23 @@ function Image({ generated, caption, isLoading }) {
   ]
 
   return (
-    <div className='sm:w-2/3  md:1/3'>
+    <div className=''>
       {generated ? (
         <div className={cn(isSmall && 'flex flex-col-reverse')}>
           <p className='text-center'>{caption}</p>
-          <div className='aspect-square overflow-hidden relative border border-border'>
-            <img src={generated} alt='' />
+          <div className='h-[80vh]  aspect-square overflow-hidden relative border border-border'>
+            <Grid generated={generated} isLoading={isLoading} />
           </div>
         </div>
       ) : (
-        <div className='aspect-square overflow-hidden relative border border-border p-4 '>
+        <div className='aspect-square overflow-hidden relative border border-border p-2 '>
           <img
             className=' opacity-10 absolute top-0 left-0'
             src='https://res.cloudinary.com/dkxssdk96/image/upload/v1706821466/square-pholder_iwtdfz.png'
             alt='Placeholder image'
           />
 
-          <ol className='flex flex-col gap-2 p-4 sm:gap-6'>
+          {/* <ol className='flex flex-col gap-2 p-4 sm:gap-6'>
             {isLoading ? (
               <span className='text-accent-bright text-2xl text-center'>Please wait while your new design is created!</span>
             ) : (
@@ -58,7 +59,7 @@ function Image({ generated, caption, isLoading }) {
                     ))}
               </>
             )}
-          </ol>
+          </ol> */}
         </div>
       )}
     </div>

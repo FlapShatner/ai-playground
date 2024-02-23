@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
-import { generate, cn, getSuggest } from './utils'
-import Guide from './Guide'
-import Help from './icons/Help'
-import DownArrow from './icons/downArrow'
-import Paste from './icons/Paste'
-import Loader from './loader/Loader'
+import { generate, cn, getSuggest } from '../utils'
+import Guide from '../Guide'
+import Help from '../icons/Help'
+import DownArrow from '../icons/downArrow'
+import Paste from '../icons/Paste'
+import Loader from '../loader/Loader'
 import StyleSelect from './StyleSelect'
+import Selected from './Selected'
 
 function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle, setSuggestions, setModalIsOpen, isLoading, setIsLoading }) {
   const [history, setHistory] = useLocalStorage('history', [])
@@ -18,28 +19,29 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
     setPrompt(e.target.value)
   }
 
-  const addToHistory = (prompt, url, style) => {
+  const addToHistory = (prompt, url, style, meta) => {
     let newHistory = [...history]
     // if (newHistory.length >= 5) {
     //   newHistory.pop()
     // }
-    newHistory.unshift({ prompt, url, style })
+    newHistory.unshift({ prompt, url, style, meta })
     setHistory(newHistory)
   }
 
   const handleClick = () => {
     if (prompt) {
       const fullPrompt = prompt + ' ' + imageStyle.prompt
-      const data = { prompt: prompt, fullPrompt: fullPrompt, style: imageStyle.id }
+      // const data = { prompt: prompt, fullPrompt: fullPrompt, style: imageStyle.id }
+      const data = { prompt: prompt, style: imageStyle.id }
       setIsLoading(true)
-      getSuggest(prompt).then(async (res) => {
-        // console.log('suggestions:', res)
-        if (res.error || res.length === 0) {
-          return
-        }
-        setSuggestions(res)
-        setModalIsOpen(true)
-      })
+      // getSuggest(prompt).then(async (res) => {
+      //   // console.log('suggestions:', res)
+      //   if (res.error || res.length === 0) {
+      //     return
+      //   }
+      //   setSuggestions(res)
+      //   setModalIsOpen(true)
+      // })
       generate(data).then(async (res) => {
         // console.log('generated:', res)
         if (!res.ok) {
@@ -54,7 +56,7 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
         const json = await res.json()
         setGenerated(json.url)
         setCaption(prompt)
-        addToHistory(prompt, json.url, imageStyle.id)
+        addToHistory(prompt, json.url, imageStyle.id, json.meta)
         // console.log(json)
         setIsLoading(false)
         setPrompt('')
@@ -74,7 +76,7 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
   }
 
   return (
-    <form className='flex flex-col md:w-1/3'>
+    <form className='flex flex-col w-full'>
       <span
         onClick={() => setIsOpen(true)}
         className='flex gap-1 items-center text-accent underline font-bold justify-end cursor-pointer hover:text-accent-bright'>
@@ -83,7 +85,7 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
       </span>
       <Guide isOpen={isOpen} setIsOpen={setIsOpen} />
 
-      <div className='sm:flex sm:justify-between sm:items-end sm:gap-4 md:flex-col md:items-start'>
+      <div className='sm:flex sm:justify-between sm:items-end sm:gap-4 md:flex-col md:items-start w-full'>
         <div className=' sm:w-2/3 md:w-full'>
           <textarea
             className='px-2 py-1 h-12 placeholder:opacity-60 border border-border'
@@ -122,6 +124,7 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
           <span className='text-lg'>Generate Design</span>
         )}
       </div>
+      <Selected />
     </form>
   )
 }

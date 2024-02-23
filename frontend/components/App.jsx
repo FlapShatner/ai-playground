@@ -3,7 +3,7 @@ import { addToCart, getCart, cn } from './utils'
 import { useWindowSize } from 'usehooks-ts'
 import { prompts } from './prePrompt'
 import Gallery from './Gallery'
-import Prompt from './Prompt'
+import Prompt from './prompt/Prompt'
 import Image from './Image'
 import Form from './Form'
 import Suggestions from './Suggestions'
@@ -75,7 +75,7 @@ export default function App({ home }) {
   }
 
   return (
-    <div className='bg-bg-primary w-full '>
+    <div className='bg-bg-primary w-full max-w-[1200px] m-auto'>
       <Banner />
       <div className='w-full m-auto h-auto flex bg-bg-primary '>
         <img
@@ -84,11 +84,12 @@ export default function App({ home }) {
           alt='Fonzie AI Generator Logo'
         />
       </div>
-      <div id='appTop' className='bg-bg-primary max-w-[1200px] m-auto flex '>
-        {/* <Gallery setImageStyle={setImageStyle} setCaption={setCaption} generated={generated} setGenerated={setGenerated} /> */}
-        <div className='gap-4 flex flex-col-reverse md:flex-row justify-center p-4 m-auto'>
-          {isMedium && (
+      <div id='appTop' className='bg-bg-primary w-full m-auto flex '>
+        <div className='w-full gap-4 flex flex-col-reverse md:flex-row justify-center p-4 m-auto'>
+          <div className={cn('flex flex-row gap-4 w-full', isSmall && 'flex-col-reverse')}>
             <Prompt
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
               setCaption={setCaption}
               generated={generated}
               setGenerated={setGenerated}
@@ -97,23 +98,9 @@ export default function App({ home }) {
               setSuggestions={setSuggestions}
               setModalIsOpen={setModalIsOpen}
             />
-          )}
-          <div className={cn('flex flex-row gap-4', isSmall && 'flex-col-reverse')}>
-            {!isMedium && (
-              <Prompt
-                isLoading={isLoading}
-                setIsLoading={setIsLoading}
-                setCaption={setCaption}
-                generated={generated}
-                setGenerated={setGenerated}
-                imageStyle={imageStyle}
-                setImageStyle={setImageStyle}
-                setSuggestions={setSuggestions}
-                setModalIsOpen={setModalIsOpen}
-              />
-            )}
+
             <Image isLoading={isLoading} caption={caption} generated={generated} />
-            {isSmall ? (
+            {/* {isSmall ? (
               <MobileForm
                 size={size}
                 setSize={setSize}
@@ -141,7 +128,7 @@ export default function App({ home }) {
                 notes={notes}
                 setNotes={setNotes}
               />
-            )}
+            )} */}
           </div>
         </div>
       </div>
