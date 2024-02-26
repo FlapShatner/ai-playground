@@ -59,31 +59,10 @@ export const addToCart = async (formData) => {
   }
 }
 
-export async function generate(data) {
-  const { prompt, style, fullPrompt } = data
-  try {
-    const resp = await fetch('/a/image/gen', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        prompt: prompt,
-      }),
-    })
-    if (!resp.ok) {
-      throw new Error('Failed to generate image')
-    }
-    return resp
-  } catch {
-    console.log('error')
-    return { ok: false, error: 'Failed to generate image' }
-  }
-}
 
 export const findSuggProducts = async (tags) => {
   const jsonTags = await tags.json()
-
+  
   let suggestions = []
   for (let i = 0; i < jsonTags.length && i < 10; i++) {
     const tag = jsonTags[i]
@@ -131,7 +110,7 @@ export const getQuadrants = (url) => {
   const parts = url.split('/upload/')
   const baseUrl = parts[0] + '/upload/'
   const fileName = parts[1]
-
+  
   // Define the transformations
   const transformations = {
     topleft: 't_topleft',
@@ -139,17 +118,41 @@ export const getQuadrants = (url) => {
     btmleft: 't_btmleft',
     btmright: 't_btmright',
   }
-
+  
   // Generate URLs with transformations
   return Object.entries(transformations).map(([key, value], i) => {
     return { id:i, label: key, url: `${baseUrl}${value}/${fileName}` }
   })
 }
 
+
+
+export async function generate(data) {
+  const { prompt, style, fullPrompt } = data
+  try {
+    const resp = await fetch('/a/image/gen', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        prompt: prompt,
+      }),
+    })
+    if (!resp.ok) {
+      throw new Error('Failed to generate image')
+    }
+    return resp
+  } catch {
+    console.log('error')
+    return { ok: false, error: 'Failed to generate image' }
+  }
+}
+
 export const getVariants = async (meta, i) => {
   console.log('meta', meta, 'i', i)
   try{
-  const resp = await fetch('/a/image/var', {
+    const resp = await fetch('/a/image/var', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

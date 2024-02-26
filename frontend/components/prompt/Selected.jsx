@@ -1,21 +1,28 @@
 import React from 'react'
-import { cn } from '../utils'
-import { getVariants } from '../utils'
+import { getVariants, cn } from '../utils'
+import { useLocalStorage } from 'usehooks-ts'
 import { useAtom } from 'jotai'
-import { activeIndexAtom, modifyIdAtom, generatedAtom } from '../atoms'
+import { activeIndexAtom, modifyIdAtom, generatedAtom, captionAtom } from '../atoms'
 
 function Option({ children, className, optionId }) {
+  const [history, setHistory] = useLocalStorage('history', [])
   const [generated, setGenerated] = useAtom(generatedAtom)
   const [activeIndex, setActiveIndex] = useAtom(activeIndexAtom)
   const [modifyId, setModifyId] = useAtom(modifyIdAtom)
+  const [caption, setCaption] = useAtom(captionAtom)
+
+  const addToHistory = (prompt, url, style = 'style', meta) => {
+    let newHistory = [...history]
+    newHistory.unshift({ prompt, url, style, meta })
+    setHistory(newHistory)
+  }
 
   const handleClick = async () => {
     if (optionId === 'vars') {
-      const variants = await getVariants(generated.meta, activeIndex?.index)
-      const json = await variants.json()
+      const json = await getVariants(generated.meta, activeIndex?.index)
       setGenerated({ url: json.url, meta: json.meta })
-      setCaption(prompt)
-      addToHistory(prompt, json.url, imageStyle.id, json.meta)
+      setCaption(json.meta.content)
+      addToHistory(json.meta.content, json.url, json.meta)
     } else {
       setModifyId(`U${activeIndex.index}`)
     }
