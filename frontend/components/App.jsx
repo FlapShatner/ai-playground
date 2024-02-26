@@ -4,30 +4,43 @@ import { useWindowSize } from 'usehooks-ts'
 import { prompts } from './prePrompt'
 import Gallery from './Gallery'
 import Prompt from './prompt/Prompt'
-import Image from './Image'
+import Image from './image/Image'
 import Form from './Form'
 import Suggestions from './Suggestions'
 import Banner from './banner/Banner'
-import MobileForm from './MobileForm'
+import { useAtom } from 'jotai'
+import {
+  generatedAtom,
+  captionAtom,
+  sizeAtom,
+  quantityAtom,
+  isSuccessAtom,
+  loadingAtom,
+  imageStyleAtom,
+  modalIsOpenAtom,
+  suggestionsAtom,
+  isLoadingAtom,
+  notesAtom,
+  cartAtom,
+} from './atoms'
 
 export default function App({ home }) {
-  const [generated, setGenerated] = useState('')
-  const [caption, setCaption] = useState('')
-  const [size, setSize] = useState('') // size is a variant id
-  const [quantity, setQuantity] = useState(1)
-  const [isSuccess, setIsSuccess] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [imageStyle, setImageStyle] = useState(prompts[0])
-  const [modalIsOpen, setModalIsOpen] = useState(false)
-  const [suggestions, setSuggestions] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
-  const [notes, setNotes] = useState('')
+  const [generated, setGenerated] = useAtom(generatedAtom)
+  const [caption, setCaption] = useAtom(captionAtom)
+  const [size, setSize] = useAtom(sizeAtom)
+  const [quantity, setQuantity] = useAtom(quantityAtom)
+  const [isSuccess, setIsSuccess] = useAtom(isSuccessAtom)
+  const [loading, setLoading] = useAtom(loadingAtom)
+  const [imageStyle, setImageStyle] = useAtom(imageStyleAtom)
+  const [modalIsOpen, setModalIsOpen] = useAtom(modalIsOpenAtom)
+  const [suggestions, setSuggestions] = useAtom(suggestionsAtom)
+  const [isLoading, setIsLoading] = useAtom(isLoadingAtom)
+  const [notes, setNotes] = useAtom(notesAtom)
+  const [cart, setCart] = useAtom(cartAtom)
 
   const { width } = useWindowSize()
   let isSmall = width < 640
   let isMedium = width < 768 && width >= 640
-
-  const [cart, setCart] = useState(null)
 
   const formData = {
     id: size,
@@ -87,19 +100,9 @@ export default function App({ home }) {
       <div id='appTop' className='bg-bg-primary w-full m-auto flex '>
         <div className='w-full gap-4 flex flex-col-reverse md:flex-row justify-center p-4 m-auto'>
           <div className={cn('flex flex-row gap-4 w-full', isSmall && 'flex-col-reverse')}>
-            <Prompt
-              isLoading={isLoading}
-              setIsLoading={setIsLoading}
-              setCaption={setCaption}
-              generated={generated}
-              setGenerated={setGenerated}
-              imageStyle={imageStyle}
-              setImageStyle={setImageStyle}
-              setSuggestions={setSuggestions}
-              setModalIsOpen={setModalIsOpen}
-            />
+            <Prompt />
 
-            <Image isLoading={isLoading} caption={caption} generated={generated} />
+            <Image />
             {/* {isSmall ? (
               <MobileForm
                 size={size}

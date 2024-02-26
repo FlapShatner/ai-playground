@@ -19,6 +19,7 @@
     "cleanup": "rimraf --glob extensions/*/assets/*.{json,geetkeep}"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.3",
     "@hookform/error-message": "^2.0.1",
     "@hookform/resolvers": "^3.3.2",
     "@shopify/app": "^3.48.0",
@@ -26,6 +27,8 @@
     "@uidotdev/usehooks": "^2.4.1",
     "@vitejs/plugin-react": "^4.0.3",
     "clsx": "^2.1.0",
+    "jotai": "^2.6.5",
+    "jotai-devtools": "^0.8.0",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
     "react": "^18.2.0",

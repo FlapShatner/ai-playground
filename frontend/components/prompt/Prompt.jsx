@@ -3,15 +3,22 @@ import { useLocalStorage } from 'usehooks-ts'
 import { generate, cn, getSuggest } from '../utils'
 import Guide from '../Guide'
 import Help from '../icons/Help'
-import DownArrow from '../icons/downArrow'
 import Paste from '../icons/Paste'
 import Loader from '../loader/Loader'
 import StyleSelect from './StyleSelect'
 import Selected from './Selected'
+import { DevTools } from 'jotai-devtools'
+import { useAtom } from 'jotai'
+import { generatedAtom, captionAtom, imageStyleAtom, suggestionsAtom, modalIsOpenAtom, isLoadingAtom, promptAtom } from '../atoms'
 
-function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle, setSuggestions, setModalIsOpen, isLoading, setIsLoading }) {
+function Prompt() {
   const [history, setHistory] = useLocalStorage('history', [])
-  const [prompt, setPrompt] = useState('')
+
+  const [generated, setGenerated] = useAtom(generatedAtom)
+  const [caption, setCaption] = useAtom(captionAtom)
+  const [imageStyle, setImageStyle] = useAtom(imageStyleAtom)
+  const [isLoading, setIsLoading] = useAtom(isLoadingAtom)
+  const [prompt, setPrompt] = useAtom(promptAtom)
   const [isError, setIsError] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
 
@@ -54,7 +61,7 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
           return
         }
         const json = await res.json()
-        setGenerated(json.url)
+        setGenerated({ url: json.url, meta: json.meta })
         setCaption(prompt)
         addToHistory(prompt, json.url, imageStyle.id, json.meta)
         // console.log(json)
@@ -77,6 +84,7 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
 
   return (
     <form className='flex flex-col w-full'>
+      <DevTools />
       <span
         onClick={() => setIsOpen(true)}
         className='flex gap-1 items-center text-accent underline font-bold justify-end cursor-pointer hover:text-accent-bright'>
@@ -105,10 +113,10 @@ function Prompt({ setGenerated, generated, setCaption, imageStyle, setImageStyle
             </div>
           )}
         </div>
-        <div className='sm:w-1/3 md:w-full'>
+        {/* <div className='sm:w-1/3 md:w-full'>
           <StyleSelect imageStyle={imageStyle} setImageStyle={setImageStyle} />
           <span className={cn('text-red-500 text-center mt-2', !isError && 'hidden')}>Something went wrong, please try again</span>
-        </div>
+        </div> */}
       </div>
 
       <div

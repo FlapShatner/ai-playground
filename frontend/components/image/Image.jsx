@@ -1,10 +1,14 @@
 import React from 'react'
-import Grid from './image/Grid'
-import { cn } from './utils'
-import LongLeft from './icons/LongLeft'
+import Grid from './Grid'
+import { cn } from '../utils'
 import { useWindowSize } from 'usehooks-ts'
+import { useAtom } from 'jotai'
+import { generatedAtom, captionAtom, isLoadingAtom } from '../atoms'
 
-function Image({ generated, caption, isLoading }) {
+function Image() {
+  const [generated, setGenerated] = useAtom(generatedAtom)
+  const [caption, setCaption] = useAtom(captionAtom)
+  const [isLoading, setIsLoading] = useAtom(isLoadingAtom)
   const { width } = useWindowSize()
   let isSmall = width < 640
   let isFlex = width > 768
@@ -28,7 +32,7 @@ function Image({ generated, caption, isLoading }) {
         <div className={cn(isSmall && 'flex flex-col-reverse')}>
           <p className='text-center'>{caption}</p>
           <div className='h-[80vh]  aspect-square overflow-hidden relative border border-border'>
-            <Grid generated={generated} isLoading={isLoading} />
+            <Grid />
           </div>
         </div>
       ) : (

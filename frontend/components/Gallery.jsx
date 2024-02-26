@@ -27,7 +27,7 @@ function Gallery({ setCaption, setGenerated, generated, setImageStyle }) {
             history.map((item, i) => {
               const isActive = item.url == generated
               const handleClick = () => {
-                setGenerated(item.url)
+                setGenerated({ url: item.url, meta: item.meta })
                 setCaption(item.prompt)
                 const thisStyle = prompts.find((style) => style.id == item.style)
                 if (!thisStyle) return

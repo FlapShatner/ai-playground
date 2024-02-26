@@ -141,9 +141,30 @@ export const getQuadrants = (url) => {
   }
 
   // Generate URLs with transformations
-  return Object.entries(transformations).map(([key, value]) => {
-    return { label: key, url: `${baseUrl}${value}/${fileName}` }
+  return Object.entries(transformations).map(([key, value], i) => {
+    return { id:i, label: key, url: `${baseUrl}${value}/${fileName}` }
   })
 }
 
-
+export const getVariants = async (meta, i) => {
+  console.log('meta', meta, 'i', i)
+  try{
+  const resp = await fetch('/a/image/var', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        job: meta,
+        index: i
+      }),
+    })
+    if (!resp.ok) {
+      throw new Error('Failed to generate image')
+    }
+    return resp
+  } catch {
+    console.log('error')
+    return { ok: false, error: 'Failed to generate variants' }
+  }
+} 

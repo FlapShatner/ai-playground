@@ -7,6 +7,10 @@ export default defineConfig({
   shopify({
    themeRoot: 'extensions/uploader',
   }),
-  react(),
+  react({
+      babel: {
+        presets: ['jotai/babel/preset'],
+      },
+    }),
  ],
 })
