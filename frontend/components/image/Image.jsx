@@ -32,7 +32,7 @@ function Image() {
       {generated?.url.length > 0 ? (
         <div className={cn(isSmall && 'flex flex-col-reverse')}>
           <p className='text-center'>{caption}</p>
-          <div className='h-[80vh]  aspect-square overflow-hidden relative border border-border'>{generated.up ? <Upscaled /> : <Grid />}</div>
+          <div className='h-[95vh]  aspect-square overflow-hidden relative border border-border'>{generated.up ? <Upscaled /> : <Grid />}</div>
         </div>
       ) : (
         <div className='h-[80vh] aspect-square overflow-hidden relative border border-border '>

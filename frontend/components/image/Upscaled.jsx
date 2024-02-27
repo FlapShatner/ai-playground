@@ -6,9 +6,9 @@ function Upscaled() {
   const [generated, setGenerated] = useAtom(generatedAtom)
   const [prompt, setPrompt] = useAtom(promptAtom)
   return (
-    <div>
-      <img src={generated.url} alt={prompt} />
-    </div>
+    <a href={generated.url} target='_blank' rel='noopener noreferrer'>
+      <img className='cursor-zoom-in' src={generated.url} alt={prompt} />
+    </a>
   )
 }
 

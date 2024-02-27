@@ -48,7 +48,9 @@ function Option({ children, className, optionId }) {
   }
 
   return (
-    <div onClick={handleClick} className={cn('cursor-pointer border border-accent p-6 text-center', className)}>
+    <div
+      onClick={handleClick}
+      className={cn('cursor-pointer border border-accent p-4 text-center text-accent font-semibold w-48 bg-bg-secondary rounded-md', className)}>
       {children}
     </div>
   )
@@ -56,9 +58,9 @@ function Option({ children, className, optionId }) {
 
 function Selected() {
   return (
-    <div className='flex flex-col gap-4'>
-      <Option optionId='vars'>Make Variations From Selected Image</Option>
-      <Option optionId='up'>Upscale Selected Image</Option>
+    <div className='flex gap-4 w-full justify-center mt-4'>
+      <Option optionId='vars'>Make Variations</Option>
+      <Option optionId='up'>Upscale </Option>
     </div>
   )
 }

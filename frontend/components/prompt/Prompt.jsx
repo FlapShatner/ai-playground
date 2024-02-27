@@ -122,17 +122,15 @@ function Prompt() {
       <div
         role='button'
         type='submit'
-        className='cursor-pointer border-2 flex justify-center sm:p-4 bg-bg-secondary active:scale-95 hover:bg-bg-primary text-accent border-accent h-[71px] w-full sm:w-auto items-center mb-12 mt-8'
+        className='cursor-pointer border-2 flex justify-center sm:p-4 bg-bg-secondary active:scale-95 hover:bg-bg-primary text-accent border-accent h-[71px] w-full sm:w-auto items-center mb-12 mt-8 rounded-md'
         onClick={handleClick}>
         {isLoading ? (
-          <div className={cn('flex items-center justify-center gap-3 text-lg')}>
-            <Loader /> Generating...
-          </div>
+          <div className={cn('flex items-center justify-center gap-3 text-lg  font-semibold')}>Generating...</div>
         ) : (
-          <span className='text-lg'>Generate Design</span>
+          <span className='text-lg font-semibold'>Generate Design</span>
         )}
       </div>
-      <Selected />
+      {/* <Selected /> */}
     </form>
   )
 }
