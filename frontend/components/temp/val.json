@@ -1,0 +1,54 @@
+[
+  {
+    "prompt": "A zombie in a leather jacket",
+    "url": "https://res.cloudinary.com/dkxssdk96/image/upload/v1709062526/x97u1cd8dnldyexawvxa.png",
+    "meta": {
+      "id": "1212120827470942219",
+      "flags": 0,
+      "content": "******A zombie in a leather jacket** - <@674368750807547915> (fast)** - Remix (Strong) by <@674368750807547915> (fast)** - Remix (Strong) by <@674368750807547915> (fast)",
+      "hash": "3f665b83-f0eb-47bf-abdc-97dd413aac60",
+      "progress": "done",
+      "uri": "https://cdn.discordapp.com/attachments/1016373031741968479/1212120826699059290/flapshatner_A_zombie_in_a_leather_jacket_-_674368750807547915_f_3f665b83-f0eb-47bf-abdc-97dd413aac60.png?ex=65f0ae7d&is=65de397d&hm=e3741254ada295e8d839792e5481b2e0f0acc6dfae0747caeb047ae64d0cacb7&",
+      "proxy_url": "https://media.discordapp.net/attachments/1016373031741968479/1212120826699059290/flapshatner_A_zombie_in_a_leather_jacket_-_674368750807547915_f_3f665b83-f0eb-47bf-abdc-97dd413aac60.png?ex=65f0ae7d&is=65de397d&hm=e3741254ada295e8d839792e5481b2e0f0acc6dfae0747caeb047ae64d0cacb7&",
+      "options": [
+        { "type": 2, "style": 2, "label": "U1", "custom": "MJ::JOB::upsample::1::3f665b83-f0eb-47bf-abdc-97dd413aac60" },
+        { "type": 2, "style": 2, "label": "U2", "custom": "MJ::JOB::upsample::2::3f665b83-f0eb-47bf-abdc-97dd413aac60" },
+        { "type": 2, "style": 2, "label": "U3", "custom": "MJ::JOB::upsample::3::3f665b83-f0eb-47bf-abdc-97dd413aac60" },
+        { "type": 2, "style": 2, "label": "U4", "custom": "MJ::JOB::upsample::4::3f665b83-f0eb-47bf-abdc-97dd413aac60" },
+        { "type": 2, "style": 2, "label": "🔄", "custom": "MJ::JOB::reroll::0::3f665b83-f0eb-47bf-abdc-97dd413aac60::SOLO" },
+        { "type": 2, "style": 2, "label": "V1", "custom": "MJ::JOB::variation::1::3f665b83-f0eb-47bf-abdc-97dd413aac60" },
+        { "type": 2, "style": 2, "label": "V2", "custom": "MJ::JOB::variation::2::3f665b83-f0eb-47bf-abdc-97dd413aac60" },
+        { "type": 2, "style": 2, "label": "V3", "custom": "MJ::JOB::variation::3::3f665b83-f0eb-47bf-abdc-97dd413aac60" },
+        { "type": 2, "style": 2, "label": "V4", "custom": "MJ::JOB::variation::4::3f665b83-f0eb-47bf-abdc-97dd413aac60" }
+      ],
+      "width": 2048,
+      "height": 2048
+    }
+  },
+  {
+    "prompt": "A zombie in a leather jacket",
+    "url": "https://res.cloudinary.com/dkxssdk96/image/upload/v1709058613/helahqdetnpxyiqzdjgu.png",
+    "meta": {
+      "id": "1212104416539316254",
+      "flags": 0,
+      "content": "****A zombie in a leather jacket** - <@674368750807547915> (fast)** - Remix (Strong) by <@674368750807547915> (fast)",
+      "hash": "55d93e15-8294-4523-be8c-e61bd35c7b3f",
+      "progress": "done",
+      "uri": "https://cdn.discordapp.com/attachments/1016373031741968479/1212104415519965244/flapshatner_A_zombie_in_a_leather_jacket_-_674368750807547915_f_55d93e15-8294-4523-be8c-e61bd35c7b3f.png?ex=65f09f34&is=65de2a34&hm=bf522dd209c77b0fec65ebbcbc92bbcceac7a0e222309aca2bb5746f4fe94632&",
+      "proxy_url": "https://media.discordapp.net/attachments/1016373031741968479/1212104415519965244/flapshatner_A_zombie_in_a_leather_jacket_-_674368750807547915_f_55d93e15-8294-4523-be8c-e61bd35c7b3f.png?ex=65f09f34&is=65de2a34&hm=bf522dd209c77b0fec65ebbcbc92bbcceac7a0e222309aca2bb5746f4fe94632&",
+      "options": [
+        { "type": 2, "style": 2, "label": "U1", "custom": "MJ::JOB::upsample::1::55d93e15-8294-4523-be8c-e61bd35c7b3f" },
+        { "type": 2, "style": 2, "label": "U2", "custom": "MJ::JOB::upsample::2::55d93e15-8294-4523-be8c-e61bd35c7b3f" },
+        { "type": 2, "style": 2, "label": "U3", "custom": "MJ::JOB::upsample::3::55d93e15-8294-4523-be8c-e61bd35c7b3f" },
+        { "type": 2, "style": 2, "label": "U4", "custom": "MJ::JOB::upsample::4::55d93e15-8294-4523-be8c-e61bd35c7b3f" },
+        { "type": 2, "style": 2, "label": "🔄", "custom": "MJ::JOB::reroll::0::55d93e15-8294-4523-be8c-e61bd35c7b3f::SOLO" },
+        { "type": 2, "style": 2, "label": "V1", "custom": "MJ::JOB::variation::1::55d93e15-8294-4523-be8c-e61bd35c7b3f" },
+        { "type": 2, "style": 2, "label": "V2", "custom": "MJ::JOB::variation::2::55d93e15-8294-4523-be8c-e61bd35c7b3f" },
+        { "type": 2, "style": 2, "label": "V3", "custom": "MJ::JOB::variation::3::55d93e15-8294-4523-be8c-e61bd35c7b3f" },
+        { "type": 2, "style": 2, "label": "V4", "custom": "MJ::JOB::variation::4::55d93e15-8294-4523-be8c-e61bd35c7b3f" }
+      ],
+      "width": 2048,
+      "height": 2048
+    }
+  }
+]

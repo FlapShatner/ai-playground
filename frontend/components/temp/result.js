@@ -1,0 +1,27 @@
+const res = {
+  id: '1212129776865771540',
+  flags: 0,
+  content: '****Zombie riding a motorcycle in a leather jacket** - <@674368750807547915> (fast)** - Image #3 <@674368750807547915>',
+  hash: 'c509f9c6-6995-4a79-a03e-b0bb00ee2b99',
+  progress: 'done',
+  uri: 'https://cdn.discordapp.com/attachments/1016373031741968479/1212129771866292314/flapshatner_Zombie_riding_a_motorcycle_in_a_leather_jacket_-_67_c509f9c6-6995-4a79-a03e-b0bb00ee2b99.png?ex=65f0b6d1&is=65de41d1&hm=f2cf5caff7e710963ed1e007eb22f53d49a1b6e1aff05c3ff90675cd5d0d3d44&',
+  proxy_url:
+    'https://media.discordapp.net/attachments/1016373031741968479/1212129771866292314/flapshatner_Zombie_riding_a_motorcycle_in_a_leather_jacket_-_67_c509f9c6-6995-4a79-a03e-b0bb00ee2b99.png?ex=65f0b6d1&is=65de41d1&hm=f2cf5caff7e710963ed1e007eb22f53d49a1b6e1aff05c3ff90675cd5d0d3d44&',
+  options: [
+    { type: 2, style: 2, label: 'Upscale (Subtle)', custom: 'MJ::JOB::upsample_v6_2x_subtle::1::c509f9c6-6995-4a79-a03e-b0bb00ee2b99::SOLO' },
+    { type: 2, style: 2, label: 'Upscale (Creative)', custom: 'MJ::JOB::upsample_v6_2x_creative::1::c509f9c6-6995-4a79-a03e-b0bb00ee2b99::SOLO' },
+    { type: 2, style: 2, label: 'Vary (Subtle)', custom: 'MJ::JOB::low_variation::1::c509f9c6-6995-4a79-a03e-b0bb00ee2b99::SOLO' },
+    { type: 2, style: 2, label: 'Vary (Strong)', custom: 'MJ::JOB::high_variation::1::c509f9c6-6995-4a79-a03e-b0bb00ee2b99::SOLO' },
+    { type: 2, style: 2, label: 'Vary (Region)', custom: 'MJ::Inpaint::1::c509f9c6-6995-4a79-a03e-b0bb00ee2b99::SOLO' },
+    { type: 2, style: 2, label: 'Zoom Out 2x', custom: 'MJ::Outpaint::50::1::c509f9c6-6995-4a79-a03e-b0bb00ee2b99::SOLO' },
+    { type: 2, style: 2, label: 'Zoom Out 1.5x', custom: 'MJ::Outpaint::75::1::c509f9c6-6995-4a79-a03e-b0bb00ee2b99::SOLO' },
+    { type: 2, style: 2, label: 'Custom Zoom', custom: 'MJ::CustomZoom::c509f9c6-6995-4a79-a03e-b0bb00ee2b99' },
+    { type: 2, style: 2, label: '⬅️', custom: 'MJ::JOB::pan_left::1::c509f9c6-6995-4a79-a03e-b0bb00ee2b99::SOLO' },
+    { type: 2, style: 2, label: '➡️', custom: 'MJ::JOB::pan_right::1::c509f9c6-6995-4a79-a03e-b0bb00ee2b99::SOLO' },
+    { type: 2, style: 2, label: '⬆️', custom: 'MJ::JOB::pan_up::1::c509f9c6-6995-4a79-a03e-b0bb00ee2b99::SOLO' },
+    { type: 2, style: 2, label: '⬇️', custom: 'MJ::JOB::pan_down::1::c509f9c6-6995-4a79-a03e-b0bb00ee2b99::SOLO' },
+    { type: 2, style: 2, label: '❤️', custom: 'MJ::BOOKMARK::c509f9c6-6995-4a79-a03e-b0bb00ee2b99' },
+  ],
+  width: 1024,
+  height: 1024,
+}

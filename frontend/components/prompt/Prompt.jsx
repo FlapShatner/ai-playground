@@ -26,12 +26,12 @@ function Prompt() {
     setPrompt(e.target.value)
   }
 
-  const addToHistory = (prompt, url, style, meta) => {
+  const addToHistory = (prompt, url, style, meta, up) => {
     let newHistory = [...history]
     // if (newHistory.length >= 5) {
     //   newHistory.pop()
     // }
-    newHistory.unshift({ prompt, url, style, meta })
+    newHistory.unshift({ prompt, url, style, meta, up })
     setHistory(newHistory)
   }
 
@@ -61,9 +61,9 @@ function Prompt() {
           return
         }
         const json = await res.json()
-        setGenerated({ url: json.url, meta: json.meta })
+        setGenerated({ url: json.url, meta: json.meta, up: false })
         setCaption(prompt)
-        addToHistory(prompt, json.url, imageStyle.id, json.meta)
+        addToHistory(prompt, json.url, imageStyle.id, json.meta, false)
         // console.log(json)
         setIsLoading(false)
         setPrompt('')

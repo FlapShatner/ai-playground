@@ -26,15 +26,12 @@ import {
 
 export default function App({ home }) {
   const [generated, setGenerated] = useAtom(generatedAtom)
-  const [caption, setCaption] = useAtom(captionAtom)
   const [size, setSize] = useAtom(sizeAtom)
   const [quantity, setQuantity] = useAtom(quantityAtom)
   const [isSuccess, setIsSuccess] = useAtom(isSuccessAtom)
   const [loading, setLoading] = useAtom(loadingAtom)
-  const [imageStyle, setImageStyle] = useAtom(imageStyleAtom)
   const [modalIsOpen, setModalIsOpen] = useAtom(modalIsOpenAtom)
   const [suggestions, setSuggestions] = useAtom(suggestionsAtom)
-  const [isLoading, setIsLoading] = useAtom(isLoadingAtom)
   const [notes, setNotes] = useAtom(notesAtom)
   const [cart, setCart] = useAtom(cartAtom)
 
@@ -136,7 +133,7 @@ export default function App({ home }) {
         </div>
       </div>
       <Suggestions suggestions={suggestions} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
-      <Gallery setImageStyle={setImageStyle} setCaption={setCaption} generated={generated} setGenerated={setGenerated} />
+      <Gallery />
       <div className='w-full h-[2px] bg-accent'></div>
     </div>
   )

@@ -2,7 +2,8 @@ import { atom } from "jotai";
 
 export const generatedAtom = atom({
     url:'',
-    meta: {}
+    meta: {},
+    up: false
 });
 export const captionAtom = atom('');
 export const sizeAtom = atom('');
@@ -21,3 +22,5 @@ export const isOpenAtom = atom(false);
 export const imageArrayAtom = atom([]);
 export const activeIndexAtom = atom(null);
 export const modifyIdAtom = atom(null);
+export const detailModeAtom = atom(false);
+export const detailImageAtom = atom(null);

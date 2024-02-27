@@ -3,9 +3,15 @@ import React, { useState } from 'react'
 import { prompts } from './prePrompt'
 import { useLocalStorage } from 'usehooks-ts'
 import { cn } from './utils'
+import { useAtom } from 'jotai'
+import { generatedAtom, captionAtom, imageStyleAtom } from './atoms'
 import HistoryModal from './HistoryModal'
 
-function Gallery({ setCaption, setGenerated, generated, setImageStyle }) {
+function Gallery() {
+  const [caption, setCaption] = useAtom(captionAtom)
+  const [generated, setGenerated] = useAtom(generatedAtom)
+  const [imageStyle, setImageStyle] = useAtom(imageStyleAtom)
+
   const [history, setHistory] = useLocalStorage('history', [])
   const [isOpen, setIsOpen] = useState(false)
   return (
@@ -27,7 +33,7 @@ function Gallery({ setCaption, setGenerated, generated, setImageStyle }) {
             history.map((item, i) => {
               const isActive = item.url == generated
               const handleClick = () => {
-                setGenerated({ url: item.url, meta: item.meta })
+                setGenerated({ url: item.url, meta: item.meta, up: item.up })
                 setCaption(item.prompt)
                 const thisStyle = prompts.find((style) => style.id == item.style)
                 if (!thisStyle) return

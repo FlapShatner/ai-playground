@@ -162,12 +162,37 @@ export const getVariants = async (meta, i) => {
         index: i
       }),
     })
+    console.log('resp', resp)
     if (!resp.ok) {
       throw new Error('Failed to generate image')
     }
+    
     return resp
   } catch {
     console.log('error')
     return { ok: false, error: 'Failed to generate variants' }
   }
 } 
+
+export const upscale = async (meta, i) => {
+  try{
+    const resp = await fetch('/a/image/upscale', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        job: meta,
+        index: i
+      }),
+    })
+    if (!resp.ok) {
+      throw new Error('Failed to generate image')
+    }
+    
+    return resp
+  } catch {
+    console.log('error')
+    return { ok: false, error: 'Failed to upscale image' }
+  }
+}

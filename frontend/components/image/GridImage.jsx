@@ -9,8 +9,13 @@ function GridImage({ img, i }) {
     setActiveIndex({ id: e.target.id, index: i })
   }
   return (
-    <div key={i} className={cn('aspect-square overflow-hidden', activeIndex?.id == img.label && 'border-2 border-accent-bright -m-[2px]')}>
-      <img onClick={handleSelect} id={img.label} className='object-cover w-full h-full' src={img.url} alt='Generated image' />
+    <div
+      key={i}
+      className={cn(
+        'aspect-square overflow-hidden hover:border-2 hover:border-accent hover:-m-[2px]',
+        activeIndex?.id == img.label && 'border-4 border-accent-bright -m-[4px] hover:border-4 hover:border-accent-bright hover:-m-[4px] '
+      )}>
+      <img onClick={handleSelect} id={img.label} className='cursor-pointer object-cover w-full h-full' src={img.url} alt='Generated image' />
     </div>
   )
 }
