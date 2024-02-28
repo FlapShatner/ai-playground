@@ -24,3 +24,7 @@ export const activeIndexAtom = atom(null);
 export const modifyIdAtom = atom(null);
 export const detailModeAtom = atom(false);
 export const detailImageAtom = atom(null);
+
+export const isMakingVariantsAtom = atom(false);
+export const isUpscalingAtom = atom(false);
+export const isGeneratingAtom = atom(false);

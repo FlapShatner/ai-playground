@@ -1,5 +1,6 @@
 import { clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
+import { v4 as uuid } from "uuid"
 
 export function cn(...inputs) {
   return twMerge(clsx(inputs))
@@ -125,10 +126,24 @@ export const getQuadrants = (url) => {
   })
 }
 
+export const uniqueId = () => {
+  return uuid().slice(0, 8)
+}
 
+export async function getProgress(id){
+  try {
+    const resp = await fetch(`/a/image/prog/:${id}`)
+    if (!resp.ok) {
+      throw new Error('Failed to get progress')
+    }
+    return resp
+  }catch(error){
+    console.log('error:', error)
+  }
+}
 
 export async function generate(data) {
-  const { prompt, style, fullPrompt } = data
+  const { prompt, style, id } = data
   try {
     const resp = await fetch('/a/image/gen', {
       method: 'POST',
@@ -137,9 +152,10 @@ export async function generate(data) {
       },
       body: JSON.stringify({
         prompt: prompt,
+        id:id
       }),
     })
-    if (!resp.ok) {
+    if (!resp.status === 200) {
       throw new Error('Failed to generate image')
     }
     return resp

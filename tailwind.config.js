@@ -15,7 +15,8 @@ export const theme = {
       "divider": "#EAEAEA",
       "img-bg": "#EEEEEE",
       "icon": "#898989",
-      "backdrop": "#1a1a1a75"
+      "backdrop": "#1a1a1a75",
+      "backdrop-dark":"#1a1a1ad3"
     },
     backgroundImage: {
         'pholder':"url('https://res.cloudinary.com/dkxssdk96/image/upload/v1706821466/square-pholder_iwtdfz.png')"

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
-import { generate, cn, getSuggest } from '../utils'
+import { generate, cn, getSuggest, uniqueId, getProgress } from '../utils'
 import Guide from '../Guide'
 import Help from '../icons/Help'
 import Paste from '../icons/Paste'
@@ -9,7 +9,18 @@ import StyleSelect from './StyleSelect'
 import Selected from './Selected'
 import { DevTools } from 'jotai-devtools'
 import { useAtom } from 'jotai'
-import { generatedAtom, captionAtom, imageStyleAtom, suggestionsAtom, modalIsOpenAtom, isLoadingAtom, promptAtom } from '../atoms'
+import {
+  generatedAtom,
+  captionAtom,
+  imageStyleAtom,
+  suggestionsAtom,
+  modalIsOpenAtom,
+  isLoadingAtom,
+  promptAtom,
+  detailModeAtom,
+  isGeneratingAtom,
+} from '../atoms'
+import { set } from 'react-hook-form'
 
 function Prompt() {
   const [history, setHistory] = useLocalStorage('history', [])
@@ -21,6 +32,10 @@ function Prompt() {
   const [prompt, setPrompt] = useAtom(promptAtom)
   const [isError, setIsError] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const [detailMode, setDetailMode] = useAtom(detailModeAtom)
+  const [isGenerating, setIsGenerating] = useAtom(isGeneratingAtom)
+
+  const [polling, setPolling] = useState(false)
 
   const handleChange = (e) => {
     setPrompt(e.target.value)
@@ -37,10 +52,12 @@ function Prompt() {
 
   const handleClick = () => {
     if (prompt) {
+      setPolling(true)
       const fullPrompt = prompt + ' ' + imageStyle.prompt
       // const data = { prompt: prompt, fullPrompt: fullPrompt, style: imageStyle.id }
-      const data = { prompt: prompt, style: imageStyle.id }
-      setIsLoading(true)
+      const id = uniqueId()
+      const data = { prompt: prompt, style: imageStyle.id, id: id }
+      setIsGenerating(true)
       // getSuggest(prompt).then(async (res) => {
       //   // console.log('suggestions:', res)
       //   if (res.error || res.length === 0) {
@@ -52,22 +69,39 @@ function Prompt() {
       generate(data).then(async (res) => {
         // console.log('generated:', res)
         if (!res.ok) {
-          setIsLoading(false)
+          setIsGenerating(false)
           console.log(res.error)
           setIsError(true)
           setTimeout(() => {
             setIsError(false)
           }, 3000)
+          setPolling(false)
           return
         }
         const json = await res.json()
         setGenerated({ url: json.url, meta: json.meta, up: false })
+        setDetailMode(false)
         setCaption(prompt)
         addToHistory(prompt, json.url, imageStyle.id, json.meta, false)
         // console.log(json)
-        setIsLoading(false)
+        setIsGenerating(false)
         setPrompt('')
+        setPolling(false)
       })
+      let interval = setInterval(() => {
+        if (!polling) {
+          clearInterval(interval)
+        }
+        getProgress(id)
+        console.log('called getProgress')
+        // getProgress(id).then(async (res) => {
+        //   if (res.ok) {
+        //     const json = await res.json()
+        //     console.log('progress:', json)
+        //   }
+        //   console.log(res)
+        // })
+      }, 5000)
     }
   }
 
@@ -124,7 +158,7 @@ function Prompt() {
         type='submit'
         className='cursor-pointer border-2 flex justify-center sm:p-4 bg-bg-secondary active:scale-95 hover:bg-bg-primary text-accent border-accent h-[71px] w-full sm:w-auto items-center mb-12 mt-8 rounded-md'
         onClick={handleClick}>
-        {isLoading ? (
+        {isGenerating ? (
           <div className={cn('flex items-center justify-center gap-3 text-lg  font-semibold')}>Generating...</div>
         ) : (
           <span className='text-lg font-semibold'>Generate Design</span>
