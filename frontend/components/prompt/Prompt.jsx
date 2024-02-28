@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
-import { generate, cn, getSuggest, uniqueId, getProgress } from '../utils'
+import { generate, cn, getSuggest } from '../utils'
+import useWebSocket from '../hooks/useWebSocket'
 import Guide from '../Guide'
 import Help from '../icons/Help'
 import Paste from '../icons/Paste'
@@ -28,14 +29,13 @@ function Prompt() {
   const [generated, setGenerated] = useAtom(generatedAtom)
   const [caption, setCaption] = useAtom(captionAtom)
   const [imageStyle, setImageStyle] = useAtom(imageStyleAtom)
-  const [isLoading, setIsLoading] = useAtom(isLoadingAtom)
   const [prompt, setPrompt] = useAtom(promptAtom)
   const [isError, setIsError] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [detailMode, setDetailMode] = useAtom(detailModeAtom)
   const [isGenerating, setIsGenerating] = useAtom(isGeneratingAtom)
 
-  const [polling, setPolling] = useState(false)
+  const { ws, wsId, status, finalResult } = useWebSocket('wss://tunnel.ink-dev.com')
 
   const handleChange = (e) => {
     setPrompt(e.target.value)
@@ -43,20 +43,14 @@ function Prompt() {
 
   const addToHistory = (prompt, url, style, meta, up) => {
     let newHistory = [...history]
-    // if (newHistory.length >= 5) {
-    //   newHistory.pop()
-    // }
     newHistory.unshift({ prompt, url, style, meta, up })
     setHistory(newHistory)
   }
 
   const handleClick = () => {
     if (prompt) {
-      setPolling(true)
       const fullPrompt = prompt + ' ' + imageStyle.prompt
-      // const data = { prompt: prompt, fullPrompt: fullPrompt, style: imageStyle.id }
-      const id = uniqueId()
-      const data = { prompt: prompt, style: imageStyle.id, id: id }
+      const data = { prompt: prompt, style: imageStyle.id, wsId: wsId }
       setIsGenerating(true)
       // getSuggest(prompt).then(async (res) => {
       //   // console.log('suggestions:', res)
@@ -66,6 +60,10 @@ function Prompt() {
       //   setSuggestions(res)
       //   setModalIsOpen(true)
       // })
+      if (!wsId) {
+        console.error('WebSocket ID is not set')
+        return
+      }
       generate(data).then(async (res) => {
         // console.log('generated:', res)
         if (!res.ok) {
@@ -75,33 +73,18 @@ function Prompt() {
           setTimeout(() => {
             setIsError(false)
           }, 3000)
-          setPolling(false)
           return
         }
         const json = await res.json()
-        setGenerated({ url: json.url, meta: json.meta, up: false })
-        setDetailMode(false)
-        setCaption(prompt)
-        addToHistory(prompt, json.url, imageStyle.id, json.meta, false)
-        // console.log(json)
-        setIsGenerating(false)
-        setPrompt('')
-        setPolling(false)
+        console.log('json:', json)
+
+        // setGenerated({ url: json.url, meta: json.meta, up: false })
+        // setDetailMode(false)
+        // setCaption(prompt)
+        // addToHistory(prompt, json.url, imageStyle.id, json.meta, false)
+        // setIsGenerating(false)
+        // setPrompt('')
       })
-      let interval = setInterval(() => {
-        if (!polling) {
-          clearInterval(interval)
-        }
-        getProgress(id)
-        console.log('called getProgress')
-        // getProgress(id).then(async (res) => {
-        //   if (res.ok) {
-        //     const json = await res.json()
-        //     console.log('progress:', json)
-        //   }
-        //   console.log(res)
-        // })
-      }, 5000)
     }
   }
 

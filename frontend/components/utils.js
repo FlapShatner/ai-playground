@@ -126,34 +126,17 @@ export const getQuadrants = (url) => {
   })
 }
 
-export const uniqueId = () => {
-  return uuid().slice(0, 8)
-}
 
-export async function getProgress(id){
-  try {
-    const resp = await fetch(`/a/image/prog/:${id}`)
-    if (!resp.ok) {
-      throw new Error('Failed to get progress')
-    }
-    return resp
-  }catch(error){
-    console.log('error:', error)
-  }
-}
 
 export async function generate(data) {
-  const { prompt, style, id } = data
+  // const { prompt, style } = data
   try {
     const resp = await fetch('/a/image/gen', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        prompt: prompt,
-        id:id
-      }),
+      body: JSON.stringify(data),
     })
     if (!resp.status === 200) {
       throw new Error('Failed to generate image')
