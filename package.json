@@ -19,6 +19,8 @@
     "cleanup": "rimraf --glob extensions/*/assets/*.{json,geetkeep}"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.13.0",
+    "@cloudinary/url-gen": "^1.18.0",
     "@emotion/react": "^11.11.3",
     "@hookform/error-message": "^2.0.1",
     "@hookform/resolvers": "^3.3.2",

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import Modal from 'react-modal'
-import { cn } from './utils'
+import { cn } from '../utils'
 import { useLocalStorage, useLockedBody } from 'usehooks-ts'
-import CloseIcon from './icons/CloseIcon'
+import CloseIcon from '../icons/CloseIcon'
 
 function HistoryModal({ setCaption, setGenerated, generated, setImageStyle, isOpen, setIsOpen }) {
   const [locked, setLocked] = useLockedBody(false, 'root')
@@ -41,9 +41,9 @@ function HistoryModal({ setCaption, setGenerated, generated, setImageStyle, isOp
       </p>
       <div className='flex flex-wrap gap-3 justify-center p-8'>
         {history.map((item, i) => {
-          const isActive = item.url == generated
+          const isActive = item.url == generated.url
           const handleClick = () => {
-            setGenerated(item.url)
+            setGenerated(item)
             setCaption(item.prompt)
             setIsOpen(false)
             const thisStyle = prompts.find((style) => style.id == item.style)

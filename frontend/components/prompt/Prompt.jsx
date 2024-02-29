@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
+import useIsSmall from '../hooks/useIsSmall'
 import { generate, cn, getSuggest } from '../utils'
 import useWebSocket from '../hooks/useWebSocket'
 import Guide from '../Guide'
 import Help from '../icons/Help'
 import Paste from '../icons/Paste'
-import Loader from '../loader/Loader'
 import StyleSelect from './StyleSelect'
-import Selected from './Selected'
 import { DevTools } from 'jotai-devtools'
 import { useAtom } from 'jotai'
 import {
@@ -20,12 +19,13 @@ import {
   promptAtom,
   detailModeAtom,
   isGeneratingAtom,
+  progressAtom,
+  wsIdAtom,
 } from '../atoms'
 import { set } from 'react-hook-form'
 
 function Prompt() {
   const [history, setHistory] = useLocalStorage('history', [])
-
   const [generated, setGenerated] = useAtom(generatedAtom)
   const [caption, setCaption] = useAtom(captionAtom)
   const [imageStyle, setImageStyle] = useAtom(imageStyleAtom)
@@ -34,20 +34,25 @@ function Prompt() {
   const [isOpen, setIsOpen] = useState(false)
   const [detailMode, setDetailMode] = useAtom(detailModeAtom)
   const [isGenerating, setIsGenerating] = useAtom(isGeneratingAtom)
+  const [progress, setProgress] = useAtom(progressAtom)
+  const [wsId, setWsId] = useAtom(wsIdAtom)
 
-  const { ws, wsId, status, finalResult } = useWebSocket('wss://tunnel.ink-dev.com')
+  const isSmall = useIsSmall()
+  useWebSocket('wss://tunnel.ink-dev.com')
+
+  const addToHistory = (prompt, url, publicId, style, meta, up) => {
+    let newHistory = [...history]
+    newHistory.unshift({ prompt, url, publicId, style, meta, up })
+    setHistory(newHistory)
+  }
 
   const handleChange = (e) => {
     setPrompt(e.target.value)
   }
 
-  const addToHistory = (prompt, url, style, meta, up) => {
-    let newHistory = [...history]
-    newHistory.unshift({ prompt, url, style, meta, up })
-    setHistory(newHistory)
-  }
-
   const handleClick = () => {
+    setProgress('1%')
+    setGenerated({ url: '', publicId: '', meta: {}, up: false })
     if (prompt) {
       const fullPrompt = prompt + ' ' + imageStyle.prompt
       const data = { prompt: prompt, style: imageStyle.id, wsId: wsId }
@@ -76,14 +81,14 @@ function Prompt() {
           return
         }
         const json = await res.json()
-        console.log('json:', json)
-
-        // setGenerated({ url: json.url, meta: json.meta, up: false })
-        // setDetailMode(false)
-        // setCaption(prompt)
-        // addToHistory(prompt, json.url, imageStyle.id, json.meta, false)
-        // setIsGenerating(false)
-        // setPrompt('')
+        const data = JSON.parse(json)
+        console.log('data:', data)
+        setGenerated({ url: data.imgData.url, publicId: data.imgData.publicId, meta: data.meta, up: false })
+        setDetailMode(false)
+        setIsGenerating(false)
+        setCaption(prompt)
+        addToHistory(prompt, data.imgData.url, data.imgData.publicId, imageStyle.id, data.meta, false)
+        setPrompt('')
       })
     }
   }
@@ -100,7 +105,7 @@ function Prompt() {
   }
 
   return (
-    <form className='flex flex-col w-full'>
+    <form className={cn('flex flex-col w-full justify-end', isSmall && 'w-[80vh] m-auto')}>
       <DevTools />
       <span
         onClick={() => setIsOpen(true)}
@@ -111,9 +116,9 @@ function Prompt() {
       <Guide isOpen={isOpen} setIsOpen={setIsOpen} />
 
       <div className='sm:flex sm:justify-between sm:items-end sm:gap-4 md:flex-col md:items-start w-full'>
-        <div className=' sm:w-2/3 md:w-full'>
+        <div className='w-full'>
           <textarea
-            className='px-2 py-1 h-12 placeholder:opacity-60 border border-border'
+            className={cn('px-2 py-1 h-48 placeholder:opacity-60 border border-border', isSmall && 'h-12')}
             id='prompt'
             value={prompt}
             onKeyDown={handleKeyDown}
@@ -139,7 +144,7 @@ function Prompt() {
       <div
         role='button'
         type='submit'
-        className='cursor-pointer border-2 flex justify-center sm:p-4 bg-bg-secondary active:scale-95 hover:bg-bg-primary text-accent border-accent h-[71px] w-full sm:w-auto items-center mb-12 mt-8 rounded-md'
+        className='cursor-pointer border-2 flex justify-center sm:p-4 bg-bg-secondary active:scale-95 hover:bg-bg-primary text-accent border-accent h-[71px] w-full sm:w-auto items-center mt-8 rounded-md'
         onClick={handleClick}>
         {isGenerating ? (
           <div className={cn('flex items-center justify-center gap-3 text-lg  font-semibold')}>Generating...</div>
@@ -147,7 +152,6 @@ function Prompt() {
           <span className='text-lg font-semibold'>Generate Design</span>
         )}
       </div>
-      {/* <Selected /> */}
     </form>
   )
 }

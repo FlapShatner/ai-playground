@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { addToCart, getCart, cn } from './utils'
-import { useWindowSize } from 'usehooks-ts'
+import useIsSmall from './hooks/useIsSmall'
 import { prompts } from './prePrompt'
-import Gallery from './Gallery'
+import Gallery from './history/Gallery'
 import Prompt from './prompt/Prompt'
 import Image from './image/Image'
 import Form from './Form'
@@ -35,9 +35,7 @@ export default function App({ home }) {
   const [notes, setNotes] = useAtom(notesAtom)
   const [cart, setCart] = useAtom(cartAtom)
 
-  const { width } = useWindowSize()
-  let isSmall = width < 640
-  let isMedium = width < 768 && width >= 640
+  const isSmall = useIsSmall()
 
   const formData = {
     id: size,
@@ -66,7 +64,7 @@ export default function App({ home }) {
     const res = await addToCart({
       ...formData,
       properties: {
-        _image: generated,
+        _image: generated.url,
         notes: notes,
       },
     })
@@ -98,36 +96,11 @@ export default function App({ home }) {
         <div className='w-full gap-4 flex flex-col-reverse md:flex-row justify-center p-4 m-auto'>
           <div className={cn('flex flex-row gap-4 w-full', isSmall && 'flex-col-reverse')}>
             <Prompt />
-
             <Image />
             {/* {isSmall ? (
-              <MobileForm
-                size={size}
-                setSize={setSize}
-                quantity={quantity}
-                setQuantity={setQuantity}
-                addVariantToCart={addVariantToCart}
-                enabled={enabled}
-                isSuccess={isSuccess}
-                loading={loading}
-                generated={generated}
-                notes={notes}
-                setNotes={setNotes}
-              />
+              <MobileForm />
             ) : (
-              <Form
-                generated={generated}
-                size={size}
-                setSize={setSize}
-                quantity={quantity}
-                setQuantity={setQuantity}
-                addVariantToCart={addVariantToCart}
-                enabled={enabled}
-                isSuccess={isSuccess}
-                loading={loading}
-                notes={notes}
-                setNotes={setNotes}
-              />
+              <Form />
             )} */}
           </div>
         </div>

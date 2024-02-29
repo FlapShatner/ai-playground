@@ -2,6 +2,7 @@ import { atom } from "jotai";
 
 export const generatedAtom = atom({
     url:'',
+    publicId:'',
     meta: {},
     up: false
 });
@@ -28,3 +29,9 @@ export const detailImageAtom = atom(null);
 export const isMakingVariantsAtom = atom(false);
 export const isUpscalingAtom = atom(false);
 export const isGeneratingAtom = atom(false);
+
+export const  progressAtom = atom('1%');
+export const finalResultAtom = atom(null);
+export const webSocketAtom = atom(null);
+export const wsIdAtom = atom(null);
+

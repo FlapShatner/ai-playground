@@ -5,6 +5,7 @@ export const theme = {
     colors: {
       "bg-primary": "#0D0E0F",
       "bg-secondary": "#1A1A1A",
+      "bg-tertiary": "#222222",
       "accent": "#d2ac53",
       "accent-bright": "#FCC000",
       "btn-bg": "#000",

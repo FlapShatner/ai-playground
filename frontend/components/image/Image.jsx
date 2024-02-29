@@ -1,55 +1,39 @@
 import React from 'react'
+import { cn } from '../utils'
+import useIsSmall from '../hooks/useIsSmall'
 import Grid from './Grid'
 import Upscaled from './Upscaled'
-import SquaresLoad from '../loader/SquaresLoad'
-import { cn } from '../utils'
-import { useWindowSize } from 'usehooks-ts'
-import { useAtom } from 'jotai'
-import { generatedAtom, captionAtom, isGeneratingAtom } from '../atoms'
+import Progress from '../prompt/Progress'
+import { useAtomValue } from 'jotai'
+import { generatedAtom, captionAtom, isGeneratingAtom, isMakingVariantsAtom, isUpscalingAtom } from '../atoms'
+import Generating from './Generating'
+import Placeholder from './Placeholder'
 
 function Image() {
-  const [generated, setGenerated] = useAtom(generatedAtom)
-  const [caption, setCaption] = useAtom(captionAtom)
-  const [isGenerating, setIsGenerating] = useAtom(isGeneratingAtom)
-  const { width } = useWindowSize()
-  let isSmall = width < 640
-  let isFlex = width > 768
+  const generated = useAtomValue(generatedAtom)
+  const caption = useAtomValue(captionAtom)
+  const isGenerating = useAtomValue(isGeneratingAtom)
+  const isMakingVariants = useAtomValue(isMakingVariantsAtom)
+  const isUpscaling = useAtomValue(isUpscalingAtom)
+  const isGenerated = generated?.url.length > 0
 
-  const listText = [
-    'Describe your design in the box below',
-    'Choose a style in the dropdown',
-    'Click "Generate" to make your new design appear right here',
-    'Choose a decal size and add your new design to your cart!',
-  ]
-  const largeListText = [
-    'Describe your design in the box to the left',
-    'Choose a style in the dropdown',
-    'Click "Generate" to make your new design appear right here',
-    'Choose a decal size and add your new design to your cart!',
-  ]
+  const isSmall = useIsSmall()
 
   return (
-    <div className='relative'>
-      {!isGenerating ? (
-        generated?.url.length > 0 ? (
-          <div className={cn(isSmall && 'flex flex-col-reverse')}>
-            <p className='text-center'>{caption}</p>
-            <div className='h-[95vh]  aspect-square overflow-hidden relative border border-border'>{generated.up ? <Upscaled /> : <Grid />}</div>
-          </div>
-        ) : (
-          <div className='h-[80vh] aspect-square overflow-hidden relative border border-border '>
-            <img className=' opacity-10' src='https://res.cloudinary.com/dkxssdk96/image/upload/v1709067340/robotpaint_sfkx3t.png' alt='Placeholder image' />
-          </div>
-        )
-      ) : (
-        <div className='h-[80vh] aspect-square overflow-hidden relative border border-border '>
-          <img className=' opacity-10' src='https://res.cloudinary.com/dkxssdk96/image/upload/v1709067340/robotpaint_sfkx3t.png' alt='Placeholder image' />
-
-          <div className='absolute top-0 left-0 w-full h-full bg-transparent'>
-            <SquaresLoad />
+    <div className='relative m-auto'>
+      {isGenerating || isMakingVariants || isUpscaling ? (
+        <Generating />
+      ) : isGenerated ? (
+        <div>
+          <p className='text-center'>{caption}</p>
+          <div className={cn('h-[95vh]  aspect-square overflow-hidden relative border border-border', isSmall && 'h-[80vh]')}>
+            {generated.up ? <Upscaled /> : <Grid />}
           </div>
         </div>
+      ) : (
+        <Placeholder />
       )}
+      {(isGenerating || isMakingVariants) && <Progress />}
     </div>
   )
 }
