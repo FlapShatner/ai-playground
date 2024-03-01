@@ -1,13 +1,16 @@
 import React from 'react'
 import { useAtom } from 'jotai'
-import { generatedAtom, promptAtom } from '../atoms'
+import { generatedAtom } from '../atoms'
+import { cld } from '../cloudinary'
+import { AdvancedImage, placeholder } from '@cloudinary/react'
 
 function Upscaled() {
   const [generated, setGenerated] = useAtom(generatedAtom)
-  const [prompt, setPrompt] = useAtom(promptAtom)
+  const image = cld.image(generated.publicId)
+  image.quality('auto:best')
   return (
     <a href={generated.url} target='_blank' rel='noopener noreferrer'>
-      <img className='cursor-zoom-in' src={generated.url} alt={prompt} />
+      <AdvancedImage className='cursor-zoom-in' plugins={[placeholder({ mode: 'blur' })]} cldImg={image} />
     </a>
   )
 }

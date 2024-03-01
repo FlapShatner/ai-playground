@@ -53,8 +53,9 @@ function Option({ children, className, optionId }) {
           return
         }
         const json = await res.json()
-        setGenerated({ url: json.url, publicId: json.publicId, meta: json.meta })
-        addToHistory(caption, json.url, json.publicId, imageStyle.id, json.meta)
+        // const data = JSON.parse(json.meta)
+        setGenerated({ url: json.imgData.url, publicId: json.imgData.publicId, meta: json.meta })
+        addToHistory(caption, json.imgData.url, json.imgData.publicId, imageStyle.id, json.meta)
         setDetailMode(false)
         setIsMakingVariants(false)
       })
@@ -70,8 +71,8 @@ function Option({ children, className, optionId }) {
         }
         const json = await res.json()
         const up = true
-        setGenerated({ url: json.url, publicId: json.publicId, meta: json.meta, up: true })
-        addToHistory(caption, json.url, json.publicId, imageStyle.id, json.meta, up)
+        setGenerated({ url: json.imgData.url, publicId: json.imgData.publicId, meta: json.meta, up: up })
+        addToHistory(caption, json.imgData.url, json.imgData.publicId, imageStyle.id, json.meta, up)
         setIsUpscaling(false)
       })
     }

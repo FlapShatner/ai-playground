@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { getQuadrants } from '../utils'
+// import { getQuadrants } from '../utils'
 import GridImage from './GridImage'
+import { cld } from '../cloudinary'
+import { crop } from '@cloudinary/url-gen/actions/resize'
+import { compass } from '@cloudinary/url-gen/qualifiers/gravity'
 import Detail from './Detail'
 import { useAtom } from 'jotai'
 import { generatedAtom, imageArrayAtom, detailModeAtom, detailImageAtom } from '../atoms'
@@ -13,7 +16,21 @@ function Grid() {
     return <div>Loading...</div>
   }
   useEffect(() => {
-    const arr = getQuadrants(generated.url)
+    const arr = () => {
+      // Define the transformations
+      const transformations = {
+        topleft: 'north_west',
+        topright: 'north_east',
+        btmleft: 'south_west',
+        btmright: 'south_east',
+      }
+
+      return Object.entries(transformations).map(([key, value], i) => {
+        const image = cld.image(generated.publicId)
+        image.resize(crop().width(1024).height(1024).gravity(compass(value)))
+        return { id: i, label: key, image: image }
+      })
+    }
     setImageArray(arr)
   }, [generated])
 

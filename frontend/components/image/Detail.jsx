@@ -5,6 +5,7 @@ import CloseIcon from '../icons/CloseIcon'
 import Selected from '../prompt/Selected'
 import LeftArrow from '../icons/leftArrow'
 import SquaresLoad from '../loader/SquaresLoad'
+import { AdvancedImage, placeholder } from '@cloudinary/react'
 
 function Detail() {
   const [detailMode, setDetailMode] = useAtom(detailModeAtom)
@@ -18,7 +19,7 @@ function Detail() {
         <span className='text-lg font-semibold text-accent underline '>Back to grid</span>
       </div>
       <div className='relative'>
-        <img className='w-[80%] m-auto' src={detailImage.url} alt='' />
+        <AdvancedImage className='w-[80%] m-auto' plugins={[placeholder({ mode: 'blur' })]} cldImg={detailImage.image} />
       </div>
       <Selected />
       {(isMakingVariants || isUpscaling) && (

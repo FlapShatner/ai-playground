@@ -1,5 +1,7 @@
 import { clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
+import { cld } from './cloudinary'
+
 import { v4 as uuid } from "uuid"
 
 export function cn(...inputs) {
@@ -107,24 +109,22 @@ export const getProductByHandle = async (handle) => {
 //     return JSON.stringify(resp);
 // }
 
-export const getQuadrants = (url) => {
-  const parts = url.split('/upload/')
-  const baseUrl = parts[0] + '/upload/'
-  const fileName = parts[1]
+// export const getQuadrants = (publidId) => { 
+//   // Define the transformations
+//   const transformations = {
+//     topleft: 't_topleft',
+//     topright: 't_topright',
+//     btmleft: 't_btmleft',
+//     btmright: 't_btmright',
+//   }
   
-  // Define the transformations
-  const transformations = {
-    topleft: 't_topleft',
-    topright: 't_topright',
-    btmleft: 't_btmleft',
-    btmright: 't_btmright',
-  }
-  
-  // Generate URLs with transformations
-  return Object.entries(transformations).map(([key, value], i) => {
-    return { id:i, label: key, url: `${baseUrl}${value}/${fileName}` }
-  })
-}
+ 
+//   return Object.entries(transformations).map(([key, value], i) => {
+//     const image = cld.image(publidId)
+//     image.namedTransformation(name(value))
+//     return { id:i, label: key, image:image }
+//   })
+// }
 
 
 

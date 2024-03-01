@@ -6,6 +6,7 @@ import { cn } from '../utils'
 import { useAtom } from 'jotai'
 import { generatedAtom, captionAtom, imageStyleAtom, detailModeAtom } from '../atoms'
 import HistoryModal from './HistoryModal'
+import GalleryItem from './GalleryItem'
 
 function Gallery() {
   const [caption, setCaption] = useAtom(captionAtom)
@@ -30,26 +31,7 @@ function Gallery() {
           setImageStyle={setImageStyle}
         />
         <div className={cn('flex gap-3 px-2 overflow-x-scroll w-full min-h-28')}>
-          {history.length > 0 &&
-            history.map((item, i) => {
-              const isActive = item.url == generated.url
-              const handleClick = () => {
-                setGenerated({ url: item.url, publicId: item.publicId, meta: item.meta, up: item.up })
-                setDetailMode(false)
-                setCaption(item.prompt)
-                const thisStyle = prompts.find((style) => style.id == item.style)
-                if (!thisStyle) return
-                setImageStyle(thisStyle)
-              }
-              return (
-                <div onClick={handleClick} className='flex flex-col items-center cursor-pointer' key={i}>
-                  <div className={cn('w-32 h-32 object-cover border border-border hover:border-accent', isActive && 'border-accent')}>
-                    <AdvancedImage cldImg={item.url} />
-                  </div>
-                  <p className='text-center text-txt-primary text-xs w-32 text-ellipsis overflow-hidden whitespace-nowrap'>{item.prompt}</p>
-                </div>
-              )
-            })}
+          {history.length > 0 && history.map((item, i) => <GalleryItem item={item} key={i} />)}
         </div>
       </div>
     </>
