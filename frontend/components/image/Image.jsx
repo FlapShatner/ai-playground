@@ -26,7 +26,7 @@ function Image() {
       ) : isGenerated ? (
         <div>
           <p className='text-center'>{caption}</p>
-          <div className={cn('h-[95vh]  aspect-square overflow-hidden relative border border-border', isSmall && 'h-[80vh]')}>
+          <div className={cn('w-[95vh] flex flex-col overflow-hidden relative border border-border', isSmall && '')}>
             {generated.up ? <Upscaled /> : <Grid />}
           </div>
         </div>

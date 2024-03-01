@@ -81,13 +81,13 @@ function Prompt() {
           return
         }
         const json = await res.json()
-        const data = JSON.parse(json)
-        console.log('data:', data)
-        setGenerated({ url: data.imgData.url, publicId: data.imgData.publicId, meta: data.meta, up: false })
+        // const data = JSON.parse(json)
+        console.log('json:', json)
+        setGenerated({ url: json.imgData.url, publicId: json.imgData.publicId, meta: json.meta, up: false })
         setDetailMode(false)
         setIsGenerating(false)
         setCaption(prompt)
-        addToHistory(prompt, data.imgData.url, data.imgData.publicId, imageStyle.id, data.meta, false)
+        addToHistory(prompt, json.imgData.url, json.imgData.publicId, imageStyle.id, json.meta, false)
         setPrompt('')
       })
     }

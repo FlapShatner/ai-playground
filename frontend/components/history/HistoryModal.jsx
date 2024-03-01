@@ -46,7 +46,7 @@ function HistoryModal({ setCaption, setGenerated, generated, setImageStyle, isOp
             setGenerated(item)
             setCaption(item.prompt)
             setIsOpen(false)
-            const thisStyle = prompts.find((style) => style.id == item.style)
+            const thisStyle = prompts?.find((style) => style.id == item.style)
             if (!thisStyle) return
             setImageStyle(thisStyle)
           }
