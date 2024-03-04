@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 import { cn, upscale } from '../utils'
-import { useAtom } from 'jotai'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { isOrderingAtom, generatedAtom, activeIndexAtom, isUpscalingAtom, captionAtom, imageStyleAtom } from '../atoms'
 
 function Order() {
+  const [history, setHistory] = useState([])
   const [isOrdering, setIsOrdering] = useAtom(isOrderingAtom)
   const [generated, setGenerated] = useAtom(generatedAtom)
-  const [activeIndex, setActiveIndex] = useAtom(activeIndexAtom)
-  const [isUpscaling, setIsUpscaling] = useAtom(isUpscalingAtom)
-  const [caption, setCaption] = useAtom(captionAtom)
-  const [imageStyle, setImageStyle] = useAtom(imageStyleAtom)
-  const [history, setHistory] = useState([])
+  const activeIndex = useAtomValue(activeIndexAtom)
+  const caption = useAtomValue(captionAtom)
+  const imageStyle = useAtomValue(imageStyleAtom)
+  const setIsUpscaling = useSetAtom(isUpscalingAtom)
 
   const addToHistory = (prompt, url, publicId, style, meta, up) => {
     let newHistory = [...history]

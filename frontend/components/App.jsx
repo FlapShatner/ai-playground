@@ -1,41 +1,24 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { addToCart, getCart, cn } from './utils'
 import useIsSmall from './hooks/useIsSmall'
-import { prompts } from './prePrompt'
 import Gallery from './history/Gallery'
 import Prompt from './prompt/Prompt'
 import Image from './image/Image'
 import Form from './form/Form'
-import Suggestions from './Suggestions'
+import Suggestions from './suggestions/Suggestions'
 import Banner from './banner/Banner'
-import { useAtom } from 'jotai'
-import {
-  generatedAtom,
-  captionAtom,
-  sizeAtom,
-  quantityAtom,
-  isSuccessAtom,
-  imageStyleAtom,
-  modalIsOpenAtom,
-  suggestionsAtom,
-  isLoadingAtom,
-  notesAtom,
-  cartAtom,
-  isOrderingAtom,
-  addingToCartAtom,
-} from './atoms'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
+import { generatedAtom, sizeAtom, quantityAtom, isSuccessAtom, notesAtom, cartAtom, isOrderingAtom, addingToCartAtom } from './atoms'
 
 export default function App({ home }) {
-  const [generated, setGenerated] = useAtom(generatedAtom)
   const [size, setSize] = useAtom(sizeAtom)
-  const [quantity, setQuantity] = useAtom(quantityAtom)
   const [isSuccess, setIsSuccess] = useAtom(isSuccessAtom)
-  const [modalIsOpen, setModalIsOpen] = useAtom(modalIsOpenAtom)
-  const [suggestions, setSuggestions] = useAtom(suggestionsAtom)
-  const [notes, setNotes] = useAtom(notesAtom)
-  const [cart, setCart] = useAtom(cartAtom)
-  const [isOrdering, setIsOrdering] = useAtom(isOrderingAtom)
-  const [isAddingToCart, setIsAddingToCart] = useAtom(addingToCartAtom)
+  const quantity = useAtomValue(quantityAtom)
+  const generated = useAtomValue(generatedAtom)
+  const notes = useAtomValue(notesAtom)
+  const isOrdering = useAtomValue(isOrderingAtom)
+  const setCart = useSetAtom(cartAtom)
+  const setIsAddingToCart = useSetAtom(addingToCartAtom)
 
   const isSmall = useIsSmall()
 
@@ -69,10 +52,8 @@ export default function App({ home }) {
       },
     })
     if (res) {
-      // console.log(res)
       const ajaxCart = document.querySelector('.minicart__content')
       ajaxCart.innerHTML = res.sections['ajax-cart']
-      // console.log('ajaxCart:', ajaxCart)
       setIsAddingToCart(false)
       setIsSuccess(true)
       setTimeout(() => {
@@ -100,7 +81,7 @@ export default function App({ home }) {
           </div>
         </div>
       </div>
-      <Suggestions suggestions={suggestions} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
+      <Suggestions />
       <Gallery />
       <div className='w-full h-[2px] bg-accent'></div>
     </div>

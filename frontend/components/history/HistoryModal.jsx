@@ -3,16 +3,16 @@ import Modal from 'react-modal'
 import { cn } from '../utils'
 import { useLocalStorage, useLockedBody } from 'usehooks-ts'
 import CloseIcon from '../icons/CloseIcon'
-import { useAtom } from 'jotai'
+import { useAtom, useSetAtom } from 'jotai'
 import { generatedAtom, captionAtom, imageStyleAtom, detailModeAtom, isOrderingAtom } from '../atoms'
 
 function HistoryModal({ isOpen, setIsOpen }) {
+  const [history, setHistory] = useLocalStorage('history', [])
   const [locked, setLocked] = useLockedBody(false, 'root')
   const [generated, setGenerated] = useAtom(generatedAtom)
-  const [caption, setCaption] = useAtom(captionAtom)
-  const [imageStyle, setImageStyle] = useAtom(imageStyleAtom)
-  const [detailMode, setDetailMode] = useAtom(detailModeAtom)
-  const [isOrdering, setIsOrdering] = useAtom(isOrderingAtom)
+  const setCaption = useSetAtom(captionAtom)
+  const setImageStyle = useSetAtom(imageStyleAtom)
+  const setIsOrdering = useSetAtom(isOrderingAtom)
   useEffect(() => {
     setLocked(isOpen)
     return () => setLocked(false)
@@ -36,7 +36,6 @@ function HistoryModal({ isOpen, setIsOpen }) {
       zIndex: 1000,
     },
   }
-  const [history, setHistory] = useLocalStorage('history', [])
   return (
     <Modal style={customStyles} isOpen={isOpen} shouldCloseOnEsc={true} shouldCloseOnOverlayClick={true} onRequestClose={() => setIsOpen(false)}>
       <div className='flex justify-between p-4'>

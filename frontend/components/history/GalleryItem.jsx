@@ -2,16 +2,16 @@ import React from 'react'
 import { AdvancedImage, placeholder } from '@cloudinary/react'
 import { prompts } from '../prePrompt'
 import { cn } from '../utils'
-import { useAtom } from 'jotai'
+import { useAtom, useSetAtom } from 'jotai'
 import { cld } from '../cloudinary'
 import { generatedAtom, captionAtom, imageStyleAtom, detailModeAtom, isOrderingAtom } from '../atoms'
 
 function GalleryItem({ item, i }) {
-  const [caption, setCaption] = useAtom(captionAtom)
   const [generated, setGenerated] = useAtom(generatedAtom)
-  const [imageStyle, setImageStyle] = useAtom(imageStyleAtom)
-  const [detailMode, setDetailMode] = useAtom(detailModeAtom)
-  const [isOrdering, setIsOrdering] = useAtom(isOrderingAtom)
+  const setCaption = useSetAtom(captionAtom)
+  const setImageStyle = useSetAtom(imageStyleAtom)
+  const setDetailMode = useSetAtom(detailModeAtom)
+  const setIsOrdering = useSetAtom(isOrderingAtom)
 
   const isActive = item.url == generated.url
   const handleClick = () => {

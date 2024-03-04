@@ -1,4 +1,5 @@
 import { atom } from "jotai";
+import { prompts } from "./prePrompt";
 
 export const generatedAtom = atom({
     url:'',
@@ -11,7 +12,7 @@ export const sizeAtom = atom('');
 export const quantityAtom = atom(1);
 export const isSuccessAtom = atom(false);
 export const addingToCartAtom = atom(false);
-export const imageStyleAtom = atom('');
+export const imageStyleAtom = atom(prompts[0]);
 export const modalIsOpenAtom = atom(false);
 export const suggestionsAtom = atom([]);
 export const isLoadingAtom = atom(false);

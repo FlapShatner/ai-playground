@@ -3,40 +3,35 @@ import { getVariants, upscale, cn } from '../utils'
 import useWebSocket from '../hooks/useWebSocket'
 import { useLocalStorage } from 'usehooks-ts'
 import useIsSmall from '../hooks/useIsSmall'
-import { useAtom } from 'jotai'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import {
   activeIndexAtom,
-  modifyIdAtom,
   generatedAtom,
   captionAtom,
   imageStyleAtom,
-  isLoadingAtom,
   detailModeAtom,
   isMakingVariantsAtom,
   isUpscalingAtom,
   progressAtom,
   wsIdAtom,
-  finalResultAtom,
 } from '../atoms'
 
 function Option({ children, className, optionId }) {
   const [history, setHistory] = useLocalStorage('history', [])
   const [generated, setGenerated] = useAtom(generatedAtom)
-  const [isLoading, setIsLoading] = useAtom(isLoadingAtom)
-  const [activeIndex, setActiveIndex] = useAtom(activeIndexAtom)
-  const [modifyId, setModifyId] = useAtom(modifyIdAtom)
-  const [imageStyle, setImageStyle] = useAtom(imageStyleAtom)
-  const [caption, setCaption] = useAtom(captionAtom)
-  const [detailMode, setDetailMode] = useAtom(detailModeAtom)
-  const [isMakingVariants, setIsMakingVariants] = useAtom(isMakingVariantsAtom)
-  const [isUpscaling, setIsUpscaling] = useAtom(isUpscalingAtom)
-  const [progress, setProgress] = useAtom(progressAtom)
+  const activeIndex = useAtomValue(activeIndexAtom)
+  const imageStyle = useAtomValue(imageStyleAtom)
+  const caption = useAtomValue(captionAtom)
+  const setDetailMode = useSetAtom(detailModeAtom)
+  const setIsMakingVariants = useSetAtom(isMakingVariantsAtom)
+  const setIsUpscaling = useSetAtom(isUpscalingAtom)
+  const setProgress = useSetAtom(progressAtom)
 
   const isSmall = useIsSmall()
 
   useWebSocket('wss://tunnel.ink-dev.com')
 
-  const [wsId, setWsId] = useAtom(wsIdAtom)
+  const wsId = useAtomValue(wsIdAtom)
 
   const addToHistory = (prompt, url, publicId, style, meta, up) => {
     let newHistory = [...history]
@@ -56,14 +51,11 @@ function Option({ children, className, optionId }) {
           return
         }
         const json = await res.json()
-        // const data = JSON.parse(json.meta)
         setGenerated({ url: json.imgData.url, publicId: json.imgData.publicId, meta: json.meta })
         addToHistory(caption, json.imgData.url, json.imgData.publicId, imageStyle.id, json.meta)
         setDetailMode(false)
         setIsMakingVariants(false)
       })
-
-      // setCaption(data.meta.content)
     } else {
       setIsUpscaling(true)
       const meta = typeof generated.meta != 'string' ? JSON.stringify(generated.meta) : generated.meta
@@ -95,8 +87,8 @@ function Option({ children, className, optionId }) {
 }
 
 function Selected() {
-  const [isMakingVariants, setIsMakingVariants] = useAtom(isMakingVariantsAtom)
-  const [isUpscaling, setIsUpscaling] = useAtom(isUpscalingAtom)
+  const isMakingVariants = useAtomValue(isMakingVariantsAtom)
+  const isUpscaling = useAtomValue(isUpscalingAtom)
   const isSmall = useIsSmall()
   return (
     <div className={cn('flex gap-4 w-full justify-center mt-3 mb-3', isSmall && 'flex-col')}>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 import useIsSmall from '../hooks/useIsSmall'
 import { generate, cn, getSuggest } from '../utils'
@@ -8,34 +8,34 @@ import Help from '../icons/Help'
 import Paste from '../icons/Paste'
 import StyleSelect from './StyleSelect'
 import { DevTools } from 'jotai-devtools'
-import { useAtom } from 'jotai'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import {
   generatedAtom,
   captionAtom,
   imageStyleAtom,
   suggestionsAtom,
   modalIsOpenAtom,
-  isLoadingAtom,
   promptAtom,
   detailModeAtom,
   isGeneratingAtom,
   progressAtom,
   wsIdAtom,
 } from '../atoms'
-import { set } from 'react-hook-form'
 
 function Prompt() {
   const [history, setHistory] = useLocalStorage('history', [])
-  const [generated, setGenerated] = useAtom(generatedAtom)
-  const [caption, setCaption] = useAtom(captionAtom)
-  const [imageStyle, setImageStyle] = useAtom(imageStyleAtom)
-  const [prompt, setPrompt] = useAtom(promptAtom)
   const [isError, setIsError] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
-  const [detailMode, setDetailMode] = useAtom(detailModeAtom)
+  const [generated, setGenerated] = useAtom(generatedAtom)
+  const [prompt, setPrompt] = useAtom(promptAtom)
   const [isGenerating, setIsGenerating] = useAtom(isGeneratingAtom)
-  const [progress, setProgress] = useAtom(progressAtom)
-  const [wsId, setWsId] = useAtom(wsIdAtom)
+  const wsId = useAtomValue(wsIdAtom)
+  const imageStyle = useAtomValue(imageStyleAtom)
+  const setProgress = useSetAtom(progressAtom)
+  const setModalIsOpen = useSetAtom(modalIsOpenAtom)
+  const setDetailMode = useSetAtom(detailModeAtom)
+  const setSuggestions = useSetAtom(suggestionsAtom)
+  const setCaption = useSetAtom(captionAtom)
 
   const isSmall = useIsSmall()
   useWebSocket('wss://tunnel.ink-dev.com')
@@ -54,23 +54,21 @@ function Prompt() {
     setProgress('1%')
     setGenerated({ url: '', publicId: '', meta: {}, up: false })
     if (prompt) {
-      const fullPrompt = prompt + ' ' + imageStyle.prompt
-      const data = { prompt: prompt, style: imageStyle.id, wsId: wsId }
+      const fullPrompt = prompt.endsWith('noprompt') ? prompt : imageStyle.prompt + prompt
+      const data = { prompt: fullPrompt, style: imageStyle.id, wsId: wsId }
       setIsGenerating(true)
-      // getSuggest(prompt).then(async (res) => {
-      //   // console.log('suggestions:', res)
-      //   if (res.error || res.length === 0) {
-      //     return
-      //   }
-      //   setSuggestions(res)
-      //   setModalIsOpen(true)
-      // })
+      getSuggest(prompt).then(async (res) => {
+        if (res.error || res.length === 0) {
+          return
+        }
+        setSuggestions(res)
+        setModalIsOpen(true)
+      })
       if (!wsId) {
         console.error('WebSocket ID is not set')
         return
       }
       generate(data).then(async (res) => {
-        // console.log('generated:', res)
         if (!res.ok) {
           setIsGenerating(false)
           console.log(res.error)
@@ -81,8 +79,6 @@ function Prompt() {
           return
         }
         const json = await res.json()
-        // const data = JSON.parse(json)
-        console.log('json:', json)
         setGenerated({ url: json.imgData.url, publicId: json.imgData.publicId, meta: json.meta, up: false })
         setDetailMode(false)
         setIsGenerating(false)
@@ -115,7 +111,7 @@ function Prompt() {
       </span>
       <Guide isOpen={isOpen} setIsOpen={setIsOpen} />
 
-      <div className='sm:flex sm:justify-between sm:items-end sm:gap-4 md:flex-col md:items-start w-full'>
+      <div className='flex flex-col items-end gap-4 w-full'>
         <div className='w-full'>
           <textarea
             className={cn('px-2 py-1 h-48 placeholder:opacity-60 border border-border', isSmall && 'h-12')}
@@ -135,10 +131,10 @@ function Prompt() {
             </div>
           )}
         </div>
-        {/* <div className='sm:w-1/3 md:w-full'>
-          <StyleSelect imageStyle={imageStyle} setImageStyle={setImageStyle} />
+        <div className=' w-full'>
+          <StyleSelect />
           <span className={cn('text-red-500 text-center mt-2', !isError && 'hidden')}>Something went wrong, please try again</span>
-        </div> */}
+        </div>
       </div>
 
       <div

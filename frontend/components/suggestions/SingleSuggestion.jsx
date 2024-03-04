@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import { formatPrice } from './utils'
+import React from 'react'
 
 function SingleSuggestion({ s }) {
-  //   const price = formatPrice(s.price)
   return (
     <div className='cursor-pointer min-w-36 max-w-[200px] p-2 flex flex-col'>
       <a target='_blank' rel='noopener noreferrer' href={s.url}>

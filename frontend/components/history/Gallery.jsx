@@ -1,18 +1,16 @@
 import React, { useState } from 'react'
-import { AdvancedImage } from '@cloudinary/react'
-import { prompts } from '../prePrompt'
+
 import { useLocalStorage } from 'usehooks-ts'
 import { cn } from '../utils'
-import { useAtom } from 'jotai'
+import { useAtom, useSetAtom } from 'jotai'
 import { generatedAtom, captionAtom, imageStyleAtom, detailModeAtom } from '../atoms'
 import HistoryModal from './HistoryModal'
 import GalleryItem from './GalleryItem'
 
 function Gallery() {
-  const [caption, setCaption] = useAtom(captionAtom)
   const [generated, setGenerated] = useAtom(generatedAtom)
-  const [imageStyle, setImageStyle] = useAtom(imageStyleAtom)
-  const [detailMode, setDetailMode] = useAtom(detailModeAtom)
+  const setCaption = useSetAtom(captionAtom)
+  const setImageStyle = useSetAtom(imageStyleAtom)
 
   const [history, setHistory] = useLocalStorage('history', [])
   const [isOpen, setIsOpen] = useState(false)

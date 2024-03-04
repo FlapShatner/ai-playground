@@ -1,26 +1,24 @@
 import React from 'react'
 import { useEffect, useState, useRef } from 'react'
 import { getCurrentProduct, formatPrice, cn } from '../utils'
-import { DevTools } from 'jotai-devtools'
 import CloseIcon from '../icons/CloseIcon'
-import { useWindowSize, useOnClickOutside } from 'usehooks-ts'
+import { useOnClickOutside } from 'usehooks-ts'
 import useIsSmall from '../hooks/useIsSmall'
 import VariantSelect from '../form/VariantSelect'
 import Quantity from '../form/Quantity'
-import { useAtom } from 'jotai'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { sizeAtom, quantityAtom, isSuccessAtom, addingToCartAtom, generatedAtom, notesAtom, productAtom, isOrderingAtom } from '../atoms'
 
 function Form({ addVariantToCart }) {
   const [product, setProduct] = useAtom(productAtom)
   const [size, setSize] = useAtom(sizeAtom)
   const [quantity, setQuantity] = useAtom(quantityAtom)
-  const [generated, setGenerated] = useAtom(generatedAtom)
-  const [isOrdering, setIsOrdering] = useAtom(isOrderingAtom)
   const [notes, setNotes] = useAtom(notesAtom)
-  const [isAddingToCart, setIsAddingToCart] = useAtom(addingToCartAtom)
-  const [isSuccess, setIsSuccess] = useAtom(isSuccessAtom)
   const [productPrice, setProductPrice] = useState('')
   const [disclaimer, setDisclaimer] = useState(false)
+  const isAddingToCart = useAtomValue(addingToCartAtom)
+  const isSuccess = useAtomValue(isSuccessAtom)
+  const setIsOrdering = useSetAtom(isOrderingAtom)
   const clickRef = useRef()
   useOnClickOutside(clickRef, () => setDisclaimer(false))
   const isSmall = useIsSmall()
@@ -47,8 +45,6 @@ function Form({ addVariantToCart }) {
 
   return (
     <div className='flex w-full'>
-      {/* <DevTools /> */}
-
       <div className={cn('w-full flex flex-col justify-end gap-4 text-txt-primary pl-0 ')}>
         <span className={cn('text-4xl font-black text-end', isSmall && 'text-4xl')}>{price}</span>
 

@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import Modal from 'react-modal'
 import { useLockedBody } from 'usehooks-ts'
 import SingleSuggestion from './SingleSuggestion'
-import LeftArrow from './icons/leftArrow'
-import Arrow from './icons/Arrow'
+import LeftArrow from '../icons/leftArrow'
+import Arrow from '../icons/Arrow'
+import { useAtom, useAtomValue } from 'jotai'
+import { modalIsOpenAtom, suggestionsAtom } from '../atoms'
 
 const customStyles = {
   overlay: {
@@ -24,8 +26,10 @@ const customStyles = {
   },
 }
 
-function Suggestions({ modalIsOpen, setModalIsOpen, suggestions }) {
+function Suggestions() {
   const [locked, setLocked] = useLockedBody(false, 'root')
+  const [modalIsOpen, setModalIsOpen] = useAtom(modalIsOpenAtom)
+  const suggestions = useAtomValue(suggestionsAtom)
   const container = useRef(null)
   const scroll = (direction) => {
     if (container.current) {
@@ -51,7 +55,7 @@ function Suggestions({ modalIsOpen, setModalIsOpen, suggestions }) {
       <div
         onClick={() => setModalIsOpen(false)}
         className='ml-4 my-3 border border-border w-max p-2 flex items-center gap-2 text-xs cursor-pointer hover:text-accent hover:bg-bg-primary'>
-        <LeftArrow width='16' color='#13FC00' /> Back To Your AI Design
+        <LeftArrow width='16' color='#d2ac53' /> Back To Your AI Design
       </div>
       <p className='text-txt-primary text-lg mx-4 my-2'>While you wait, here are some of our designs you might like!</p>
       <div className='flex items-center'>

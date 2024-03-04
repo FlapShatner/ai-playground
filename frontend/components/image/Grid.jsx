@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import GridImage from './GridImage'
 import { cld } from '../cloudinary'
 import { crop } from '@cloudinary/url-gen/actions/resize'
 import { compass } from '@cloudinary/url-gen/qualifiers/gravity'
 import Detail from './Detail'
-import { useAtom } from 'jotai'
-import { generatedAtom, imageArrayAtom, detailModeAtom, detailImageAtom } from '../atoms'
+import { useAtom, useAtomValue } from 'jotai'
+import { generatedAtom, imageArrayAtom, detailModeAtom } from '../atoms'
 
 function Grid() {
   const [imageArray, setImageArray] = useAtom(imageArrayAtom)
-  const [generated, setGenerated] = useAtom(generatedAtom)
-  const [detailMode, setDetailMode] = useAtom(detailModeAtom)
+  const generated = useAtomValue(generatedAtom)
+  const detailMode = useAtomValue(detailModeAtom)
   if (!generated) {
     return <div>Loading...</div>
   }
   useEffect(() => {
     const arr = () => {
-      // Define the transformations
       const transformations = {
         topleft: 'north_west',
         topright: 'north_east',
@@ -38,11 +37,14 @@ function Grid() {
       {detailMode ? (
         <Detail />
       ) : (
-        <div className='grid grid-cols-2 gap-2 p-2'>
-          {imageArray.map((img, i) => (
-            <GridImage img={img} i={i} key={i} />
-          ))}
-        </div>
+        <>
+          <div className='grid grid-cols-2 gap-2 p-2'>
+            {imageArray.map((img, i) => (
+              <GridImage img={img} i={i} key={i} />
+            ))}
+          </div>
+          <span className='text-center mb-1 text-accent'>Click to choose one of these images or enter a new prompt to try again</span>
+        </>
       )}
     </>
   )

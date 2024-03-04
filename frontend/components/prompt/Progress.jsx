@@ -1,9 +1,9 @@
 import React from 'react'
-import { useAtom } from 'jotai'
+import { useAtomValue } from 'jotai'
 import { progressAtom } from '../atoms'
 
 function Progress() {
-  const [progress, setProgress] = useAtom(progressAtom)
+  const progress = useAtomValue(progressAtom)
   return (
     <>
       <span className='my-1 flex w-full justify-center'>Progress: {progress}</span>

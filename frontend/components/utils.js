@@ -80,7 +80,6 @@ export const findSuggProducts = async (tags) => {
     }
   }
   const flatSuggestions = suggestions.flat()
-  // console.log('flatSuggestions', flatSuggestions)
   return flatSuggestions
 }
 
@@ -103,28 +102,6 @@ export const getProductByHandle = async (handle) => {
   const productJson = await product.json()
   return productJson
 }
-
-// export async function generate(prompt,imageStyle) {
-//    const resp = {prompt: prompt, url: 'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?v=1622146479'}
-//     return JSON.stringify(resp);
-// }
-
-// export const getQuadrants = (publidId) => { 
-//   // Define the transformations
-//   const transformations = {
-//     topleft: 't_topleft',
-//     topright: 't_topright',
-//     btmleft: 't_btmleft',
-//     btmright: 't_btmright',
-//   }
-  
- 
-//   return Object.entries(transformations).map(([key, value], i) => {
-//     const image = cld.image(publidId)
-//     image.namedTransformation(name(value))
-//     return { id:i, label: key, image:image }
-//   })
-// }
 
 
 
