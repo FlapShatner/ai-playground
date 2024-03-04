@@ -5,7 +5,7 @@ import { prompts } from './prePrompt'
 import Gallery from './history/Gallery'
 import Prompt from './prompt/Prompt'
 import Image from './image/Image'
-import Form from './Form'
+import Form from './form/Form'
 import Suggestions from './Suggestions'
 import Banner from './banner/Banner'
 import { useAtom } from 'jotai'
@@ -15,13 +15,14 @@ import {
   sizeAtom,
   quantityAtom,
   isSuccessAtom,
-  loadingAtom,
   imageStyleAtom,
   modalIsOpenAtom,
   suggestionsAtom,
   isLoadingAtom,
   notesAtom,
   cartAtom,
+  isOrderingAtom,
+  addingToCartAtom,
 } from './atoms'
 
 export default function App({ home }) {
@@ -29,11 +30,12 @@ export default function App({ home }) {
   const [size, setSize] = useAtom(sizeAtom)
   const [quantity, setQuantity] = useAtom(quantityAtom)
   const [isSuccess, setIsSuccess] = useAtom(isSuccessAtom)
-  const [loading, setLoading] = useAtom(loadingAtom)
   const [modalIsOpen, setModalIsOpen] = useAtom(modalIsOpenAtom)
   const [suggestions, setSuggestions] = useAtom(suggestionsAtom)
   const [notes, setNotes] = useAtom(notesAtom)
   const [cart, setCart] = useAtom(cartAtom)
+  const [isOrdering, setIsOrdering] = useAtom(isOrderingAtom)
+  const [isAddingToCart, setIsAddingToCart] = useAtom(addingToCartAtom)
 
   const isSmall = useIsSmall()
 
@@ -57,10 +59,8 @@ export default function App({ home }) {
     updateCount()
   }, [isSuccess])
 
-  let enabled = generated != '' && size != ''
-
   const addVariantToCart = async () => {
-    setLoading(true)
+    setIsAddingToCart(true)
     const res = await addToCart({
       ...formData,
       properties: {
@@ -73,7 +73,7 @@ export default function App({ home }) {
       const ajaxCart = document.querySelector('.minicart__content')
       ajaxCart.innerHTML = res.sections['ajax-cart']
       // console.log('ajaxCart:', ajaxCart)
-      setLoading(false)
+      setIsAddingToCart(false)
       setIsSuccess(true)
       setTimeout(() => {
         setIsSuccess(false)
@@ -95,13 +95,8 @@ export default function App({ home }) {
       <div id='appTop' className='bg-bg-primary w-full m-auto flex '>
         <div className='w-full gap-4 flex flex-col-reverse md:flex-row justify-center p-4 m-auto'>
           <div className={cn('flex flex-row gap-4 w-full', isSmall && 'flex-col-reverse')}>
-            <Prompt />
+            {isOrdering ? <Form addVariantToCart={addVariantToCart} /> : <Prompt />}
             <Image />
-            {/* {isSmall ? (
-              <MobileForm />
-            ) : (
-              <Form />
-            )} */}
           </div>
         </div>
       </div>

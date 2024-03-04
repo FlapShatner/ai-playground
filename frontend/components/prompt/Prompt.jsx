@@ -105,7 +105,7 @@ function Prompt() {
   }
 
   return (
-    <form className={cn('flex flex-col w-full justify-end', isSmall && 'w-[80vh] m-auto')}>
+    <form className={cn('flex flex-col w-full justify-end mb-28', isSmall && 'w-full m-auto')}>
       <DevTools />
       <span
         onClick={() => setIsOpen(true)}

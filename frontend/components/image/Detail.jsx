@@ -6,7 +6,7 @@ import useIsSmall from '../hooks/useIsSmall'
 import CloseIcon from '../icons/CloseIcon'
 import Selected from '../prompt/Selected'
 import LeftArrow from '../icons/leftArrow'
-import Order from '../Order'
+import Order from '../image/Order'
 import SquaresLoad from '../loader/SquaresLoad'
 import { AdvancedImage, placeholder } from '@cloudinary/react'
 

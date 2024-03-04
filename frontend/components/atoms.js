@@ -8,9 +8,9 @@ export const generatedAtom = atom({
 });
 export const captionAtom = atom('');
 export const sizeAtom = atom('');
-export const quantityAtom = atom(0);
+export const quantityAtom = atom(1);
 export const isSuccessAtom = atom(false);
-export const loadingAtom = atom(false);
+export const addingToCartAtom = atom(false);
 export const imageStyleAtom = atom('');
 export const modalIsOpenAtom = atom(false);
 export const suggestionsAtom = atom([]);
@@ -35,3 +35,6 @@ export const finalResultAtom = atom(null);
 export const webSocketAtom = atom(null);
 export const wsIdAtom = atom(null);
 
+export const isOrderingAtom = atom(false);
+
+export const productAtom = atom(null);

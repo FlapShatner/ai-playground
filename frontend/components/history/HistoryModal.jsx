@@ -3,9 +3,16 @@ import Modal from 'react-modal'
 import { cn } from '../utils'
 import { useLocalStorage, useLockedBody } from 'usehooks-ts'
 import CloseIcon from '../icons/CloseIcon'
+import { useAtom } from 'jotai'
+import { generatedAtom, captionAtom, imageStyleAtom, detailModeAtom, isOrderingAtom } from '../atoms'
 
-function HistoryModal({ setCaption, setGenerated, generated, setImageStyle, isOpen, setIsOpen }) {
+function HistoryModal({ isOpen, setIsOpen }) {
   const [locked, setLocked] = useLockedBody(false, 'root')
+  const [generated, setGenerated] = useAtom(generatedAtom)
+  const [caption, setCaption] = useAtom(captionAtom)
+  const [imageStyle, setImageStyle] = useAtom(imageStyleAtom)
+  const [detailMode, setDetailMode] = useAtom(detailModeAtom)
+  const [isOrdering, setIsOrdering] = useAtom(isOrderingAtom)
   useEffect(() => {
     setLocked(isOpen)
     return () => setLocked(false)
@@ -43,6 +50,7 @@ function HistoryModal({ setCaption, setGenerated, generated, setImageStyle, isOp
         {history.map((item, i) => {
           const isActive = item.url == generated.url
           const handleClick = () => {
+            setIsOrdering(false)
             setGenerated(item)
             setCaption(item.prompt)
             setIsOpen(false)

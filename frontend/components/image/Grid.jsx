@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-// import { getQuadrants } from '../utils'
 import GridImage from './GridImage'
 import { cld } from '../cloudinary'
 import { crop } from '@cloudinary/url-gen/actions/resize'

@@ -1,14 +1,12 @@
 import React, { useState, useRef } from 'react'
-import { cn } from './utils'
-import Chevron from './icons/Chevron'
-import { useOnClickOutside, useWindowSize } from 'usehooks-ts'
+import { cn } from '../utils'
+import Chevron from '../icons/Chevron'
+import { useOnClickOutside } from 'usehooks-ts'
 
 function VariantSelect({ variants, size, setSize, setProductPrice }) {
   const [isHover, setIsHover] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
   const [label, setLabel] = useState('0in')
-  const { width } = useWindowSize()
-  let isSmall = width < 640
   const ref = useRef()
   const handleClick = (e) => {
     e.stopPropagation()
@@ -22,16 +20,13 @@ function VariantSelect({ variants, size, setSize, setProductPrice }) {
   useOnClickOutside(ref, handleClickOutside)
 
   return (
-    <div className={cn('mt-4 m-max relative mr-auto')}>
-      <span className={cn('mr-auto')}>Size</span>
+    <div className={cn('mt-4 m-max relative ml-auto')}>
+      <span className={cn('mr-auto text-lg')}>Size</span>
       <div className=' m-auto'>
         <div
           onClick={handleClick}
-          className={cn(
-            'cursor-pointer border border-border flex items-center justify-between gap-2 w-max bg-bg-secondary px-3',
-            isSmall && 'bg-accent bg-opacity-10'
-          )}>
-          <p className='text-lg font-bold'>{label}</p>
+          className={cn('cursor-pointer border border-border flex items-center justify-between gap-4 w-max bg-bg-secondary py-2 px-5')}>
+          <p className='text-xl font-bold'>{label}</p>
           <Chevron className='ml-auto h-10 w-12 sm:w-8 flex flex-col items-center bg-accent bg-opacity-[.0125]' direction='down' />
         </div>
         <div ref={ref} className='absolute bg-bg-secondary  z-10'>
@@ -52,7 +47,7 @@ function VariantSelect({ variants, size, setSize, setProductPrice }) {
                   onMouseEnter={() => setIsHover(item.id)}
                   onMouseLeave={() => setIsHover(null)}
                   className={cn(
-                    'cursor-pointer px-2 w-24 border border-border flex items-center gap-4 hover:border-accent hover:bg-bg-secondary transition-transform ease-in-out'
+                    'cursor-pointer py-2 px-2 w-[121px] border border-border flex items-center gap-4 hover:border-accent hover:bg-bg-secondary transition-transform ease-in-out'
                   )}>
                   <span className={cn('text-txt-primary text-xl', isSelected && 'text-accent')}>{item.title}</span>
                 </div>

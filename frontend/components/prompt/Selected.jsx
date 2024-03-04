@@ -2,6 +2,7 @@ import React from 'react'
 import { getVariants, upscale, cn } from '../utils'
 import useWebSocket from '../hooks/useWebSocket'
 import { useLocalStorage } from 'usehooks-ts'
+import useIsSmall from '../hooks/useIsSmall'
 import { useAtom } from 'jotai'
 import {
   activeIndexAtom,
@@ -30,6 +31,8 @@ function Option({ children, className, optionId }) {
   const [isMakingVariants, setIsMakingVariants] = useAtom(isMakingVariantsAtom)
   const [isUpscaling, setIsUpscaling] = useAtom(isUpscalingAtom)
   const [progress, setProgress] = useAtom(progressAtom)
+
+  const isSmall = useIsSmall()
 
   useWebSocket('wss://tunnel.ink-dev.com')
 
@@ -81,7 +84,11 @@ function Option({ children, className, optionId }) {
   return (
     <div
       onClick={handleClick}
-      className={cn('cursor-pointer border border-accent p-4 text-center text-accent font-semibold w-48 bg-bg-secondary rounded-md', className)}>
+      className={cn(
+        'cursor-pointer border border-accent p-4 text-center text-accent font-semibold w-48 bg-bg-secondary rounded-md ',
+        className,
+        isSmall && 'w-auto mx-4'
+      )}>
       {children}
     </div>
   )
@@ -90,9 +97,10 @@ function Option({ children, className, optionId }) {
 function Selected() {
   const [isMakingVariants, setIsMakingVariants] = useAtom(isMakingVariantsAtom)
   const [isUpscaling, setIsUpscaling] = useAtom(isUpscalingAtom)
+  const isSmall = useIsSmall()
   return (
-    <div className='flex gap-4 w-full justify-center mt-3 mb-3'>
-      <Option optionId='vars'>{isMakingVariants ? 'Making Variations' : 'Make Variations'}</Option>
+    <div className={cn('flex gap-4 w-full justify-center mt-3 mb-3', isSmall && 'flex-col')}>
+      <Option optionId={cn('vars')}>{isMakingVariants ? 'Making Variations' : 'Make Variations'}</Option>
       <Option optionId='up'>{isUpscaling ? 'Upscaling' : 'Upscale'}</Option>
     </div>
   )
