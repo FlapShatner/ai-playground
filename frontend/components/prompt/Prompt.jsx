@@ -38,7 +38,7 @@ function Prompt() {
   const setCaption = useSetAtom(captionAtom)
 
   const isSmall = useIsSmall()
-  useWebSocket('wss://tunnel.ink-dev.com')
+  useWebSocket('wss://mj-backend.onrender.com/')
 
   const addToHistory = (prompt, url, publicId, style, meta, up) => {
     let newHistory = [...history]
