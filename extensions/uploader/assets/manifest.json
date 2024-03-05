@@ -1,0 +1,14 @@
+{
+  "frontend/entrypoints/themeApp.css": {
+    "file": "themeApp-ab112010.css",
+    "src": "frontend/entrypoints/themeApp.css"
+  },
+  "frontend/entrypoints/themeApp.jsx": {
+    "css": [
+      "themeApp-ab112010.css"
+    ],
+    "file": "themeApp-ebb4ab88.js",
+    "isEntry": true,
+    "src": "frontend/entrypoints/themeApp.jsx"
+  }
+}

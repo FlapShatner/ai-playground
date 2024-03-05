@@ -9,6 +9,7 @@ import Suggestions from './suggestions/Suggestions'
 import Banner from './banner/Banner'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { generatedAtom, sizeAtom, quantityAtom, isSuccessAtom, notesAtom, cartAtom, isOrderingAtom, addingToCartAtom } from './atoms'
+import Overlay from './prompt/Overlay'
 
 export default function App({ home }) {
   const [size, setSize] = useAtom(sizeAtom)
@@ -64,7 +65,7 @@ export default function App({ home }) {
   }
 
   return (
-    <div className='bg-bg-primary w-full max-w-[1200px] m-auto'>
+    <div className='bg-bg-primary w-full max-w-[1200px] m-auto relative'>
       <Banner />
       <div className='w-full m-auto h-auto flex bg-bg-primary '>
         <img

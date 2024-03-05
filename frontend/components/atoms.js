@@ -39,3 +39,5 @@ export const wsIdAtom = atom(null);
 export const isOrderingAtom = atom(false);
 
 export const productAtom = atom(null);
+
+export const isOverlayAtom = atom(false);
