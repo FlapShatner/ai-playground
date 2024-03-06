@@ -38,7 +38,7 @@ function Grid() {
         <Detail />
       ) : (
         <>
-          <div className='grid grid-cols-2 gap-2 p-2'>
+          <div className='grid grid-cols-2 gap-2 p-2 max-w-[700px] 2xl:max-w-[1000px]'>
             {imageArray.map((img, i) => (
               <GridImage img={img} i={i} key={i} />
             ))}

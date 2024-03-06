@@ -45,7 +45,7 @@ function Form({ addVariantToCart }) {
 
   return (
     <div className='flex w-full'>
-      <div className={cn('w-full flex flex-col justify-end gap-4 text-txt-primary pl-0 ')}>
+      <div className={cn('w-full flex flex-col justify-end gap-4 text-txt-primary pl-0', isSmall && 'max-w-[700px] m-auto')}>
         <span className={cn('text-4xl font-black text-end', isSmall && 'text-4xl')}>{price}</span>
 
         <div className={cn('flex flex-col items-end gap-4 ml-auto', isSmall && 'flex-row')}>

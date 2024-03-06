@@ -3,21 +3,21 @@ export const prompts = [
     id: 'illustrative',
     label: 'Illustrative',
     prompt:
-      'die cut sticker, decal,  pitch black background, contour cut, illustration, detailed, ',
+      'die cut sticker, decal,  pitch black background, contour cut, illustration, detailed, colorful, ',
     img:"https://res.cloudinary.com/dkxssdk96/image/upload/v1706204915/assets/illustrative_uh1v2y.jpg"
   },
   {
     id: 'realistic',
     label: 'Realistic',
     prompt:
-      'die cut sticker, decal, realistic, photograph, 35mm, dslr, pitch black background, contour cut,',
+      'die cut sticker, decal, realistic, photograph, 35mm, dslr, pitch black background, contour cut, ',
     img:"https://res.cloudinary.com/dkxssdk96/image/upload/v1706204916/assets/realistic_kxto9r.jpg"
   },
   {
     id: 'minimal',
     label: 'Minimal',
     prompt:
-      'die cut sticker, decal, pitch black background, minimalist, lines, design, contour cut,',
+      'die cut sticker, decal, pitch black background, minimalist, lines, design, contour cut, ',
       img:"https://res.cloudinary.com/dkxssdk96/image/upload/v1706205838/assets/minimal_fi3kn3.jpg"
   },
   {

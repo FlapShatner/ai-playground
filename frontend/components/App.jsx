@@ -65,7 +65,7 @@ export default function App({ home }) {
   }
 
   return (
-    <div className='bg-bg-primary w-full max-w-[1200px] m-auto relative'>
+    <div className='bg-bg-primary w-full max-w-[1200px] 2xl:max-w-[1600px] m-auto relative'>
       <Banner />
       <div className='w-full m-auto h-auto flex bg-bg-primary '>
         <img
@@ -75,8 +75,8 @@ export default function App({ home }) {
         />
       </div>
       <div id='appTop' className='bg-bg-primary w-full m-auto flex '>
-        <div className='w-full gap-4 flex flex-col-reverse md:flex-row justify-center p-4 m-auto'>
-          <div className={cn('flex flex-row gap-4 w-full', isSmall && 'flex-col-reverse')}>
+        <div className='w-full gap-4 flex flex-col-reverse lg:flex-row justify-center p-4 m-auto'>
+          <div className={cn('flex flex-row gap-4 w-full justify-center', isSmall && 'flex-col-reverse')}>
             {isOrdering ? <Form addVariantToCart={addVariantToCart} /> : <Prompt />}
             <Image />
           </div>

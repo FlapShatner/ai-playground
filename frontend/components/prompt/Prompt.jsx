@@ -3,6 +3,7 @@ import { useLocalStorage } from 'usehooks-ts'
 import useIsSmall from '../hooks/useIsSmall'
 import { generate, cn, getSuggest } from '../utils'
 import useWebSocket from '../hooks/useWebSocket'
+import Shape from './Shape'
 import Guide from '../Guide'
 import Help from '../icons/Help'
 import Paste from '../icons/Paste'
@@ -38,7 +39,7 @@ function Prompt() {
   const setCaption = useSetAtom(captionAtom)
 
   const isSmall = useIsSmall()
-  useWebSocket('wss://mj-backend.onrender.com/')
+  useWebSocket('wss://mj-backend-i2y7w.ondigitalocean.app/')
 
   const addToHistory = (prompt, url, publicId, style, meta, up) => {
     let newHistory = [...history]
@@ -101,17 +102,18 @@ function Prompt() {
   }
 
   return (
-    <form className={cn('flex flex-col w-full justify-end mb-28', isSmall && 'w-full m-auto')}>
+    <form className={cn('flex flex-col w-full justify-end', isSmall && 'w-full max-w-[700px] m-auto')}>
       <DevTools />
-      <span
+      {/* <span
         onClick={() => setIsOpen(true)}
         className='flex gap-1 items-center text-accent underline font-bold justify-end cursor-pointer hover:text-accent-bright'>
         User Guide
         <Help size='20px' color='rgb(210 172 83)' />
-      </span>
-      <Guide isOpen={isOpen} setIsOpen={setIsOpen} />
+      </span> */}
+      {/* <Guide isOpen={isOpen} setIsOpen={setIsOpen} /> */}
 
       <div className='flex flex-col items-end gap-4 w-full'>
+        <Shape />
         <div className='w-full'>
           <textarea
             className={cn('px-2 py-1 h-48 placeholder:opacity-60 border border-border', isSmall && 'h-12')}
@@ -140,7 +142,7 @@ function Prompt() {
       <div
         role='button'
         type='submit'
-        className='cursor-pointer border-2 flex justify-center sm:p-4 bg-bg-secondary active:scale-95 hover:bg-bg-primary text-accent border-accent h-[71px] w-full sm:w-auto items-center mt-8 rounded-md'
+        className='cursor-pointer border-2 flex justify-center sm:p-4 bg-bg-secondary active:scale-95 hover:bg-bg-primary text-accent border-accent h-[71px] w-full sm:w-full items-center mt-8 rounded-md'
         onClick={handleClick}>
         {isGenerating ? (
           <div className={cn('flex items-center justify-center gap-3 text-lg  font-semibold')}>Generating...</div>

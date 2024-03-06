@@ -15,7 +15,7 @@ function GridImage({ img, i }) {
   }
   return (
     <div key={i} onClick={handleSelect} className={cn('aspect-square overflow-hidden hover:border-2 hover:border-accent hover:-m-[2px]')}>
-      <AdvancedImage plugins={[placeholder({ mode: 'blur' })]} className='cursor-pointer object-cover w-full h-full' cldImg={img.image} />
+      <AdvancedImage plugins={[placeholder({ mode: 'blur' })]} className='cursor-pointer object-cover w-full h-full ' cldImg={img.image} />
     </div>
   )
 }

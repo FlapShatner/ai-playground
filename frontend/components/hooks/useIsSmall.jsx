@@ -2,7 +2,7 @@ import { useWindowSize } from 'usehooks-ts'
 
 function useIsSmall() {
   const { width } = useWindowSize()
-  let isSmall = width < 950
+  let isSmall = width < 1060
   return isSmall
 }
 

@@ -1,5 +1,6 @@
 import { atom } from "jotai";
 import { prompts } from "./prePrompt";
+import { options } from "./shapeOptions";
 
 export const generatedAtom = atom({
     url:'',
@@ -41,3 +42,6 @@ export const isOrderingAtom = atom(false);
 export const productAtom = atom(null);
 
 export const isOverlayAtom = atom(false);
+
+export const shapeAtom = atom(options[1]);
+export const stackArrayAtom = atom([]);

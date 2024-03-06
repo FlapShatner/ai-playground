@@ -125,8 +125,8 @@ export async function generate(data) {
   }
 }
 
-export const getVariants = async (meta, i, wsId) => {
-  console.log('meta', meta, 'i', i, 'wsId', wsId)
+export const getVariants = async (meta, i, addPrompt, wsId) => {
+  console.log('meta', meta, 'i', i, addPrompt, 'wsId', wsId)
   try{
     const resp = await fetch('/a/image/var', {
       method: 'POST',
@@ -136,6 +136,7 @@ export const getVariants = async (meta, i, wsId) => {
       body: JSON.stringify({
         job: meta,
         index: i,
+        prompt: addPrompt,
         wsId: wsId
       }),
     })

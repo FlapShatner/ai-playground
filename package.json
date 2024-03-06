@@ -29,6 +29,7 @@
     "@uidotdev/usehooks": "^2.4.1",
     "@vitejs/plugin-react": "^4.0.3",
     "clsx": "^2.1.0",
+    "freezer-midjourney-api": "^4.0.6",
     "isomorphic-ws": "^5.0.0",
     "jotai": "^2.6.5",
     "jotai-devtools": "^0.8.0",

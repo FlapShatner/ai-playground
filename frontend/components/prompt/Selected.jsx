@@ -41,11 +41,11 @@ function Option({ children, className, optionId }) {
 
   const handleClick = async () => {
     setProgress('1%')
-    setGenerated({ url: '', publicId: '', meta: {}, up: false })
     if (optionId === 'vars') {
       setIsMakingVariants(true)
+      const addPrompt = imageStyle.prompt + caption
       const meta = typeof generated.meta != 'string' ? JSON.stringify(generated.meta) : generated.meta
-      getVariants(meta, activeIndex?.index + 1, wsId).then(async (res) => {
+      getVariants(meta, activeIndex?.index + 1, addPrompt, wsId).then(async (res) => {
         if (!res.ok) {
           console.log(res.error)
           return
