@@ -20,8 +20,7 @@ function Image() {
   const isGenerated = generated?.url.length > 0
 
   const isSmall = useIsSmall()
-
-  const imgIsWindow = shape.id == 'window'
+  const isWindow = generated?.shape?.id == 'window'
 
   return (
     <div className='relative m-auto'>
@@ -31,7 +30,7 @@ function Image() {
         <div>
           <p className='text-center'>{caption}</p>
           <div className={cn('w-[95vh] max-w-[700px] 2xl:max-w-[1000px] flex flex-col overflow-hidden relative border border-border', isSmall && 'w-full')}>
-            {generated.up ? <Upscaled /> : <>{imgIsWindow ? <Stack /> : <Grid />}</>}
+            {generated.up ? <Upscaled /> : <>{isWindow ? <Stack /> : <Grid />}</>}
           </div>
         </div>
       ) : (

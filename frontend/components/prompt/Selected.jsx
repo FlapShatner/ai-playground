@@ -33,15 +33,16 @@ function Option({ children, className, optionId }) {
 
   const wsId = useAtomValue(wsIdAtom)
 
-  const addToHistory = (prompt, url, publicId, style, meta, up) => {
+  const addToHistory = (prompt, url, publicId, style, meta, up, shape) => {
     let newHistory = [...history]
-    newHistory.unshift({ prompt, url, publicId, style, meta, up })
+    newHistory.unshift({ prompt, url, publicId, style, meta, up, shape })
     setHistory(newHistory)
   }
 
   const handleClick = async () => {
     setProgress('1%')
     if (optionId === 'vars') {
+      const shape = generated.shape
       setIsMakingVariants(true)
       const addPrompt = imageStyle.prompt + caption
       const meta = typeof generated.meta != 'string' ? JSON.stringify(generated.meta) : generated.meta
@@ -51,12 +52,13 @@ function Option({ children, className, optionId }) {
           return
         }
         const json = await res.json()
-        setGenerated({ url: json.imgData.url, publicId: json.imgData.publicId, meta: json.meta })
-        addToHistory(caption, json.imgData.url, json.imgData.publicId, imageStyle.id, json.meta)
+        setGenerated({ url: json.imgData.url, publicId: json.imgData.publicId, meta: json.meta, shape: shape })
+        addToHistory(caption, json.imgData.url, json.imgData.publicId, imageStyle.id, json.meta, shape)
         setDetailMode(false)
         setIsMakingVariants(false)
       })
     } else {
+      const shape = generated.shape
       setIsUpscaling(true)
       const meta = typeof generated.meta != 'string' ? JSON.stringify(generated.meta) : generated.meta
       upscale(meta, activeIndex?.index + 1).then(async (res) => {
@@ -66,8 +68,8 @@ function Option({ children, className, optionId }) {
         }
         const json = await res.json()
         const up = true
-        setGenerated({ url: json.imgData.url, publicId: json.imgData.publicId, meta: json.meta, up: up })
-        addToHistory(caption, json.imgData.url, json.imgData.publicId, imageStyle.id, json.meta, up)
+        setGenerated({ url: json.imgData.url, publicId: json.imgData.publicId, meta: json.meta, up: up, shape: shape })
+        addToHistory(caption, json.imgData.url, json.imgData.publicId, imageStyle.id, json.meta, up, shape)
         setIsUpscaling(false)
       })
     }

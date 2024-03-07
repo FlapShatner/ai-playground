@@ -12,6 +12,7 @@ import { generatedAtom, sizeAtom, quantityAtom, isSuccessAtom, notesAtom, cartAt
 import Overlay from './prompt/Overlay'
 
 export default function App({ home }) {
+  console.log(home)
   const [size, setSize] = useAtom(sizeAtom)
   const [isSuccess, setIsSuccess] = useAtom(isSuccessAtom)
   const quantity = useAtomValue(quantityAtom)

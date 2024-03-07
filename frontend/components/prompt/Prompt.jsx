@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 import useIsSmall from '../hooks/useIsSmall'
-import { generate, cn, getSuggest } from '../utils'
+import { generate, cn, getSuggest, assemblePrompt } from '../utils'
 import useWebSocket from '../hooks/useWebSocket'
 import Shape from './Shape'
 import Guide from '../Guide'
@@ -21,6 +21,7 @@ import {
   isGeneratingAtom,
   progressAtom,
   wsIdAtom,
+  shapeAtom,
 } from '../atoms'
 
 function Prompt() {
@@ -37,13 +38,16 @@ function Prompt() {
   const setDetailMode = useSetAtom(detailModeAtom)
   const setSuggestions = useSetAtom(suggestionsAtom)
   const setCaption = useSetAtom(captionAtom)
+  const shape = useAtomValue(shapeAtom)
+
+  const isWindow = shape.id == 'window'
 
   const isSmall = useIsSmall()
-  useWebSocket('wss://mj-backend-i2y7w.ondigitalocean.app/')
+  useWebSocket('wss://tunnel.ink-dev.com/')
 
-  const addToHistory = (prompt, url, publicId, style, meta, up) => {
+  const addToHistory = (prompt, url, publicId, style, meta, up, shape) => {
     let newHistory = [...history]
-    newHistory.unshift({ prompt, url, publicId, style, meta, up })
+    newHistory.unshift({ prompt, url, publicId, style, meta, up, shape })
     setHistory(newHistory)
   }
 
@@ -55,7 +59,7 @@ function Prompt() {
     setProgress('1%')
     setGenerated({ url: '', publicId: '', meta: {}, up: false })
     if (prompt) {
-      const fullPrompt = prompt.endsWith('noprompt') ? prompt : imageStyle.prompt + prompt
+      const fullPrompt = assemblePrompt(prompt, imageStyle, shape)
       const data = { prompt: fullPrompt, style: imageStyle.id, wsId: wsId }
       setIsGenerating(true)
       getSuggest(prompt).then(async (res) => {
@@ -80,11 +84,11 @@ function Prompt() {
           return
         }
         const json = await res.json()
-        setGenerated({ url: json.imgData.url, publicId: json.imgData.publicId, meta: json.meta, up: false })
+        setGenerated({ url: json.imgData.url, publicId: json.imgData.publicId, meta: json.meta, up: false, shape: shape })
         setDetailMode(false)
         setIsGenerating(false)
         setCaption(prompt)
-        addToHistory(prompt, json.imgData.url, json.imgData.publicId, imageStyle.id, json.meta, false)
+        addToHistory(prompt, json.imgData.url, json.imgData.publicId, imageStyle.id, json.meta, false, shape)
         setPrompt('')
       })
     }
@@ -147,7 +151,7 @@ function Prompt() {
         {isGenerating ? (
           <div className={cn('flex items-center justify-center gap-3 text-lg  font-semibold')}>Generating...</div>
         ) : (
-          <span className='text-lg font-semibold'>Generate Design</span>
+          <span className='text-lg font-semibold'>Generate A New Design</span>
         )}
       </div>
     </form>

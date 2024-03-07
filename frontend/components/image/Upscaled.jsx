@@ -10,12 +10,13 @@ function Upscaled() {
   const image = cld.image(generated.publicId)
   image.quality('auto:best')
   return (
-    <>
+    <div className='aspect-square flex flex-col justify-between'>
+      <div className='h-4 w-4 bg-transparent'></div>
       <a href={generated.url} target='_blank' rel='noopener noreferrer'>
         <AdvancedImage className='cursor-zoom-in' plugins={[placeholder({ mode: 'blur' })]} cldImg={image} />
       </a>
       <Order />
-    </>
+    </div>
   )
 }
 

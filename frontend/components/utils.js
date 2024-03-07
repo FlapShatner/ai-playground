@@ -1,6 +1,7 @@
 import { clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { cld } from './cloudinary'
+import { commonPrompt } from './prePrompt'
 
 import { v4 as uuid } from "uuid"
 
@@ -101,6 +102,23 @@ export const getProductByHandle = async (handle) => {
   const product = await fetch(window.Shopify.routes.root + 'products/' + handle + '.js')
   const productJson = await product.json()
   return productJson
+}
+
+export const assemblePrompt = (prompt, style, shape) => {  
+ const fullPrompt = () => { 
+  if (prompt.endsWith('noprefix')) {
+    return prompt   
+  }
+  else{
+    if (shape.id == 'window') {
+      return `${prompt} --ar 32:9`
+    }
+    else {
+      return `${commonPrompt} ${style.prompt} ${prompt}`
+  }}
+}
+  
+  return fullPrompt(prompt)
 }
 
 

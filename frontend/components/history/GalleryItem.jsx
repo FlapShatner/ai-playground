@@ -15,7 +15,7 @@ function GalleryItem({ item, i }) {
 
   const isActive = item.url == generated.url
   const handleClick = () => {
-    setGenerated({ url: item.url, publicId: item.publicId, meta: item.meta, up: item.up })
+    setGenerated({ url: item.url, publicId: item.publicId, meta: item.meta, up: item.up, shape: item.shape })
     setDetailMode(false)
     setCaption(item.prompt)
     setIsOrdering(false)

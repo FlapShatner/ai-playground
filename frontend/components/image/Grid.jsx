@@ -26,7 +26,7 @@ function Grid() {
       return Object.entries(transformations).map(([key, value], i) => {
         const image = cld.image(generated.publicId)
         image.resize(crop().width(1024).height(1024).gravity(compass(value)))
-        return { id: i, label: key, image: image }
+        return { id: i, label: key, image: image, shape: generated.shape }
       })
     }
     setImageArray(arr)
