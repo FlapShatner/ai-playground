@@ -26,9 +26,11 @@ function GalleryItem({ item, i }) {
 
   const image = cld.image(item.publicId)
 
+  const isWindow = item.shape?.id == 'window'
+
   return (
-    <div onClick={handleClick} className='flex flex-col items-center cursor-pointer' key={i}>
-      <div className={cn('w-32 h-32 object-cover border border-border hover:border-accent', isActive && 'border-accent')}>
+    <div onClick={handleClick} className='flex flex-col items-center  cursor-pointer' key={i}>
+      <div className={cn('w-32 h-32 object-cover border border-border hover:border-accent flex items-center', isActive && 'border-accent', isWindow && 'w-64')}>
         <AdvancedImage plugins={[placeholder({ mode: 'blur' })]} cldImg={image} />
       </div>
       <p className='text-center text-txt-primary text-xs w-32 text-ellipsis overflow-hidden whitespace-nowrap'>{item.prompt}</p>

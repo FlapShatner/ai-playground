@@ -12,7 +12,6 @@ import { generatedAtom, sizeAtom, quantityAtom, isSuccessAtom, notesAtom, cartAt
 import Overlay from './prompt/Overlay'
 
 export default function App({ home }) {
-  console.log(home)
   const [size, setSize] = useAtom(sizeAtom)
   const [isSuccess, setIsSuccess] = useAtom(isSuccessAtom)
   const quantity = useAtomValue(quantityAtom)
@@ -65,6 +64,8 @@ export default function App({ home }) {
     }
   }
 
+  const isWindow = generated?.shape?.id == 'window'
+
   return (
     <div className='bg-bg-primary w-full max-w-[1200px] 2xl:max-w-[1600px] m-auto relative'>
       <Banner />
@@ -78,7 +79,7 @@ export default function App({ home }) {
       <div id='appTop' className='bg-bg-primary w-full m-auto flex '>
         <div className='w-full gap-4 flex flex-col-reverse lg:flex-row justify-center p-4 m-auto'>
           <div className={cn('flex flex-row gap-4 w-full justify-center', isSmall && 'flex-col-reverse')}>
-            {isOrdering ? <Form addVariantToCart={addVariantToCart} /> : <Prompt />}
+            {isOrdering && !isWindow ? <Form addVariantToCart={addVariantToCart} /> : <Prompt />}
             <Image />
           </div>
         </div>

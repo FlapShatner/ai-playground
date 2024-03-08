@@ -47,6 +47,7 @@ function HistoryModal({ isOpen, setIsOpen }) {
       </p>
       <div className='flex flex-wrap gap-3 justify-center p-8'>
         {history.map((item, i) => {
+          const isWindow = item.shape?.id == 'window'
           const isActive = item.url == generated.url
           const handleClick = () => {
             setIsOrdering(false)
@@ -59,7 +60,14 @@ function HistoryModal({ isOpen, setIsOpen }) {
           }
           return (
             <div onClick={handleClick} className='flex flex-col items-center cursor-pointer' key={i}>
-              <img className={cn('sm:w-40 sm:h-40 object-cover  border border-border hover:border-accent', isActive && 'border-accent')} src={item.url} />
+              <div
+                className={cn(
+                  'sm:w-40 sm:h-40 object-cover border border-border hover:border-accent flex items-center',
+                  isActive && 'border-accent',
+                  isWindow && 'sm:w-80'
+                )}>
+                <img src={item.url} />
+              </div>
               <p className='text-center text-txt-primary text-xs w-40 text-ellipsis overflow-hidden whitespace-nowrap'>{item.prompt}</p>
             </div>
           )

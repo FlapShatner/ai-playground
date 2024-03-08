@@ -1,5 +1,5 @@
 import React from 'react'
-import { getVariants, upscale, cn } from '../utils'
+import { getVariants, upscale, cn, assemblePrompt } from '../utils'
 import useWebSocket from '../hooks/useWebSocket'
 import { useLocalStorage } from 'usehooks-ts'
 import useIsSmall from '../hooks/useIsSmall'
@@ -29,7 +29,7 @@ function Option({ children, className, optionId }) {
 
   const isSmall = useIsSmall()
 
-  useWebSocket('wss://tunnel.ink-dev.com')
+  useWebSocket('wss://mj-backend-i2y7w.ondigitalocean.app/')
 
   const wsId = useAtomValue(wsIdAtom)
 
@@ -44,9 +44,10 @@ function Option({ children, className, optionId }) {
     if (optionId === 'vars') {
       const shape = generated.shape
       setIsMakingVariants(true)
-      const addPrompt = imageStyle.prompt + caption
+      // const addPrompt = imageStyle.prompt + caption
+      const fullPrompt = assemblePrompt(caption, imageStyle.prompt, shape)
       const meta = typeof generated.meta != 'string' ? JSON.stringify(generated.meta) : generated.meta
-      getVariants(meta, activeIndex?.index + 1, addPrompt, wsId).then(async (res) => {
+      getVariants(meta, activeIndex?.index + 1, fullPrompt, wsId).then(async (res) => {
         if (!res.ok) {
           console.log(res.error)
           return

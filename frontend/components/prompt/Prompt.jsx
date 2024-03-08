@@ -43,7 +43,7 @@ function Prompt() {
   const isWindow = shape.id == 'window'
 
   const isSmall = useIsSmall()
-  useWebSocket('wss://tunnel.ink-dev.com/')
+  useWebSocket('wss://mj-backend-i2y7w.ondigitalocean.app/')
 
   const addToHistory = (prompt, url, publicId, style, meta, up, shape) => {
     let newHistory = [...history]

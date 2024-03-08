@@ -62,7 +62,7 @@ function Order() {
       onClick={handleOrder}
       className={cn(
         'flex flex-col cursor-pointer border border-accent p-4 text-center text-bg-secondary font-semibold m-4 bg-accent hover:bg-accent-bright rounded-md',
-        isOrdering && 'opacity-0 pointer-events-none'
+        isOrdering && 'hidden'
       )}>
       <span className='text-xl'>Buy as a decal!</span>
       <span className='text-sm font-semibold'>Click to choose size and quantity</span>
