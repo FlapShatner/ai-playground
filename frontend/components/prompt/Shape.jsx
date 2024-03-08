@@ -6,6 +6,7 @@ import { shapeAtom } from '../atoms'
 import { options } from '../shapeOptions'
 import Chevron from '../icons/Chevron'
 import Bigfoot from '../images/Bigfoot'
+import Star from '../images/Star'
 import Windshield from '../images/Windshield'
 import Cat from '../images/Cat'
 
@@ -34,7 +35,9 @@ function Shape() {
               )}>
               <div className=''>
                 {item.id == 'contour' ? (
-                  <Cat isActive={isActive} className={cn('w-28 mx-2 -my-2', isBreakpoint && 'w-16 -my-1')} />
+                  <div className={cn('w-28 mr-4 ml-6', isBreakpoint && 'w-12 ml-4 py-1')}>
+                    <Star isActive={isActive} className={cn('w-20 ', isBreakpoint && 'w-12')} />
+                  </div>
                 ) : (
                   <Windshield isActive={isActive} className={cn('w-28 m-2', isBreakpoint && 'w-16')} />
                 )}

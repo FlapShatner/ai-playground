@@ -15,6 +15,11 @@ redirect_urls = [ "https://shopify.dev/apps/default-app-home/api/auth" ]
 [webhooks]
 api_version = "2024-01"
 
+[app_proxy]
+url = "https://mj-backend-i2y7w.ondigitalocean.app/"
+subpath = "image"
+prefix = "a"
+
 [pos]
 embedded = false
 
