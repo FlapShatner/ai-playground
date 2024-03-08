@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 import useIsSmall from '../hooks/useIsSmall'
-import { generate, cn, getSuggest, assemblePrompt } from '../utils'
+import { generate, cn, getSuggest, assemblePrompt, assembleCallData } from '../utils'
 import useWebSocket from '../hooks/useWebSocket'
 import Shape from './Shape'
+import Options from './Options'
 import Guide from '../Guide'
 import Help from '../icons/Help'
 import Paste from '../icons/Paste'
@@ -59,8 +60,7 @@ function Prompt() {
     setProgress('1%')
     setGenerated({ url: '', publicId: '', meta: {}, up: false })
     if (prompt) {
-      const fullPrompt = assemblePrompt(prompt, imageStyle, shape)
-      const data = { prompt: fullPrompt, style: imageStyle.id, wsId: wsId }
+      const data = assembleCallData(prompt, imageStyle, shape, wsId)
       setIsGenerating(true)
       getSuggest(prompt).then(async (res) => {
         if (res.error || res.length === 0) {
@@ -116,8 +116,9 @@ function Prompt() {
       </span> */}
       {/* <Guide isOpen={isOpen} setIsOpen={setIsOpen} /> */}
 
-      <div className='flex flex-col items-end gap-4 w-full'>
-        <Shape />
+      <div className='flex flex-col gap-4 w-full'>
+        {/* <Shape /> */}
+        <Options />
         <div className='w-full'>
           <textarea
             className={cn('px-2 py-1 h-48 placeholder:opacity-60 border border-border', isSmall && 'h-12')}

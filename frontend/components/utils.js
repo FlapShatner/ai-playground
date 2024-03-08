@@ -121,6 +121,22 @@ export const assemblePrompt = (prompt, style, shape) => {
   return fullPrompt(prompt)
 }
 
+export const assembleCallData = ( prompt, style, shape, wsId) => {  
+  const data = {
+    prompt: assemblePrompt(prompt, style, shape),
+    style: style.id,
+    wsId: wsId
+  }
+  return data
+}
+
+export const makeString = (meta) => {
+  if (typeof meta != 'string') {
+    return JSON.stringify(meta)
+  }
+  return meta
+}
+
 
 
 export async function generate(data) {
@@ -143,8 +159,9 @@ export async function generate(data) {
   }
 }
 
-export const getVariants = async (meta, i, addPrompt, wsId) => {
-  console.log('meta', meta, 'i', i, addPrompt, 'wsId', wsId)
+export const getVariants = async (callData) => {
+  const { meta, activeIndex, fullPrompt, wsId } = callData
+  console.log('meta', meta, 'i', activeIndex, fullPrompt, 'wsId', wsId)
   try{
     const resp = await fetch('/a/image/var', {
       method: 'POST',
@@ -153,8 +170,8 @@ export const getVariants = async (meta, i, addPrompt, wsId) => {
       },
       body: JSON.stringify({
         job: meta,
-        index: i,
-        prompt: addPrompt,
+        index: activeIndex,
+        prompt: fullPrompt,
         wsId: wsId
       }),
     })

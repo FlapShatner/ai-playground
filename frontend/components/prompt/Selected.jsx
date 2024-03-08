@@ -1,5 +1,5 @@
 import React from 'react'
-import { getVariants, upscale, cn, assemblePrompt } from '../utils'
+import { getVariants, upscale, cn, assemblePrompt, assembleCallData, makeString } from '../utils'
 import useWebSocket from '../hooks/useWebSocket'
 import { useLocalStorage } from 'usehooks-ts'
 import useIsSmall from '../hooks/useIsSmall'
@@ -44,10 +44,15 @@ function Option({ children, className, optionId }) {
     if (optionId === 'vars') {
       const shape = generated.shape
       setIsMakingVariants(true)
-      // const addPrompt = imageStyle.prompt + caption
       const fullPrompt = assemblePrompt(caption, imageStyle.prompt, shape)
-      const meta = typeof generated.meta != 'string' ? JSON.stringify(generated.meta) : generated.meta
-      getVariants(meta, activeIndex?.index + 1, fullPrompt, wsId).then(async (res) => {
+      const meta = makeString(generated.meta)
+      const callData = {
+        meta: meta,
+        activeIndex: activeIndex?.index + 1,
+        fullPrompt: fullPrompt,
+        wsId: wsId,
+      }
+      getVariants(callData).then(async (res) => {
         if (!res.ok) {
           console.log(res.error)
           return
