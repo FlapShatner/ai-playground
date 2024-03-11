@@ -21,7 +21,7 @@ function StyleSelect() {
   return (
     <div ref={wrapRef} className='relative mt-4 grid sm:mt-0 '>
       <span className='m-auto'>Choose a style</span>
-      <div className='w-full lg:w-3/4 m-auto '>
+      <div className='w-full xl:w-3/4 m-auto '>
         <div onClick={handleClick} className='cursor-pointer border border-border flex items-center justify-between gap-2 w-full bg-bg-secondary'>
           <div className='flex items-center w-full'>
             <img className='w-16' src={imageStyle.img} alt={imageStyle.img} />
@@ -32,7 +32,7 @@ function StyleSelect() {
           <Chevron className='ml-auto mr-1 h-16 sm:h-auto flex flex-col items-center' direction='down' />
         </div>
         {isOpen && (
-          <div className='absolute bg-bg-secondary w-full h-64 overflow-y-scroll lg:w-3/4 border-b border-border z-20'>
+          <div className='absolute bg-bg-secondary w-full h-64 overflow-y-scroll xl:w-3/4 border-b border-border z-20'>
             {prompts.map((item, i) => {
               const handleClick = () => {
                 setImageStyle(item)

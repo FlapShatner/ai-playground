@@ -1,11 +1,11 @@
 import React from 'react'
 import { cn } from '../utils'
 
-function Chevron({ direction, className, color = '#a6a6a6' }) {
+function Chevron({ direction, className, color = '#a6a6a6', size = '32' }) {
   return (
     <div className={cn('flex justify-center opacity-80  w-12 sm:w-20 bg-bg-secondary cursor-pointer', direction == 'down' ? 'bottom-0' : 'top-0', className)}>
       {direction == 'down' ? (
-        <svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 16 16'>
+        <svg xmlns='http://www.w3.org/2000/svg' width={size} height={size} viewBox='0 0 16 16'>
           <path
             fill={color}
             fillRule='evenodd'
@@ -13,7 +13,7 @@ function Chevron({ direction, className, color = '#a6a6a6' }) {
           />
         </svg>
       ) : (
-        <svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 16 16'>
+        <svg xmlns='http://www.w3.org/2000/svg' width={size} height={size} viewBox='0 0 16 16'>
           <path fill={color} fillRule='evenodd' d='M7.776 5.553a.5.5 0 0 1 .448 0l6 3a.5.5 0 1 1-.448.894L8 6.56L2.224 9.447a.5.5 0 1 1-.448-.894z' />
         </svg>
       )}

@@ -4,13 +4,15 @@ import useIsSmall from '../hooks/useIsSmall'
 import Grid from './Grid'
 import Upscaled from './Upscaled'
 import Progress from '../prompt/Progress'
-import { useAtomValue } from 'jotai'
-import { generatedAtom, captionAtom, isGeneratingAtom, isMakingVariantsAtom, isUpscalingAtom, shapeAtom } from '../atoms'
+import { useAtomValue, useAtom } from 'jotai'
+import { generatedAtom, captionAtom, isGeneratingAtom, isMakingVariantsAtom, isUpscalingAtom, shapeAtom, isWideAtom } from '../atoms'
 import Generating from './Generating'
 import Placeholder from './Placeholder'
 import Stack from './Stack'
+import { useState } from 'react'
 
 function Image() {
+  const [isWide, setIsWide] = useAtom(isWideAtom)
   const shape = useAtomValue(shapeAtom)
   const generated = useAtomValue(generatedAtom)
   const caption = useAtomValue(captionAtom)
@@ -20,7 +22,8 @@ function Image() {
   const isGenerated = generated?.url.length > 0
 
   const isSmall = useIsSmall()
-  const isWindow = generated?.shape?.id == 'window'
+  // const isSquare = true
+  const isSquare = generated?.shape?.grid ? true : false
 
   return (
     <div className='relative m-auto'>
@@ -30,7 +33,7 @@ function Image() {
         <div>
           <p className='text-center'>{caption}</p>
           <div className={cn('w-[95vh] max-w-[700px] 2xl:max-w-[1000px] flex flex-col overflow-hidden relative border border-border', isSmall && 'w-full')}>
-            {generated.up ? <Upscaled /> : <>{isWindow ? <Stack /> : <Grid />}</>}
+            {generated.up ? <Upscaled /> : <>{isSquare ? <Grid /> : <Stack />} </>}
           </div>
         </div>
       ) : (

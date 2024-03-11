@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react'
+import { cn } from '../utils'
 import GridImage from './GridImage'
 import { cld } from '../cloudinary'
 import { crop } from '@cloudinary/url-gen/actions/resize'
 import { compass } from '@cloudinary/url-gen/qualifiers/gravity'
 import Detail from './Detail'
 import { useAtom, useAtomValue } from 'jotai'
-import { generatedAtom, imageArrayAtom, detailModeAtom } from '../atoms'
+import { generatedAtom, imageArrayAtom, detailModeAtom, isWideAtom } from '../atoms'
 
 function Grid() {
   const [imageArray, setImageArray] = useAtom(imageArrayAtom)
   const generated = useAtomValue(generatedAtom)
   const detailMode = useAtomValue(detailModeAtom)
+
   if (!generated) {
     return <div>Loading...</div>
   }
@@ -25,7 +27,7 @@ function Grid() {
 
       return Object.entries(transformations).map(([key, value], i) => {
         const image = cld.image(generated.publicId)
-        image.resize(crop().width(1024).height(1024).gravity(compass(value)))
+        image.resize(crop().width(0.5).height(0.5).gravity(compass(value)))
         return { id: i, label: key, image: image, shape: generated.shape }
       })
     }
@@ -38,7 +40,7 @@ function Grid() {
         <Detail />
       ) : (
         <>
-          <div className='grid grid-cols-2 gap-2 p-2 max-w-[700px] 2xl:max-w-[1000px]'>
+          <div className={cn('grid grid-cols-2 gap-2 p-2 max-w-[700px] 2xl:max-w-[1000px]')}>
             {imageArray.map((img, i) => (
               <GridImage img={img} i={i} key={i} />
             ))}

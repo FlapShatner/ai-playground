@@ -1,5 +1,6 @@
 import React from 'react'
 import { useEffect } from 'react'
+import { cn } from '../utils'
 import { cld } from '../cloudinary'
 import { crop } from '@cloudinary/url-gen/actions/resize'
 import { compass } from '@cloudinary/url-gen/qualifiers/gravity'
@@ -35,7 +36,7 @@ function Stack() {
         <Detail />
       ) : (
         <>
-          <div className='flex flex-col gap-2 p-2 max-w-[700px] 2xl:max-w-[1000px]'>
+          <div className={cn('flex flex-col gap-2 p-2 2xl:max-w-[1000px] max-w-[1800px]')}>
             {stackArray.map((img, i) => (
               <StackImage img={img} i={i} key={i} />
             ))}

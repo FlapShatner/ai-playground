@@ -40,8 +40,13 @@ export const wsIdAtom = atom(null);
 export const isOrderingAtom = atom(false);
 
 export const productAtom = atom(null);
+export const productTypeAtom = atom(options[0]);
 
 export const isOverlayAtom = atom(false);
+export const sizeLabelAtom = atom('Select Size');
 
 export const shapeAtom = atom(options[0]);
+
 export const stackArrayAtom = atom([]);
+
+export const isWideAtom = atom(false);

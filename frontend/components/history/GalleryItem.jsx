@@ -30,7 +30,12 @@ function GalleryItem({ item, i }) {
 
   return (
     <div onClick={handleClick} className='flex flex-col items-center  cursor-pointer' key={i}>
-      <div className={cn('w-32 h-32 object-cover border border-border hover:border-accent flex items-center', isActive && 'border-accent', isWindow && 'w-64')}>
+      <div
+        className={cn(
+          'w-32 h-32 object-cover overflow-hidden border border-border hover:border-accent flex items-center',
+          isActive && 'border-accent',
+          isWindow && 'w-64'
+        )}>
         <AdvancedImage plugins={[placeholder({ mode: 'blur' })]} cldImg={image} />
       </div>
       <p className='text-center text-txt-primary text-xs w-32 text-ellipsis overflow-hidden whitespace-nowrap'>{item.prompt}</p>

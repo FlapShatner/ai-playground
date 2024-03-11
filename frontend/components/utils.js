@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge'
 import { cld } from './cloudinary'
 import { commonPrompt } from './prePrompt'
 
-import { v4 as uuid } from "uuid"
+import { v4 as uuid } from 'uuid'
 
 export function cn(...inputs) {
   return twMerge(clsx(inputs))
@@ -63,10 +63,9 @@ export const addToCart = async (formData) => {
   }
 }
 
-
 export const findSuggProducts = async (tags) => {
   const jsonTags = await tags.json()
-  
+
   let suggestions = []
   for (let i = 0; i < jsonTags.length && i < 10; i++) {
     const tag = jsonTags[i]
@@ -104,28 +103,26 @@ export const getProductByHandle = async (handle) => {
   return productJson
 }
 
-export const assemblePrompt = (prompt, style, shape) => {  
- const fullPrompt = () => { 
-  if (prompt.endsWith('noprefix')) {
-    return prompt   
-  }
-  else{
-    if (shape.id == 'window') {
-      return `${prompt} --ar 32:9`
+export const assemblePrompt = (prompt, style, shape) => {
+  const fullPrompt = () => {
+    if (prompt.endsWith('noprefix')) {
+      return prompt
+    } else {
+      if (shape.id == 'de1') {
+        return `${commonPrompt} ${style.prompt} ${prompt}`        
+      } else {
+        return `${style.prompt} ${prompt} --ar ${shape.ar}`
+      }
     }
-    else {
-      return `${commonPrompt} ${style.prompt} ${prompt}`
-  }}
-}
-  
+  }
   return fullPrompt(prompt)
 }
 
-export const assembleCallData = ( prompt, style, shape, wsId) => {  
+export const assembleCallData = (prompt, style, shape, wsId) => {
   const data = {
     prompt: assemblePrompt(prompt, style, shape),
     style: style.id,
-    wsId: wsId
+    wsId: wsId,
   }
   return data
 }
@@ -136,8 +133,6 @@ export const makeString = (meta) => {
   }
   return meta
 }
-
-
 
 export async function generate(data) {
   // const { prompt, style } = data
@@ -162,7 +157,7 @@ export async function generate(data) {
 export const getVariants = async (callData) => {
   const { meta, activeIndex, fullPrompt, wsId } = callData
   console.log('meta', meta, 'i', activeIndex, fullPrompt, 'wsId', wsId)
-  try{
+  try {
     const resp = await fetch('/a/image/var', {
       method: 'POST',
       headers: {
@@ -172,23 +167,23 @@ export const getVariants = async (callData) => {
         job: meta,
         index: activeIndex,
         prompt: fullPrompt,
-        wsId: wsId
+        wsId: wsId,
       }),
     })
     console.log('resp', resp)
     if (!resp.ok) {
       throw new Error('Failed to generate image')
     }
-    
+
     return resp
   } catch {
     console.log('error')
     return { ok: false, error: 'Failed to generate variants' }
   }
-} 
+}
 
 export const upscale = async (meta, i) => {
-  try{
+  try {
     const resp = await fetch('/a/image/upscale', {
       method: 'POST',
       headers: {
@@ -196,13 +191,13 @@ export const upscale = async (meta, i) => {
       },
       body: JSON.stringify({
         job: meta,
-        index: i
+        index: i,
       }),
     })
     if (!resp.ok) {
       throw new Error('Failed to generate image')
     }
-    
+
     return resp
   } catch {
     console.log('error')
