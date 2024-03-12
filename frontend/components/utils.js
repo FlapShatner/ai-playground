@@ -109,9 +109,9 @@ export const assemblePrompt = (prompt, style, shape) => {
       return prompt
     } else {
       if (shape.id == 'de1') {
-        return `${commonPrompt} ${style.prompt} ${prompt}`        
+        return `${commonPrompt} ${style} ${prompt}`        
       } else {
-        return `${style.prompt} ${prompt} --ar ${shape.ar}`
+        return `${style} ${prompt} --ar ${shape.ar}`
       }
     }
   }
@@ -120,7 +120,7 @@ export const assemblePrompt = (prompt, style, shape) => {
 
 export const assembleCallData = (prompt, style, shape, wsId) => {
   const data = {
-    prompt: assemblePrompt(prompt, style, shape),
+    prompt: assemblePrompt(prompt, style.prompt, shape),
     style: style.id,
     wsId: wsId,
   }

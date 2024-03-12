@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Modal from 'react-modal'
 import { cn } from '../utils'
+import { prompts } from '../prePrompt'
 import { useLocalStorage, useLockedBody } from 'usehooks-ts'
 import CloseIcon from '../icons/CloseIcon'
 import { useAtom, useSetAtom } from 'jotai'
@@ -13,6 +14,7 @@ function HistoryModal({ isOpen, setIsOpen }) {
   const setCaption = useSetAtom(captionAtom)
   const setImageStyle = useSetAtom(imageStyleAtom)
   const setIsOrdering = useSetAtom(isOrderingAtom)
+  const setDetailMode = useSetAtom(detailModeAtom)
   useEffect(() => {
     setLocked(isOpen)
     return () => setLocked(false)
@@ -54,6 +56,7 @@ function HistoryModal({ isOpen, setIsOpen }) {
             setGenerated(item)
             setCaption(item.prompt)
             setIsOpen(false)
+            setDetailMode(false)
             const thisStyle = prompts?.find((style) => style.id == item.style)
             if (!thisStyle) return
             setImageStyle(thisStyle)
@@ -62,7 +65,7 @@ function HistoryModal({ isOpen, setIsOpen }) {
             <div onClick={handleClick} className='flex flex-col items-center cursor-pointer' key={i}>
               <div
                 className={cn(
-                  'sm:w-40 sm:h-40 object-cover border border-border hover:border-accent flex items-center',
+                  'sm:w-40 sm:h-40 object-cover border border-border hover:border-accent flex items-center overflow-hidden',
                   isActive && 'border-accent',
                   isWindow && 'sm:w-80'
                 )}>

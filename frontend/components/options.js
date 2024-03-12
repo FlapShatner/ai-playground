@@ -1,6 +1,6 @@
 export const products = [
   [
-    { id: 'de', label: 'Decal', isSelect: false, options: [{ id: 'de1', label: 'Contour Cut', ar: '1:1' }], isDisabled: false },
+    { id: 'de', label: 'Decal', isSelect: false, options: [{ id: 'de1', label: 'Contour Cut', ar: '1:1', grid: true }], isDisabled: false },
     {
       id: 'dp',
       label: 'Digital Print',

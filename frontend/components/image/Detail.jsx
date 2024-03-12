@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAtomValue, useSetAtom } from 'jotai'
-import { detailImageAtom, detailModeAtom, isMakingVariantsAtom, isUpscalingAtom, isWideAtom } from '../atoms'
+import { detailImageAtom, detailModeAtom, isMakingVariantsAtom, isUpscalingAtom } from '../atoms'
 import { cn } from '../utils'
 import Selected from '../prompt/Selected'
 import LeftArrow from '../icons/leftArrow'
@@ -12,8 +12,9 @@ function Detail() {
   const setDetailMode = useSetAtom(detailModeAtom)
   const detailImage = useAtomValue(detailImageAtom)
   const isMakingVariants = useAtomValue(isMakingVariantsAtom)
-  const isWide = useAtomValue(isWideAtom)
   const isUpscaling = useAtomValue(isUpscalingAtom)
+
+  const isWide = !detailImage.shape.grid
 
   return (
     <div className='aspect-square flex flex-col justify-center'>

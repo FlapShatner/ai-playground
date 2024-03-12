@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { cn, upscale } from '../utils'
 import { useLocalStorage } from 'usehooks-ts'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
-import { isOrderingAtom, generatedAtom, activeIndexAtom, isUpscalingAtom, captionAtom, imageStyleAtom } from '../atoms'
+import { isOrderingAtom, generatedAtom, activeIndexAtom, isUpscalingAtom, captionAtom, imageStyleAtom, shapeAtom } from '../atoms'
 
 function Order() {
   const [history, setHistory] = useLocalStorage('history', [])
@@ -14,9 +14,11 @@ function Order() {
   const imageStyle = useAtomValue(imageStyleAtom)
   const setIsUpscaling = useSetAtom(isUpscalingAtom)
 
-  const addToHistory = (prompt, url, publicId, style, meta, up) => {
+  const shape = generated.shape
+
+  const addToHistory = (prompt, url, publicId, style, meta, up, shape) => {
     let newHistory = [...history]
-    newHistory.unshift({ prompt, url, publicId, style, meta, up })
+    newHistory.unshift({ prompt, url, publicId, style, meta, up, shape })
     setHistory(newHistory)
   }
 
@@ -30,8 +32,8 @@ function Order() {
       }
       const json = await res.json()
       const up = true
-      setGenerated({ url: json.imgData.url, publicId: json.imgData.publicId, meta: json.meta, up: up })
-      addToHistory(caption, json.imgData.url, json.imgData.publicId, imageStyle.id, json.meta, up)
+      setGenerated({ url: json.imgData.url, publicId: json.imgData.publicId, meta: json.meta, up: up, shape: shape })
+      addToHistory(caption, json.imgData.url, json.imgData.publicId, imageStyle.id, json.meta, up, shape)
       setIsUpscaling(false)
     })
   }
@@ -42,16 +44,17 @@ function Order() {
 
   const handleOrder = async () => {
     if (generated.up) {
-      if (generated.shape.id == 'window') {
+      if (generated.shape.id == 'wi1') {
         setWindowProduct(generated)
         goToUrl('/products/ai-truck-back-window-graphics')
       }
       setIsOrdering(true)
     } else {
       await upscaleImage()
-      if (generated.shape.id == 'window') {
+      if (generated.shape.id == 'wi1') {
         setWindowProduct(generated)
         goToUrl('/products/ai-truck-back-window-graphics')
+        return
       }
       setIsOrdering(true)
     }

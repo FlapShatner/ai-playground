@@ -3,7 +3,7 @@ import { useAtom, useSetAtom } from 'jotai'
 import { progressAtom, finalResultAtom, webSocketAtom, wsIdAtom } from '../atoms'
 const useWebSocket = (url) => {
   const [ws, setWs] = useAtom(webSocketAtom)
-  const setWsId = useSetAtom(wsIdAtom)
+  const [wsId, setWsId] = useAtom(wsIdAtom)
   const setFinalResult = useSetAtom(finalResultAtom)
   const setProgress = useSetAtom(progressAtom)
 
@@ -11,6 +11,8 @@ const useWebSocket = (url) => {
     if (ws && ws.readyState < 2) {
       return
     }
+
+    console.log('Connecting to WebSocket:', url)
 
     const newWs = new WebSocket(url)
     setWs(newWs)
@@ -23,12 +25,18 @@ const useWebSocket = (url) => {
       const message = JSON.parse(event.data)
       console.log('WebSocket message:', message)
       if (message.id) {
-        setWsId(message.id)
+        if (wsId) {
+          setWsId(wsId)
+        } else {
+          setWsId(message.id)
+        }
       } else if (message.status) {
         if (message.status === '0%') {
           setProgress('6%')
         }
         setProgress(message.status)
+      } else if (message.payload) {
+        console.log('payload:', message.payload)
       } else if (message.finalResult) {
         console.log('finalResult:', message.finalResult)
         setFinalResult(message.finalResult)

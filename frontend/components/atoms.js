@@ -45,7 +45,7 @@ export const productTypeAtom = atom(options[0]);
 export const isOverlayAtom = atom(false);
 export const sizeLabelAtom = atom('Select Size');
 
-export const shapeAtom = atom(options[0]);
+export const shapeAtom = atom({id:'', label:''});
 
 export const stackArrayAtom = atom([]);
 

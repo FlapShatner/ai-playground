@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { getVariants, upscale, cn, assemblePrompt, assembleCallData, makeString } from '../utils'
 import useWebSocket from '../hooks/useWebSocket'
 import { useLocalStorage } from 'usehooks-ts'
@@ -14,9 +14,11 @@ import {
   isUpscalingAtom,
   progressAtom,
   wsIdAtom,
+  isGeneratingAtom,
 } from '../atoms'
 
 function Option({ children, className, optionId }) {
+  const [isError, setIsError] = useState(false)
   const [history, setHistory] = useLocalStorage('history', [])
   const [generated, setGenerated] = useAtom(generatedAtom)
   const activeIndex = useAtomValue(activeIndexAtom)
@@ -26,10 +28,9 @@ function Option({ children, className, optionId }) {
   const setIsMakingVariants = useSetAtom(isMakingVariantsAtom)
   const setIsUpscaling = useSetAtom(isUpscalingAtom)
   const setProgress = useSetAtom(progressAtom)
+  const setIsGenerating = useSetAtom(isGeneratingAtom)
 
   const isSmall = useIsSmall()
-
-  useWebSocket('wss://mj-backend-i2y7w.ondigitalocean.app/')
 
   const wsId = useAtomValue(wsIdAtom)
 
@@ -54,12 +55,18 @@ function Option({ children, className, optionId }) {
       }
       getVariants(callData).then(async (res) => {
         if (!res.ok) {
+          setIsGenerating(false)
           console.log(res.error)
+          setIsError(true)
+          setTimeout(() => {
+            setIsError(false)
+          }, 3000)
           return
         }
+        const up = false
         const json = await res.json()
-        setGenerated({ url: json.imgData.url, publicId: json.imgData.publicId, meta: json.meta, shape: shape })
-        addToHistory(caption, json.imgData.url, json.imgData.publicId, imageStyle.id, json.meta, shape)
+        setGenerated({ url: json.imgData.url, publicId: json.imgData.publicId, meta: json.meta, up: up, shape: shape })
+        addToHistory(caption, json.imgData.url, json.imgData.publicId, imageStyle.id, json.meta, up, shape)
         setDetailMode(false)
         setIsMakingVariants(false)
       })

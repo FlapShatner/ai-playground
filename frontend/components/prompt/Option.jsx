@@ -29,11 +29,13 @@ function Option({ product }) {
 
   const isChecked = productData.id === productType.id
 
+  const isWindow = product.id == 'wi'
+
   return (
     <div className={cn('flex items-center gap-2 py-1', product.isDisabled && 'opacity-45 pointer-events-none')}>
       <Checkbox onClick={handleSelect} isChecked={isChecked} />
       <div className='mr-auto flex flex-col justify-start'>
-        <span>{product.label}</span>
+        <span className={cn(isWindow && 'text-sm')}>{product.label}</span>
         {product.isDisabled && <span className='text-xs'>Coming soon</span>}
         {product.isSelect && <OptionSelect handleSelect={handleSelect} isChecked={isChecked} product={product} />}
       </div>

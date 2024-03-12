@@ -12,6 +12,7 @@ import StyleSelect from './StyleSelect'
 import { DevTools } from 'jotai-devtools'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import {
+  isErrorAtom,
   generatedAtom,
   captionAtom,
   imageStyleAtom,
@@ -27,7 +28,8 @@ import {
 
 function Prompt() {
   const [history, setHistory] = useLocalStorage('history', [])
-  const [isError, setIsError] = useState(false)
+  const [showAlert, setShowAlert] = useState(false)
+  const [isError, setIsError] = useAtom(isErrorAtom)
   const [isOpen, setIsOpen] = useState(false)
   const [generated, setGenerated] = useAtom(generatedAtom)
   const [prompt, setPrompt] = useAtom(promptAtom)
@@ -41,10 +43,8 @@ function Prompt() {
   const setCaption = useSetAtom(captionAtom)
   const shape = useAtomValue(shapeAtom)
 
-  const isWindow = shape.id == 'window'
-
   const isSmall = useIsSmall()
-  useWebSocket('wss://mj-backend-i2y7w.ondigitalocean.app/')
+  useWebSocket('wss://tunnel.ink-dev.com/')
 
   const addToHistory = (prompt, url, publicId, style, meta, up, shape) => {
     let newHistory = [...history]
@@ -57,6 +57,13 @@ function Prompt() {
   }
 
   const handleClick = () => {
+    if (shape.id == '') {
+      setShowAlert(true)
+      setTimeout(() => {
+        setShowAlert(false)
+      }, 3000)
+      return
+    }
     setProgress('1%')
     setGenerated({ url: '', publicId: '', meta: {}, up: false })
     if (prompt) {
@@ -73,6 +80,7 @@ function Prompt() {
         console.error('WebSocket ID is not set')
         return
       }
+
       generate(data).then(async (res) => {
         if (!res.ok) {
           setIsGenerating(false)
@@ -108,18 +116,13 @@ function Prompt() {
   return (
     <form className={cn('flex flex-col w-full justify-end', isSmall && 'w-full max-w-[700px] m-auto')}>
       <DevTools />
-      {/* <span
-        onClick={() => setIsOpen(true)}
-        className='flex gap-1 items-center text-accent underline font-bold justify-end cursor-pointer hover:text-accent-bright'>
-        User Guide
-        <Help size='20px' color='rgb(210 172 83)' />
-      </span> */}
-      {/* <Guide isOpen={isOpen} setIsOpen={setIsOpen} /> */}
 
       <div className='flex flex-col gap-4 w-full'>
-        {/* <Shape /> */}
         <Options />
         <div className='w-full'>
+          <div className={cn('text-red-500 font-bold text-center w-full m-auto mb-1', !showAlert && 'hidden')}>
+            Please choose a product above to generate a design
+          </div>
           <textarea
             className={cn('px-2 py-1 h-48 placeholder:opacity-60 border border-border', isSmall && 'h-12')}
             id='prompt'
@@ -129,6 +132,7 @@ function Prompt() {
             type='text'
             placeholder='Enter a prompt here'
           />
+
           {generated && (
             <div
               onClick={handlePaste}
@@ -140,7 +144,7 @@ function Prompt() {
         </div>
         <div className=' w-full'>
           <StyleSelect />
-          <span className={cn('text-red-500 text-center mt-2', !isError && 'hidden')}>Something went wrong, please try again</span>
+          <div className={cn('text-red-500 text-center m-auto mt-1 font-bold', !isError && 'hidden')}>Something went wrong, please try again</div>
         </div>
       </div>
 
