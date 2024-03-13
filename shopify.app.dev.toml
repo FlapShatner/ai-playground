@@ -1,0 +1,27 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+name = "dev"
+client_id = "e53cd4187fef00f0e8a52039a30139db"
+application_url = "https://shopify.dev/apps/default-app-home"
+embedded = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = ""
+
+[auth]
+redirect_urls = [ "https://shopify.dev/apps/default-app-home/api/auth" ]
+
+[webhooks]
+api_version = "2024-01"
+
+[app_proxy]
+url = "https://tunnel.ink-dev.com/"
+subpath = "image"
+prefix = "a"
+
+[pos]
+embedded = false
+
+[build]
+dev_store_url = "squirrels-and-squirrels.myshopify.com"

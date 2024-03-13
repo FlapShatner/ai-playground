@@ -1,9 +1,9 @@
 import React from 'react'
-import './Loader.css'
+import s from './Loader.module.css'
 
 function Loader() {
   return (
-    <div className='spinner'>
+    <div className={s.spinner}>
       <div></div>
       <div></div>
       <div></div>

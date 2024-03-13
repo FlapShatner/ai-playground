@@ -1,18 +1,27 @@
-import { useState, useEffect } from 'react'
-import { addToCart, getCart } from './utils'
-import Prompt from './Prompt'
-import Image from './Image'
-import Form from './Form'
+import { useEffect } from 'react'
+import { addToCart, getCart, cn } from './utils'
+import useIsSmall from './hooks/useIsSmall'
+import Gallery from './history/Gallery'
+import Prompt from './prompt/Prompt'
+import Image from './image/Image'
+import Form from './form/Form'
+import Suggestions from './suggestions/Suggestions'
+import Banner from './banner/Banner'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
+import { generatedAtom, sizeAtom, quantityAtom, isSuccessAtom, notesAtom, cartAtom, isOrderingAtom, addingToCartAtom } from './atoms'
+import Overlay from './prompt/Overlay'
 
 export default function App({ home }) {
-  const [generated, setGenerated] = useState('')
-  const [caption, setCaption] = useState('')
-  const [size, setSize] = useState('') // size is a variant id
-  const [quantity, setQuantity] = useState(1)
-  const [isSuccess, setIsSuccess] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [size, setSize] = useAtom(sizeAtom)
+  const [isSuccess, setIsSuccess] = useAtom(isSuccessAtom)
+  const quantity = useAtomValue(quantityAtom)
+  const generated = useAtomValue(generatedAtom)
+  const notes = useAtomValue(notesAtom)
+  const isOrdering = useAtomValue(isOrderingAtom)
+  const setCart = useSetAtom(cartAtom)
+  const setIsAddingToCart = useSetAtom(addingToCartAtom)
 
-  const [cart, setCart] = useState(null)
+  const isSmall = useIsSmall()
 
   const formData = {
     id: size,
@@ -34,21 +43,19 @@ export default function App({ home }) {
     updateCount()
   }, [isSuccess])
 
-  let enabled = generated != '' && size != ''
-
   const addVariantToCart = async () => {
-    setLoading(true)
+    setIsAddingToCart(true)
     const res = await addToCart({
       ...formData,
       properties: {
-        _image: generated,
+        _image: generated.url,
+        notes: notes,
       },
     })
     if (res) {
-      console.log(res)
       const ajaxCart = document.querySelector('.minicart__content')
       ajaxCart.innerHTML = res.sections['ajax-cart']
-      setLoading(false)
+      setIsAddingToCart(false)
       setIsSuccess(true)
       setTimeout(() => {
         setIsSuccess(false)
@@ -57,27 +64,29 @@ export default function App({ home }) {
     }
   }
 
+  const isWindow = generated?.shape?.id == 'window'
+
   return (
-    <div className='bg-bg-primary'>
-      <h1 className='text-3xl text-center mb-6'>Generate a design with AI</h1>
-      <div className='p-8 gap-4 flex'>
-        <div className='w-1/2'>
-          <div className='flex flex-col-reverse gap-4'>
-            <Prompt setCaption={setCaption} generated={generated} setGenerated={setGenerated} />
-            <Image caption={caption} generated={generated} />
-          </div>
-        </div>
-        <Form
-          size={size}
-          setSize={setSize}
-          quantity={quantity}
-          setQuantity={setQuantity}
-          addVariantToCart={addVariantToCart}
-          enabled={enabled}
-          isSuccess={isSuccess}
-          loading={loading}
+    <div className='bg-bg-primary w-full max-w-[1200px] 2xl:max-w-[1600px] m-auto relative'>
+      <Banner />
+      <div className='w-full m-auto h-auto flex bg-bg-primary '>
+        <img
+          className='w-full max-w-[900px] m-auto my-4 px-8'
+          src='https://res.cloudinary.com/dkxssdk96/image/upload/v1706647115/Fonzie_Logo_6in_PNG_xuwf99.png'
+          alt='Fonzie AI Generator Logo'
         />
       </div>
+      <div id='appTop' className='bg-bg-primary w-full m-auto flex '>
+        <div className='w-full gap-4 flex flex-col-reverse lg:flex-row justify-center p-4 m-auto'>
+          <div className={cn('flex flex-row gap-4 w-full justify-center', isSmall && 'flex-col-reverse')}>
+            {isOrdering && !isWindow ? <Form addVariantToCart={addVariantToCart} /> : <Prompt />}
+            <Image />
+          </div>
+        </div>
+      </div>
+      <Suggestions />
+      <Gallery />
+      <div className='w-full h-[2px] bg-accent'></div>
     </div>
   )
 }

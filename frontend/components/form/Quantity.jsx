@@ -1,24 +1,25 @@
 import React from 'react'
-import QuantIcons from './QuantIcons'
+import { cn } from '../utils'
+import QuantIcons from '../icons/QuantIcons'
 
 function Quantity({ quantity, setQuantity }) {
   const handleIncrement = () => {
     setQuantity(quantity + 1)
   }
   const handleDecrement = () => {
-    if (quantity === 1) return
+    if (quantity === 0) return
     setQuantity(quantity - 1)
   }
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col justify-end'>
       <label htmlFor='quantity'>Quantity</label>
-      <div className='flex mt-2'>
+      <div className='flex'>
         <div onClick={handleDecrement} className='cursor-pointer px-4 border border-txt-secondary border-r-bg-primary flex items-center'>
           <QuantIcons name='minus' size='12' />
         </div>
         <input
-          className='border border-txt-secondary bg-bg-primary text-txt-primary w-10 h-10 min-h-4 text-center'
+          className={cn('border border-txt-secondary bg-bg-primary text-txt-primary w-14 h-14 min-h-4 text-center text-xl')}
           value={quantity}
           readOnly
           id='quantity'
