@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
+import useWebSocket, { ReadyState } from 'react-use-websocket'
 import { useLocalStorage } from 'usehooks-ts'
 import useIsSmall from '../hooks/useIsSmall'
 import { generate, cn, getSuggest, assemblePrompt, assembleCallData } from '../utils'
-import useWebSocket from '../hooks/useWebSocket'
 import Shape from './Shape'
 import Options from './Options'
 import Guide from '../Guide'
@@ -26,7 +26,7 @@ import {
   shapeAtom,
 } from '../atoms'
 
-function Prompt({ sendMessage }) {
+function Prompt() {
   const [history, setHistory] = useLocalStorage('history', [])
   const [showAlert, setShowAlert] = useState(false)
   const [isError, setIsError] = useAtom(isErrorAtom)
@@ -34,17 +34,44 @@ function Prompt({ sendMessage }) {
   const [generated, setGenerated] = useAtom(generatedAtom)
   const [prompt, setPrompt] = useAtom(promptAtom)
   const [isGenerating, setIsGenerating] = useAtom(isGeneratingAtom)
-  const wsId = useAtomValue(wsIdAtom)
+  const [wsId, setWsId] = useAtom(wsIdAtom)
   const imageStyle = useAtomValue(imageStyleAtom)
-  const setProgress = useSetAtom(progressAtom)
+  //  const setProgress = useSetAtom(progressAtom)
   const setModalIsOpen = useSetAtom(modalIsOpenAtom)
   const setDetailMode = useSetAtom(detailModeAtom)
   const setSuggestions = useSetAtom(suggestionsAtom)
   const setCaption = useSetAtom(captionAtom)
   const shape = useAtomValue(shapeAtom)
 
+  const [message, setMessage] = useState('')
+
   const isSmall = useIsSmall()
-  // useWebSocket('wss://tunnel.ink-dev.com/')
+
+  const WS_URL = 'wss://home.ink-dev.com/'
+  const { sendJsonMessage, sendMessage, lastJsonMessage, readyState } = useWebSocket(WS_URL, {
+    share: true,
+    shouldReconnect: () => true,
+  })
+
+  useEffect(() => {
+    console.log('Conn state changed', readyState)
+    if (readyState === ReadyState.OPEN) {
+      sendJsonMessage({ event: 'init', data: { wsId: wsId } })
+    }
+  }, [ReadyState])
+
+  useEffect(() => {
+    if (lastJsonMessage) {
+      if (lastJsonMessage.event === 'id') {
+        console.log('lastJsonMessage', lastJsonMessage)
+        setWsId(lastJsonMessage.id)
+      }
+    }
+  }, [lastJsonMessage])
+
+  useEffect(() => {
+    sendMessage(JSON.stringify({ event: 'generate', data: message, wsId: wsId }))
+  }, [message])
 
   const addToHistory = (prompt, url, publicId, style, meta, up, shape) => {
     let newHistory = [...history]
@@ -64,41 +91,41 @@ function Prompt({ sendMessage }) {
       }, 3000)
       return
     }
-    setProgress('1%')
     setGenerated({ url: '', publicId: '', meta: {}, up: false })
     if (prompt) {
       const data = assembleCallData(prompt, imageStyle, shape, wsId)
+      setMessage(data)
       setIsGenerating(true)
-      getSuggest(prompt).then(async (res) => {
-        if (res.error || res.length === 0) {
-          return
-        }
-        setSuggestions(res)
-        setModalIsOpen(true)
-      })
-      if (!wsId) {
-        console.error('WebSocket ID is not set')
-        return
-      }
+      //  getSuggest(prompt).then(async (res) => {
+      //   if (res.error || res.length === 0) {
+      //    return
+      //   }
+      //   setSuggestions(res)
+      //   setModalIsOpen(true)
+      //  })
+      //  if (!wsId) {
+      //   console.error('WebSocket ID is not set')
+      //   return
+      //  }
 
-      generate(data).then(async (res) => {
-        if (!res.ok) {
-          setIsGenerating(false)
-          console.log(res.error)
-          setIsError(true)
-          setTimeout(() => {
-            setIsError(false)
-          }, 3000)
-          return
-        }
-        const json = await res.json()
-        setGenerated({ url: json.imgData.url, publicId: json.imgData.publicId, meta: json.meta, up: false, shape: shape })
-        setDetailMode(false)
-        setIsGenerating(false)
-        setCaption(prompt)
-        addToHistory(prompt, json.imgData.url, json.imgData.publicId, imageStyle.id, json.meta, false, shape)
-        setPrompt('')
-      })
+      //  generate(data).then(async (res) => {
+      //   if (!res.ok) {
+      //    setIsGenerating(false)
+      //    console.log(res.error)
+      //    setIsError(true)
+      //    setTimeout(() => {
+      //     setIsError(false)
+      //    }, 3000)
+      //    return
+      //   }
+      //   const json = await res.json()
+      //   setGenerated({ url: json.imgData.url, publicId: json.imgData.publicId, meta: json.meta, up: false, shape: shape })
+      //   setDetailMode(false)
+      //   setIsGenerating(false)
+      //   setCaption(prompt)
+      //   addToHistory(prompt, json.imgData.url, json.imgData.publicId, imageStyle.id, json.meta, false, shape)
+      //   setPrompt('')
+      //  })
     }
   }
 

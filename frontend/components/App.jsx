@@ -10,7 +10,6 @@ import Suggestions from './suggestions/Suggestions'
 import Banner from './banner/Banner'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { generatedAtom, sizeAtom, quantityAtom, isSuccessAtom, notesAtom, cartAtom, isOrderingAtom, addingToCartAtom } from './atoms'
-import Overlay from './prompt/Overlay'
 
 export default function App({ home }) {
   const [size, setSize] = useAtom(sizeAtom)
@@ -21,8 +20,6 @@ export default function App({ home }) {
   const isOrdering = useAtomValue(isOrderingAtom)
   const setCart = useSetAtom(cartAtom)
   const setIsAddingToCart = useSetAtom(addingToCartAtom)
-
-  const { sendMessage } = useWebSocket('wss://tunnel.ink-dev.com/')
 
   const isSmall = useIsSmall()
 
@@ -82,8 +79,8 @@ export default function App({ home }) {
       <div id='appTop' className='bg-bg-primary w-full m-auto flex '>
         <div className='w-full gap-4 flex flex-col-reverse lg:flex-row justify-center p-4 m-auto'>
           <div className={cn('flex flex-row gap-4 w-full justify-center', isSmall && 'flex-col-reverse')}>
-            {isOrdering && !isWindow ? <Form addVariantToCart={addVariantToCart} /> : <Prompt sendMessage={sendMessage} />}
-            <Image sendMessage={sendMessage} />
+            {isOrdering && !isWindow ? <Form addVariantToCart={addVariantToCart} /> : <Prompt />}
+            <Image />
           </div>
         </div>
       </div>
