@@ -26,7 +26,7 @@ import {
   shapeAtom,
 } from '../atoms'
 
-function Prompt() {
+function Prompt({ sendMessage }) {
   const [history, setHistory] = useLocalStorage('history', [])
   const [showAlert, setShowAlert] = useState(false)
   const [isError, setIsError] = useAtom(isErrorAtom)
@@ -44,7 +44,7 @@ function Prompt() {
   const shape = useAtomValue(shapeAtom)
 
   const isSmall = useIsSmall()
-  useWebSocket('wss://tunnel.ink-dev.com/')
+  // useWebSocket('wss://tunnel.ink-dev.com/')
 
   const addToHistory = (prompt, url, publicId, style, meta, up, shape) => {
     let newHistory = [...history]

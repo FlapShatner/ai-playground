@@ -8,7 +8,7 @@ import Detail from './Detail'
 import { useAtom, useAtomValue } from 'jotai'
 import { generatedAtom, imageArrayAtom, detailModeAtom, isWideAtom } from '../atoms'
 
-function Grid() {
+function Grid({ sendMessage }) {
   const [imageArray, setImageArray] = useAtom(imageArrayAtom)
   const generated = useAtomValue(generatedAtom)
   const detailMode = useAtomValue(detailModeAtom)
@@ -37,7 +37,7 @@ function Grid() {
   return (
     <>
       {detailMode ? (
-        <Detail />
+        <Detail sendMessage={sendMessage} />
       ) : (
         <>
           <div className={cn('grid grid-cols-2 gap-2 p-2 max-w-[700px] 2xl:max-w-[1000px]')}>

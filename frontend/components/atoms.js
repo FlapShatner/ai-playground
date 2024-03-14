@@ -50,3 +50,6 @@ export const shapeAtom = atom({id:'', label:''});
 export const stackArrayAtom = atom([]);
 
 export const isWideAtom = atom(false);
+
+export const wsSuccessAtom = atom(false);
+export const wsPayloadAtom = atom(null);

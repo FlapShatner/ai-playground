@@ -9,7 +9,7 @@ import { stackArrayAtom, generatedAtom, detailModeAtom } from '../atoms'
 import StackImage from './StackImage'
 import Detail from './Detail'
 
-function Stack() {
+function Stack({ sendMessage }) {
   const [stackArray, setStackArray] = useAtom(stackArrayAtom)
   const generated = useAtomValue(generatedAtom)
   const detailMode = useAtomValue(detailModeAtom)
@@ -33,7 +33,7 @@ function Stack() {
   return (
     <>
       {detailMode ? (
-        <Detail />
+        <Detail sendMessage={sendMessage} />
       ) : (
         <>
           <div className={cn('flex flex-col gap-2 p-2 2xl:max-w-[1000px] max-w-[1800px]')}>

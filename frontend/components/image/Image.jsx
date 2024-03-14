@@ -11,7 +11,7 @@ import Placeholder from './Placeholder'
 import Stack from './Stack'
 import { useState } from 'react'
 
-function Image() {
+function Image({ sendMessage }) {
   const [isWide, setIsWide] = useAtom(isWideAtom)
   const shape = useAtomValue(shapeAtom)
   const generated = useAtomValue(generatedAtom)
@@ -33,7 +33,7 @@ function Image() {
         <div>
           <p className='text-center'>{caption}</p>
           <div className={cn('w-[95vh] max-w-[700px] 2xl:max-w-[1000px] flex flex-col overflow-hidden relative border border-border', isSmall && 'w-full')}>
-            {generated.up ? <Upscaled /> : <>{isSquare ? <Grid /> : <Stack />} </>}
+            {generated.up ? <Upscaled /> : <>{isSquare ? <Grid sendMessage={sendMessage} /> : <Stack sendMessage={sendMessage} />} </>}
           </div>
         </div>
       ) : (

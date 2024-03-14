@@ -8,7 +8,7 @@ import Order from '../image/Order'
 import SquaresLoad from '../loader/SquaresLoad'
 import { AdvancedImage, placeholder } from '@cloudinary/react'
 
-function Detail() {
+function Detail({ sendMessage }) {
   const setDetailMode = useSetAtom(detailModeAtom)
   const detailImage = useAtomValue(detailImageAtom)
   const isMakingVariants = useAtomValue(isMakingVariantsAtom)
@@ -23,7 +23,7 @@ function Detail() {
         <span className='text-lg font-semibold text-accent underline '>Back to grid</span>
       </div>
       <AdvancedImage className={cn('w-2/3 m-auto', isWide && 'w-full')} plugins={[placeholder({ mode: 'blur' })]} cldImg={detailImage.image} />
-      <Selected />
+      <Selected sendMessage={sendMessage} />
       <Order />
       {(isMakingVariants || isUpscaling) && (
         <div className='absolute top-0 left-0 w-full h-full bg-backdrop-dark'>

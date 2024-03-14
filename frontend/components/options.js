@@ -48,7 +48,7 @@ export const products = [
       id: 'wi',
       label: 'Truck Back Window Graphics',
       isSelect: false,
-      options: [{ id: 'wi1', label: 'Choose size at checkout', ar: '32:9' }],
+      options: [{ id: 'wi1', label: 'Choose size at checkout', ar: '32:9', grid: false }],
       isDisabled: false,
     },
     { id: 'ts', label: 'T-Shirt', isSelect: false, options: [{ id: 'ts1', label: 'Coming Soon' }], isDisabled: true },

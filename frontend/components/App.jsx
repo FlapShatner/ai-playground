@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { addToCart, getCart, cn } from './utils'
 import useIsSmall from './hooks/useIsSmall'
+import useWebSocket from './hooks/useWebSocket'
 import Gallery from './history/Gallery'
 import Prompt from './prompt/Prompt'
 import Image from './image/Image'
@@ -20,6 +21,8 @@ export default function App({ home }) {
   const isOrdering = useAtomValue(isOrderingAtom)
   const setCart = useSetAtom(cartAtom)
   const setIsAddingToCart = useSetAtom(addingToCartAtom)
+
+  const { sendMessage } = useWebSocket('wss://tunnel.ink-dev.com/')
 
   const isSmall = useIsSmall()
 
@@ -79,8 +82,8 @@ export default function App({ home }) {
       <div id='appTop' className='bg-bg-primary w-full m-auto flex '>
         <div className='w-full gap-4 flex flex-col-reverse lg:flex-row justify-center p-4 m-auto'>
           <div className={cn('flex flex-row gap-4 w-full justify-center', isSmall && 'flex-col-reverse')}>
-            {isOrdering && !isWindow ? <Form addVariantToCart={addVariantToCart} /> : <Prompt />}
-            <Image />
+            {isOrdering && !isWindow ? <Form addVariantToCart={addVariantToCart} /> : <Prompt sendMessage={sendMessage} />}
+            <Image sendMessage={sendMessage} />
           </div>
         </div>
       </div>
