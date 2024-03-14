@@ -11,43 +11,24 @@ import Paste from '../icons/Paste'
 import StyleSelect from './StyleSelect'
 import { DevTools } from 'jotai-devtools'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
-import {
-  isErrorAtom,
-  generatedAtom,
-  captionAtom,
-  imageStyleAtom,
-  suggestionsAtom,
-  modalIsOpenAtom,
-  promptAtom,
-  detailModeAtom,
-  isGeneratingAtom,
-  progressAtom,
-  wsIdAtom,
-  shapeAtom,
-} from '../atoms'
+import { isErrorAtom, generatedAtom, imageStyleAtom, promptAtom, isGeneratingAtom, wsIdAtom, shapeAtom, messageAtom } from '../atoms'
 
 function Prompt() {
   const [history, setHistory] = useLocalStorage('history', [])
   const [showAlert, setShowAlert] = useState(false)
   const [isError, setIsError] = useAtom(isErrorAtom)
-  const [isOpen, setIsOpen] = useState(false)
   const [generated, setGenerated] = useAtom(generatedAtom)
   const [prompt, setPrompt] = useAtom(promptAtom)
   const [isGenerating, setIsGenerating] = useAtom(isGeneratingAtom)
   const [wsId, setWsId] = useAtom(wsIdAtom)
   const imageStyle = useAtomValue(imageStyleAtom)
-  //  const setProgress = useSetAtom(progressAtom)
-  const setModalIsOpen = useSetAtom(modalIsOpenAtom)
-  const setDetailMode = useSetAtom(detailModeAtom)
-  const setSuggestions = useSetAtom(suggestionsAtom)
-  const setCaption = useSetAtom(captionAtom)
   const shape = useAtomValue(shapeAtom)
 
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useAtom(messageAtom)
 
   const isSmall = useIsSmall()
 
-  const WS_URL = 'wss://home.ink-dev.com/'
+  const WS_URL = 'wss://tunnel.ink-dev.com/'
   const { sendJsonMessage, sendMessage, lastJsonMessage, readyState } = useWebSocket(WS_URL, {
     share: true,
     shouldReconnect: () => true,
@@ -70,14 +51,17 @@ function Prompt() {
   }, [lastJsonMessage])
 
   useEffect(() => {
-    sendMessage(JSON.stringify({ event: 'generate', data: message, wsId: wsId }))
+    if (!message) return
+    if (message.event === 'generate') {
+      sendMessage(JSON.stringify({ event: 'generate', data: message, wsId: wsId }))
+    } else if (message.event === 'variations') {
+      console.log('sending variations message', message)
+      sendMessage(JSON.stringify({ event: 'variations', data: message, wsId: wsId }))
+    } else if (message.event === 'upscale') {
+      console.log('sending upscale message', message)
+      sendMessage(JSON.stringify({ event: 'upscale', data: message, wsId: wsId }))
+    }
   }, [message])
-
-  const addToHistory = (prompt, url, publicId, style, meta, up, shape) => {
-    let newHistory = [...history]
-    newHistory.unshift({ prompt, url, publicId, style, meta, up, shape })
-    setHistory(newHistory)
-  }
 
   const handleChange = (e) => {
     setPrompt(e.target.value)
@@ -93,39 +77,16 @@ function Prompt() {
     }
     setGenerated({ url: '', publicId: '', meta: {}, up: false })
     if (prompt) {
-      const data = assembleCallData(prompt, imageStyle, shape, wsId)
-      setMessage(data)
+      const callData = {
+        event: 'generate',
+        prompt: assemblePrompt(prompt, imageStyle.prompt, shape),
+        caption: prompt,
+        style: imageStyle.id,
+        wsId: wsId,
+        shape: shape,
+      }
+      setMessage(callData)
       setIsGenerating(true)
-      //  getSuggest(prompt).then(async (res) => {
-      //   if (res.error || res.length === 0) {
-      //    return
-      //   }
-      //   setSuggestions(res)
-      //   setModalIsOpen(true)
-      //  })
-      //  if (!wsId) {
-      //   console.error('WebSocket ID is not set')
-      //   return
-      //  }
-
-      //  generate(data).then(async (res) => {
-      //   if (!res.ok) {
-      //    setIsGenerating(false)
-      //    console.log(res.error)
-      //    setIsError(true)
-      //    setTimeout(() => {
-      //     setIsError(false)
-      //    }, 3000)
-      //    return
-      //   }
-      //   const json = await res.json()
-      //   setGenerated({ url: json.imgData.url, publicId: json.imgData.publicId, meta: json.meta, up: false, shape: shape })
-      //   setDetailMode(false)
-      //   setIsGenerating(false)
-      //   setCaption(prompt)
-      //   addToHistory(prompt, json.imgData.url, json.imgData.publicId, imageStyle.id, json.meta, false, shape)
-      //   setPrompt('')
-      //  })
     }
   }
 

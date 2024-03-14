@@ -1,47 +1,75 @@
 import React, { useEffect } from 'react'
-import useWebSocket, { ReadyState } from 'react-use-websocket'
+import useWebSocket from 'react-use-websocket'
+import { useLocalStorage } from 'usehooks-ts'
 import { cn } from '../utils'
 import useIsSmall from '../hooks/useIsSmall'
 import Grid from './Grid'
 import Upscaled from './Upscaled'
 import Progress from '../prompt/Progress'
-import { useAtomValue, useAtom } from 'jotai'
-import { generatedAtom, captionAtom, isGeneratingAtom, isMakingVariantsAtom, isUpscalingAtom, shapeAtom, isWideAtom } from '../atoms'
+import { useAtomValue, useAtom, useSetAtom } from 'jotai'
+import {
+  generatedAtom,
+  captionAtom,
+  isGeneratingAtom,
+  isMakingVariantsAtom,
+  isUpscalingAtom,
+  shapeAtom,
+  isWideAtom,
+  detailModeAtom,
+  promptAtom,
+  imageStyleAtom,
+} from '../atoms'
 import Generating from './Generating'
 import Placeholder from './Placeholder'
 import Stack from './Stack'
-import { useState } from 'react'
 
 function Image() {
+  const [history, setHistory] = useLocalStorage('history', [])
+  const [imageStyle, setImageStyle] = useAtom(imageStyleAtom)
   const [isWide, setIsWide] = useAtom(isWideAtom)
+  const [detailMode, setDetailMode] = useAtom(detailModeAtom)
+  const setPrompt = useSetAtom(promptAtom)
   const shape = useAtomValue(shapeAtom)
   const [generated, setGenerated] = useAtom(generatedAtom)
   const [caption, setCaption] = useAtom(captionAtom)
   const [isGenerating, setIsGenerating] = useAtom(isGeneratingAtom)
-  const isMakingVariants = useAtomValue(isMakingVariantsAtom)
-  const isUpscaling = useAtomValue(isUpscalingAtom)
+  const [isMakingVariants, setIsMakingVariants] = useAtom(isMakingVariantsAtom)
+  const [isUpscaling, setIsUpscaling] = useAtom(isUpscalingAtom)
   const isGenerated = generated?.url.length > 0
 
-  const WS_URL = 'wss://home.ink-dev.com/'
+  const WS_URL = 'wss://tunnel.ink-dev.com/'
   const { lastJsonMessage } = useWebSocket(WS_URL, {
     share: true,
     shouldReconnect: () => true,
   })
 
+  const addToHistory = (generatedObj) => {
+    let newHistory = [...history]
+    newHistory.unshift(generatedObj)
+    setHistory(newHistory)
+  }
+
   useEffect(() => {
     if (lastJsonMessage) {
-      if (lastJsonMessage.event === 'variations') {
-        setGenerated({
-          url: lastJsonMessage.data.imgData.url,
-          publicId: lastJsonMessage.data.imgData.publicId,
-          meta: lastJsonMessage.meta,
-          up: false,
+      if (lastJsonMessage.event === 'generate' || lastJsonMessage.event === 'variations' || lastJsonMessage.event === 'upscale') {
+        const shape = lastJsonMessage.shape
+        const { imgData, meta, prompt, caption } = lastJsonMessage
+        const generatedObj = {
+          url: imgData.url,
+          publicId: imgData.publicId,
+          meta: meta,
+          up: lastJsonMessage.event === 'upscale' ? true : false,
           shape: shape,
-        })
+          prompt: prompt,
+          caption: caption,
+        }
+        setGenerated(generatedObj)
+        setIsUpscaling(false)
         setDetailMode(false)
         setIsGenerating(false)
-        setCaption(prompt)
-        addToHistory(prompt, lastJsonMessage.data.imgData.url, lastJsonMessage.data.imgData.publicId, imageStyle.id, lastJsonMessage.meta, false, shape)
+        setIsMakingVariants(false)
+        setCaption(caption)
+        addToHistory(generatedObj)
         setPrompt('')
       }
     }

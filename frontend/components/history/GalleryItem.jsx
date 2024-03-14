@@ -15,9 +15,9 @@ function GalleryItem({ item, i }) {
 
   const isActive = item.url == generated.url
   const handleClick = () => {
-    setGenerated({ url: item.url, publicId: item.publicId, meta: item.meta, up: item.up, shape: item.shape })
+    setGenerated(item)
     setDetailMode(false)
-    setCaption(item.prompt)
+    setCaption(item.caption)
     setIsOrdering(false)
     const thisStyle = prompts.find((style) => style.id == item.style)
     if (!thisStyle) return
@@ -26,7 +26,7 @@ function GalleryItem({ item, i }) {
 
   const image = cld.image(item.publicId)
 
-  const isWindow = item.shape?.id == 'window'
+  const isGrid = item.shape?.grid
 
   return (
     <div onClick={handleClick} className='flex flex-col items-center  cursor-pointer' key={i}>
@@ -34,7 +34,7 @@ function GalleryItem({ item, i }) {
         className={cn(
           'w-32 h-32 object-cover overflow-hidden border border-border hover:border-accent flex items-center',
           isActive && 'border-accent',
-          isWindow && 'w-64'
+          !isGrid && 'w-64'
         )}>
         <AdvancedImage plugins={[placeholder({ mode: 'blur' })]} cldImg={image} />
       </div>

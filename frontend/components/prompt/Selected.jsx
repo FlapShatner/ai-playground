@@ -5,6 +5,7 @@ import { useLocalStorage } from 'usehooks-ts'
 import useIsSmall from '../hooks/useIsSmall'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import {
+  messageAtom,
   activeIndexAtom,
   generatedAtom,
   captionAtom,
@@ -19,6 +20,7 @@ import {
 
 function Option({ children, className, optionId }) {
   const [isError, setIsError] = useState(false)
+  const [message, setMessage] = useAtom(messageAtom)
   const [history, setHistory] = useLocalStorage('history', [])
   const [generated, setGenerated] = useAtom(generatedAtom)
   const activeIndex = useAtomValue(activeIndexAtom)
@@ -29,72 +31,44 @@ function Option({ children, className, optionId }) {
   const setIsUpscaling = useSetAtom(isUpscalingAtom)
   const setProgress = useSetAtom(progressAtom)
   const setIsGenerating = useSetAtom(isGeneratingAtom)
-
-  const WS_URL = 'wss://home.ink-dev.com/'
-  const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(WS_URL, {
-    share: false,
-    shouldReconnect: () => true,
-  })
-
-  useEffect(() => {
-    console.log('Conn state changed', readyState)
-    if (readyState === ReadyState.OPEN) {
-      sendJsonMessage({ event: 'init', data: { wsId: wsId } })
-    }
-  }, [ReadyState])
+  const wsId = useAtomValue(wsIdAtom)
 
   const isSmall = useIsSmall()
-
-  const addToHistory = (prompt, url, publicId, style, meta, up, shape) => {
-    let newHistory = [...history]
-    newHistory.unshift({ prompt, url, publicId, style, meta, up, shape })
-    setHistory(newHistory)
-  }
 
   const handleClick = async () => {
     setProgress('1%')
     if (optionId === 'vars') {
       const shape = generated.shape
       setIsMakingVariants(true)
-      const fullPrompt = assemblePrompt(caption, imageStyle.prompt, shape)
+      const prompt = assemblePrompt(caption, imageStyle.prompt, shape)
       const meta = makeString(generated.meta)
       const callData = {
+        event: 'variations',
         meta: meta,
         activeIndex: activeIndex?.index + 1,
-        fullPrompt: fullPrompt,
+        prompt: prompt,
+        shape: shape,
+        caption: caption,
+        style: imageStyle.id,
       }
-      getVariants(callData).then(async (res) => {
-        if (!res.ok) {
-          setIsGenerating(false)
-          console.log(res.error)
-          setIsError(true)
-          setTimeout(() => {
-            setIsError(false)
-          }, 3000)
-          return
-        }
-        const up = false
-        const json = await res.json()
-        setGenerated({ url: json.imgData.url, publicId: json.imgData.publicId, meta: json.meta, up: up, shape: shape })
-        addToHistory(caption, json.imgData.url, json.imgData.publicId, imageStyle.id, json.meta, up, shape)
-        setDetailMode(false)
-        setIsMakingVariants(false)
-      })
+      console.log('callData', callData)
+      setMessage(callData)
     } else {
       const shape = generated.shape
+      const prompt = generated.prompt
+      const caption = generated.caption
       setIsUpscaling(true)
-      const meta = typeof generated.meta != 'string' ? JSON.stringify(generated.meta) : generated.meta
-      upscale(meta, activeIndex?.index + 1).then(async (res) => {
-        if (!res.ok) {
-          console.log(res.error)
-          return
-        }
-        const json = await res.json()
-        const up = true
-        setGenerated({ url: json.imgData.url, publicId: json.imgData.publicId, meta: json.meta, up: up, shape: shape })
-        addToHistory(caption, json.imgData.url, json.imgData.publicId, imageStyle.id, json.meta, up, shape)
-        setIsUpscaling(false)
-      })
+      const meta = makeString(generated.meta)
+      const callData = {
+        event: 'upscale',
+        meta: meta,
+        activeIndex: activeIndex?.index + 1,
+        prompt: prompt,
+        caption: caption,
+        shape: shape,
+        style: imageStyle.id,
+      }
+      setMessage(callData)
     }
   }
 
@@ -117,7 +91,7 @@ function Selected() {
   const isSmall = useIsSmall()
   return (
     <div className={cn('flex gap-4 w-full justify-center mt-3 mb-3', isSmall && 'flex-col')}>
-      <Option optionId={cn('vars')}>{isMakingVariants ? 'Making Variations' : 'Make Variations'}</Option>
+      <Option optionId='vars'>{isMakingVariants ? 'Making Variations' : 'Make Variations'}</Option>
       <Option optionId='up'>{isUpscaling ? 'Upscaling' : 'Upscale'}</Option>
     </div>
   )
