@@ -1,0 +1,591 @@
+
+inkmo@Kratos MINGW64 ~/Dev/ai-playground.worktrees/mj (shapes)
+$ be
+bash: be: command not found
+
+inkmo@Kratos MINGW64 ~/Dev/ai-playground.worktrees/mj (shapes)
+$ mjbe
+
+> mj-backend@1.0.0 dev
+> nodemon index.js
+
+[nodemon] 3.0.3
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): *.*
+[nodemon] watching extensions: js,mjs,cjs,json
+[nodemon] starting `node index.js`
+file:///C:/Users/inkmo/Dev/mj-backend/index.js:4
+import http from 'http'
+^^^^^^^^^^^
+
+SyntaxError: Identifier 'http' has already been declared
+    at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:118:18)
+    at callTranslator (node:internal/modules/esm/loader:273:14)
+    at ModuleLoader.moduleProvider (node:internal/modules/esm/loader:278:30)
+    at async link (node:internal/modules/esm/module_job:76:21)
+
+Node.js v20.9.0
+[nodemon] app crashed - waiting for file changes before starting...
+[nodemon] restarting due to changes...
+[nodemon] starting `node index.js`
+Server is running on port 8888
+connected
+connection ca20f82a-48e4-45c8-af65-66657c5d2cc9 closed
+connected
+🎊 ws ready!!! Hi: FlapShatner
+update 45% fbb3b439-0251-4ff4-9fc6-9d3079739a58
+loading https://cdn.discordapp.com/attachments/1016373031741968479/1218202463866327060/73c0d6b8-26cd-4042-8857-e789dc0f63b9_grid_0.webp?ex=6606ce74&is=65f45974&hm=2d50018314c898431cf43da82fe372b7e92234403fd79d244e0bea3c1c0f9d93& progress 45%
+update 65% fbb3b439-0251-4ff4-9fc6-9d3079739a58
+loading https://cdn.discordapp.com/attachments/1016373031741968479/1218202476688441455/73c0d6b8-26cd-4042-8857-e789dc0f63b9_grid_0.webp?ex=6606ce77&is=65f45977&hm=310924c454090a2c48b5a70d12e4210738272e086408ad129983e1318873f970& progress 65%
+update 75% fbb3b439-0251-4ff4-9fc6-9d3079739a58
+loading https://cdn.discordapp.com/attachments/1016373031741968479/1218202497085341796/73c0d6b8-26cd-4042-8857-e789dc0f63b9_grid_0.webp?ex=6606ce7c&is=65f4597c&hm=b1cb1c4a176609fbcd31815560812434e8d81b90ffcb03566b7375b5c1dfb3c5& progress 75%
+uploading image https://cdn.discordapp.com/attachments/1016373031741968479/1218202523525972129/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_73c0d6b8-26cd-4042-8857-e789dc0f63b9.png?ex=6606ce82&is=65f45982&hm=d54b8cd8ddb94004d55adb364fdd9a743ad153f0a542657721e17d0678f87710& undefined
+cloudinary res: http://res.cloudinary.com/dkxssdk96/image/upload/v1710512515/tjdhiog0yswqbn6pjdzw.png
+response {"id":"1218202524092469308","flags":0,"content":"**die cut sticker, decal, contour cut, pitch black background, llustration, detailed, with color, Oneghoul and one goblin** - <@674368750807547915> (fast)","hash":"73c0d6b8-26cd-4042-8857-e789dc0f63b9","progress":"done","uri":"https://cdn.discordapp.com/attachments/1016373031741968479/1218202523525972129/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_73c0d6b8-26cd-4042-8857-e789dc0f63b9.png?ex=6606ce82&is=65f45982&hm=d54b8cd8ddb94004d55adb364fdd9a743ad153f0a542657721e17d0678f87710&","proxy_url":"https://media.discordapp.net/attachments/1016373031741968479/1218202523525972129/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_73c0d6b8-26cd-4042-8857-e789dc0f63b9.png?ex=6606ce82&is=65f45982&hm=d54b8cd8ddb94004d55adb364fdd9a743ad153f0a542657721e17d0678f87710&","options":[{"type":2,"style":2,"label":"U1","custom":"MJ::JOB::upsample::1::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"U2","custom":"MJ::JOB::upsample::2::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"U3","custom":"MJ::JOB::upsample::3::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"U4","custom":"MJ::JOB::upsample::4::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"🔄","custom":"MJ::JOB::reroll::0::73c0d6b8-26cd-4042-8857-e789dc0f63b9::SOLO"},{"type":2,"style":2,"label":"V1","custom":"MJ::JOB::variation::1::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"V2","custom":"MJ::JOB::variation::2::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"V3","custom":"MJ::JOB::variation::3::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"V4","custom":"MJ::JOB::variation::4::73c0d6b8-26cd-4042-8857-e789dc0f63b9"}],"width":2048,"height":2048}
+connection fbb3b439-0251-4ff4-9fc6-9d3079739a58 closed
+connected
+connection 800954d3-282e-437f-9d83-cd9e331ec7e3 closed
+connected
+connection 60da17a4-43fa-42b1-a2d2-bee0a01cf96a closed
+connected
+connection 2c7f4aeb-489e-4811-9143-c61ef3dbbdc2 closed
+connected
+connection 0ba35185-5c6e-47e1-b5b7-efe9470b7a8a closed
+connected
+connection 72d2a286-05db-438d-b467-3d5ddd0205af closed
+connected
+connection 57e4cf9a-fb60-47fd-94cd-ed1126039ef6 closed
+connected
+connection b8af1452-d956-47fe-8f4d-e0bc08dd08e8 closed
+connected
+connection 338128fc-1501-4857-9899-956cfa6069cc closed
+connected
+connection 7abda000-2781-41fb-a976-bc8b64a1508d closed
+connected
+connection 723bad15-1cab-4d50-a725-9b344addab67 closed
+connected
+connected
+connection 681d2f3e-0a32-4018-8ad7-6e0f763b68aa closed
+connection db614a08-7edc-4298-b182-cfb048ee760a closed
+connected
+connection 3dc11c35-2f88-4edf-b4a5-a9cb8573ee56 closed
+connected
+upscale message {
+  event: 'upscale',
+  data: {
+    event: 'upscale',
+    meta: '{"id":"1218202524092469308","flags":0,"content":"**die cut sticker, decal, contour cut, pitch black background, llustration, detailed, with color, One ghoul and one goblin** - <@674368750807547915> (fast)","hash":"73c0d6b8-26cd-4042-8857-e789dc0f63b9","progress":"done","uri":"https://cdn.discordapp.com/attachments/1016373031741968479/1218202523525972129/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_73c0d6b8-26cd-4042-8857-e789dc0f63b9.png?ex=6606ce82&is=65f45982&hm=d54b8cd8ddb94004d55adb364fdd9a743ad153f0a542657721e17d0678f87710&","proxy_url":"https://media.discordapp.net/attachments/1016373031741968479/1218202523525972129/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_73c0d6b8-26cd-4042-8857-e789dc0f63b9.png?ex=6606ce82&is=65f45982&hm=d54b8cd8ddb94004d55adb364fdd9a743ad153f0a542657721e17d0678f87710&","options":[{"type":2,"style":2,"label":"U1","custom":"MJ::JOB::upsample::1::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"U2","custom":"MJ::JOB::upsample::2::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"U3","custom":"MJ::JOB::upsample::3::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"U4","custom":"MJ::JOB::upsample::4::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"🔄","custom":"MJ::JOB::reroll::0::73c0d6b8-26cd-4042-8857-e789dc0f63b9::SOLO"},{"type":2,"style":2,"label":"V1","custom":"MJ::JOB::variation::1::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"V2","custom":"MJ::JOB::variation::2::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"V3","custom":"MJ::JOB::variation::3::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"V4","custom":"MJ::JOB::variation::4::73c0d6b8-26cd-4042-8857-e789dc0f63b9"}],"width":2048,"height":2048}',
+    activeIndex: 3,
+    prompt: 'die cut sticker, decal, contour cut, pitch black background,   llustration, detailed, with color,  One ghoul and one goblin',
+    caption: 'One ghoul and one goblin',
+    shape: { id: 'de1', label: 'Contour Cut', ar: '1:1', grid: true },
+    style: 'illustrative'
+  },
+  wsId: '882345c3-3671-467b-a223-b5187f099967'
+}
+uploading image https://cdn.discordapp.com/attachments/1016373031741968479/1218208750398214215/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_93b93772-9950-45df-9093-16d62f02db92.png?ex=6606d44f&is=65f45f4f&hm=b86631326fa77bc6629441bc2d0860836ba6f5ea371f35ddd5470b4fab52cdf7& illustrative
+cloudinary res: http://res.cloudinary.com/dkxssdk96/image/upload/v1710514000/hllzqskpdf9inq3h7fcu.png
+submitCustomId {"type":5,"application_id":"936929561302675456","channel_id":"1016373031741968479","guild_id":"1016373031179923506","data":{"id":"1218208830790303875","custom_id":"MJ::RemixModal::73c0d6b8-26cd-4042-8857-e789dc0f63b9::4::1","components":[{"type":1,"components":[{"type":4,"custom_id":"MJ::RemixModal::new_prompt","value":"die cut sticker, decal, contour cut, pitch black background,llustration, detailed, with color,  One ghoul and one goblin"}]}]},"session_id":"8bb7f5b79c7a49f7d0824ab4b8773a81","nonce":"1218208834590343168"}
+update 45% 882345c3-3671-467b-a223-b5187f099967
+loading https://cdn.discordapp.com/ephemeral-attachments/1016373031741968479/1218208989268021319/6085737c-0748-46a2-9b9e-d62147c5d8d1_grid_0.webp?ex=6606d488&is=65f45f88&hm=e850bcbe6b81732b33949bed0295ce1d403bef51404331a46df27b2211e8322d& progress 45%
+update 55% 882345c3-3671-467b-a223-b5187f099967
+loading https://cdn.discordapp.com/ephemeral-attachments/1016373031741968479/1218208995412545536/6085737c-0748-46a2-9b9e-d62147c5d8d1_grid_0.webp?ex=6606d489&is=65f45f89&hm=29793b7d501b1a33a31ab82054a30beb5b4adc309ee53b27db77adde9a20c3a7& progress 55%
+update 65% 882345c3-3671-467b-a223-b5187f099967
+loading https://cdn.discordapp.com/ephemeral-attachments/1016373031741968479/1218209017537495070/6085737c-0748-46a2-9b9e-d62147c5d8d1_grid_0.webp?ex=6606d48f&is=65f45f8f&hm=19ea882de90a473a54cccb589e85482a9c9bffd678a6c2c34d44dc8812319d9d& progress 65%
+update 75% 882345c3-3671-467b-a223-b5187f099967
+loading https://cdn.discordapp.com/ephemeral-attachments/1016373031741968479/1218209041415803010/6085737c-0748-46a2-9b9e-d62147c5d8d1_grid_0.webp?ex=6606d494&is=65f45f94&hm=e55e7dca1516d5169e10e24b1468c45b9da15ef2646ec546127984ef164b2b25& progress 75%
+update 85% 882345c3-3671-467b-a223-b5187f099967
+loading https://cdn.discordapp.com/ephemeral-attachments/1016373031741968479/1218209070264221837/6085737c-0748-46a2-9b9e-d62147c5d8d1_grid_0.webp?ex=6606d49b&is=65f45f9b&hm=c966cc6ba60e2badfd644d43558b1a3e16c6ba7c1075257143a99ca71c577bee& progress 85%
+uploading image https://cdn.discordapp.com/attachments/1016373031741968479/1218209111171399790/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_6085737c-0748-46a2-9b9e-d62147c5d8d1.png?ex=6606d4a5&is=65f45fa5&hm=097bfb8eea6c1f025da6b3100b175edad57cac0186702ffe393eb218b5264986& illustrative
+cloudinary res: http://res.cloudinary.com/dkxssdk96/image/upload/v1710514086/kzdjx3vpzbe5iotfn3fw.png
+upscale message {
+  event: 'upscale',
+  data: {
+    event: 'upscale',
+    meta: '{"id":"1218209111645093948","flags":0,"content":"**die cut sticker, decal, contour cut, pitch black background, llustration, detailed, with color, One ghoul and one goblin** - Remix (Strong) by <@674368750807547915> (fast)","hash":"6085737c-0748-46a2-9b9e-d62147c5d8d1","progress":"done","uri":"https://cdn.discordapp.com/attachments/1016373031741968479/1218209111171399790/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_6085737c-0748-46a2-9b9e-d62147c5d8d1.png?ex=6606d4a5&is=65f45fa5&hm=097bfb8eea6c1f025da6b3100b175edad57cac0186702ffe393eb218b5264986&","proxy_url":"https://media.discordapp.net/attachments/1016373031741968479/1218209111171399790/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_6085737c-0748-46a2-9b9e-d62147c5d8d1.png?ex=6606d4a5&is=65f45fa5&hm=097bfb8eea6c1f025da6b3100b175edad57cac0186702ffe393eb218b5264986&","options":[{"type":2,"style":2,"label":"U1","custom":"MJ::JOB::upsample::1::6085737c-0748-46a2-9b9e-d62147c5d8d1"},{"type":2,"style":2,"label":"U2","custom":"MJ::JOB::upsample::2::6085737c-0748-46a2-9b9e-d62147c5d8d1"},{"type":2,"style":2,"label":"U3","custom":"MJ::JOB::upsample::3::6085737c-0748-46a2-9b9e-d62147c5d8d1"},{"type":2,"style":2,"label":"U4","custom":"MJ::JOB::upsample::4::6085737c-0748-46a2-9b9e-d62147c5d8d1"},{"type":2,"style":2,"label":"🔄","custom":"MJ::JOB::reroll::0::6085737c-0748-46a2-9b9e-d62147c5d8d1::SOLO"},{"type":2,"style":2,"label":"V1","custom":"MJ::JOB::variation::1::6085737c-0748-46a2-9b9e-d62147c5d8d1"},{"type":2,"style":2,"label":"V2","custom":"MJ::JOB::variation::2::6085737c-0748-46a2-9b9e-d62147c5d8d1"},{"type":2,"style":2,"label":"V3","custom":"MJ::JOB::variation::3::6085737c-0748-46a2-9b9e-d62147c5d8d1"},{"type":2,"style":2,"label":"V4","custom":"MJ::JOB::variation::4::6085737c-0748-46a2-9b9e-d62147c5d8d1"}],"width":2048,"height":2048}',
+    activeIndex: 3,
+    prompt: 'die cut sticker, decal, contour cut, pitch black background,   llustration, detailed, with color,  One ghoul and one goblin',
+    caption: 'One ghoul and one goblin',
+    shape: { id: 'de1', label: 'Contour Cut', ar: '1:1', grid: true },
+    style: 'illustrative'
+  },
+  wsId: '882345c3-3671-467b-a223-b5187f099967'
+}
+connection 882345c3-3671-467b-a223-b5187f099967 closed
+connected
+connection 4586eb2d-27e7-4378-95ce-87fd46f5e11d closed
+connected
+connection 06801f51-38e7-484c-8525-898be510a25f closed
+connected
+connection ba1d8998-b80e-4995-ba32-f9aa383b1523 closed
+connected
+connection c1ff73a8-ce74-4985-bb48-600907ac6d71 closed
+connected
+upscale message {
+  event: 'upscale',
+  data: {
+    event: 'upscale',
+    meta: '{"id":"1218202524092469308","flags":0,"content":"**die cut sticker, decal, contour cut, pitch black background, llustration, detailed, with color, One ghoul and one goblin** - <@674368750807547915> (fast)","hash":"73c0d6b8-26cd-4042-8857-e789dc0f63b9","progress":"done","uri":"https://cdn.discordapp.com/attachments/1016373031741968479/1218202523525972129/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_73c0d6b8-26cd-4042-8857-e789dc0f63b9.png?ex=6606ce82&is=65f45982&hm=d54b8cd8ddb94004d55adb364fdd9a743ad153f0a542657721e17d0678f87710&","proxy_url":"https://media.discordapp.net/attachments/1016373031741968479/1218202523525972129/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_73c0d6b8-26cd-4042-8857-e789dc0f63b9.png?ex=6606ce82&is=65f45982&hm=d54b8cd8ddb94004d55adb364fdd9a743ad153f0a542657721e17d0678f87710&","options":[{"type":2,"style":2,"label":"U1","custom":"MJ::JOB::upsample::1::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"U2","custom":"MJ::JOB::upsample::2::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"U3","custom":"MJ::JOB::upsample::3::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"U4","custom":"MJ::JOB::upsample::4::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"🔄","custom":"MJ::JOB::reroll::0::73c0d6b8-26cd-4042-8857-e789dc0f63b9::SOLO"},{"type":2,"style":2,"label":"V1","custom":"MJ::JOB::variation::1::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"V2","custom":"MJ::JOB::variation::2::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"V3","custom":"MJ::JOB::variation::3::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"V4","custom":"MJ::JOB::variation::4::73c0d6b8-26cd-4042-8857-e789dc0f63b9"}],"width":2048,"height":2048}',
+    activeIndex: 4,
+    prompt: 'die cut sticker, decal, contour cut, pitch black background,   llustration, detailed, with color,  One ghoul and one goblin',
+    caption: 'One ghoul and one goblin',
+    shape: { id: 'de1', label: 'Contour Cut', ar: '1:1', grid: true },
+    style: 'illustrative'
+  },
+  wsId: 'ad466bcf-951d-425e-bc53-ada145174b5d'
+}
+[nodemon] restarting due to changes...
+[nodemon] starting `node index.js`
+Server is running on port 8888
+connected
+upscale message {
+  event: 'upscale',
+  data: {
+    event: 'upscale',
+    meta: '{"id":"1218202524092469308","flags":0,"content":"**die cut sticker, decal, contour cut, pitch black background, llustration, detailed, with color, One ghoul and one goblin** - <@674368750807547915> (fast)","hash":"73c0d6b8-26cd-4042-8857-e789dc0f63b9","progress":"done","uri":"https://cdn.discordapp.com/attachments/1016373031741968479/1218202523525972129/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_73c0d6b8-26cd-4042-8857-e789dc0f63b9.png?ex=6606ce82&is=65f45982&hm=d54b8cd8ddb94004d55adb364fdd9a743ad153f0a542657721e17d0678f87710&","proxy_url":"https://media.discordapp.net/attachments/1016373031741968479/1218202523525972129/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_73c0d6b8-26cd-4042-8857-e789dc0f63b9.png?ex=6606ce82&is=65f45982&hm=d54b8cd8ddb94004d55adb364fdd9a743ad153f0a542657721e17d0678f87710&","options":[{"type":2,"style":2,"label":"U1","custom":"MJ::JOB::upsample::1::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"U2","custom":"MJ::JOB::upsample::2::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"U3","custom":"MJ::JOB::upsample::3::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"U4","custom":"MJ::JOB::upsample::4::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"🔄","custom":"MJ::JOB::reroll::0::73c0d6b8-26cd-4042-8857-e789dc0f63b9::SOLO"},{"type":2,"style":2,"label":"V1","custom":"MJ::JOB::variation::1::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"V2","custom":"MJ::JOB::variation::2::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"V3","custom":"MJ::JOB::variation::3::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"V4","custom":"MJ::JOB::variation::4::73c0d6b8-26cd-4042-8857-e789dc0f63b9"}],"width":2048,"height":2048}',
+    activeIndex: 3,
+    prompt: 'die cut sticker, decal, contour cut, pitch black background,   llustration, detailed, with color,  One ghoul and one goblin',
+    caption: 'One ghoul and one goblin',
+    shape: { id: 'de1', label: 'Contour Cut', ar: '1:1', grid: true },
+    style: 'illustrative'
+  },
+  wsId: 'c999db1e-68b9-4d05-be6c-95eb51f5124b'
+}
+🎊 ws ready!!! Hi: FlapShatner
+responseObj Upscale {
+  id: '1218211872738644001',
+  flags: 0,
+  content: '**die cut sticker, decal, contour cut, pitch black background, llustration, detailed, with color, One ghoul and one goblin** - Image #3 <@674368750807547915>',
+  hash: '93b93772-9950-45df-9093-16d62f02db92',
+  progress: 'done',
+  uri: 'https://cdn.discordapp.com/attachments/1016373031741968479/1218211872755417178/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_93b93772-9950-45df-9093-16d62f02db92.png?ex=6606d737&is=65f46237&hm=2e16d15bac9d118975757b1a8506330439010cad1991fabe3eb95368bb6f4ff2&',
+  proxy_url: 'https://media.discordapp.net/attachments/1016373031741968479/1218211872755417178/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_93b93772-9950-45df-9093-16d62f02db92.png?ex=6606d737&is=65f46237&hm=2e16d15bac9d118975757b1a8506330439010cad1991fabe3eb95368bb6f4ff2&',
+  options: [
+    {
+      type: 2,
+      style: 2,
+      label: 'Upscale (Subtle)',
+      custom: 'MJ::JOB::upsample_v6_2x_subtle::1::93b93772-9950-45df-9093-16d62f02db92::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Upscale (Creative)',
+      custom: 'MJ::JOB::upsample_v6_2x_creative::1::93b93772-9950-45df-9093-16d62f02db92::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Vary (Subtle)',
+      custom: 'MJ::JOB::low_variation::1::93b93772-9950-45df-9093-16d62f02db92::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Vary (Strong)',
+      custom: 'MJ::JOB::high_variation::1::93b93772-9950-45df-9093-16d62f02db92::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Vary (Region)',
+      custom: 'MJ::Inpaint::1::93b93772-9950-45df-9093-16d62f02db92::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Zoom Out 2x',
+      custom: 'MJ::Outpaint::50::1::93b93772-9950-45df-9093-16d62f02db92::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Zoom Out 1.5x',
+      custom: 'MJ::Outpaint::75::1::93b93772-9950-45df-9093-16d62f02db92::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Custom Zoom',
+      custom: 'MJ::CustomZoom::93b93772-9950-45df-9093-16d62f02db92'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: '⬅️',
+      custom: 'MJ::JOB::pan_left::1::93b93772-9950-45df-9093-16d62f02db92::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: '➡️',
+      custom: 'MJ::JOB::pan_right::1::93b93772-9950-45df-9093-16d62f02db92::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: '⬆️',
+      custom: 'MJ::JOB::pan_up::1::93b93772-9950-45df-9093-16d62f02db92::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: '⬇️',
+      custom: 'MJ::JOB::pan_down::1::93b93772-9950-45df-9093-16d62f02db92::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: '❤️',
+      custom: 'MJ::BOOKMARK::93b93772-9950-45df-9093-16d62f02db92'
+    }
+  ],
+  width: 1024,
+  height: 1024
+}
+uploading image https://cdn.discordapp.com/attachments/1016373031741968479/1218211872755417178/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_93b93772-9950-45df-9093-16d62f02db92.png?ex=6606d737&is=65f46237&hm=2e16d15bac9d118975757b1a8506330439010cad1991fabe3eb95368bb6f4ff2& illustrative
+cloudinary res: http://res.cloudinary.com/dkxssdk96/image/upload/v1710514744/trwrn1stgk0op2hgrb4w.png
+upscale message {
+  event: 'upscale',
+  data: {
+    event: 'upscale',
+    meta: '{"id":"1218202524092469308","flags":0,"content":"**die cut sticker, decal, contour cut, pitch black background, llustration, detailed, with color, One ghoul and one goblin** - <@674368750807547915> (fast)","hash":"73c0d6b8-26cd-4042-8857-e789dc0f63b9","progress":"done","uri":"https://cdn.discordapp.com/attachments/1016373031741968479/1218202523525972129/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_73c0d6b8-26cd-4042-8857-e789dc0f63b9.png?ex=6606ce82&is=65f45982&hm=d54b8cd8ddb94004d55adb364fdd9a743ad153f0a542657721e17d0678f87710&","proxy_url":"https://media.discordapp.net/attachments/1016373031741968479/1218202523525972129/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_73c0d6b8-26cd-4042-8857-e789dc0f63b9.png?ex=6606ce82&is=65f45982&hm=d54b8cd8ddb94004d55adb364fdd9a743ad153f0a542657721e17d0678f87710&","options":[{"type":2,"style":2,"label":"U1","custom":"MJ::JOB::upsample::1::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"U2","custom":"MJ::JOB::upsample::2::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"U3","custom":"MJ::JOB::upsample::3::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"U4","custom":"MJ::JOB::upsample::4::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"🔄","custom":"MJ::JOB::reroll::0::73c0d6b8-26cd-4042-8857-e789dc0f63b9::SOLO"},{"type":2,"style":2,"label":"V1","custom":"MJ::JOB::variation::1::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"V2","custom":"MJ::JOB::variation::2::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"V3","custom":"MJ::JOB::variation::3::73c0d6b8-26cd-4042-8857-e789dc0f63b9"},{"type":2,"style":2,"label":"V4","custom":"MJ::JOB::variation::4::73c0d6b8-26cd-4042-8857-e789dc0f63b9"}],"width":2048,"height":2048}',
+    activeIndex: 1,
+    prompt: 'die cut sticker, decal, contour cut, pitch black background,   llustration, detailed, with color,  One ghoul and one goblin',
+    caption: 'One ghoul and one goblin',
+    shape: { id: 'de1', label: 'Contour Cut', ar: '1:1', grid: true },
+    style: 'illustrative'
+  },
+  wsId: 'c999db1e-68b9-4d05-be6c-95eb51f5124b'
+}
+responseObj Upscale {
+  id: '1218212044608897124',
+  flags: 0,
+  content: '**die cut sticker, decal, contour cut, pitch black background, llustration, detailed, with color, One ghoul and one goblin** - Image #1 <@674368750807547915>',
+  hash: '23513fe6-45f9-4515-91f9-8210fde7fc88',
+  progress: 'done',
+  uri: 'https://cdn.discordapp.com/attachments/1016373031741968479/1218212044235477022/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_23513fe6-45f9-4515-91f9-8210fde7fc88.png?ex=6606d760&is=65f46260&hm=320b585400f7d927c1baa23d1ca69ef8a5ba6a7c42a0916435b9c78158a569ec&',
+  proxy_url: 'https://media.discordapp.net/attachments/1016373031741968479/1218212044235477022/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_23513fe6-45f9-4515-91f9-8210fde7fc88.png?ex=6606d760&is=65f46260&hm=320b585400f7d927c1baa23d1ca69ef8a5ba6a7c42a0916435b9c78158a569ec&',
+  options: [
+    {
+      type: 2,
+      style: 2,
+      label: 'Upscale (Subtle)',
+      custom: 'MJ::JOB::upsample_v6_2x_subtle::1::23513fe6-45f9-4515-91f9-8210fde7fc88::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Upscale (Creative)',
+      custom: 'MJ::JOB::upsample_v6_2x_creative::1::23513fe6-45f9-4515-91f9-8210fde7fc88::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Vary (Subtle)',
+      custom: 'MJ::JOB::low_variation::1::23513fe6-45f9-4515-91f9-8210fde7fc88::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Vary (Strong)',
+      custom: 'MJ::JOB::high_variation::1::23513fe6-45f9-4515-91f9-8210fde7fc88::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Vary (Region)',
+      custom: 'MJ::Inpaint::1::23513fe6-45f9-4515-91f9-8210fde7fc88::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Zoom Out 2x',
+      custom: 'MJ::Outpaint::50::1::23513fe6-45f9-4515-91f9-8210fde7fc88::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Zoom Out 1.5x',
+      custom: 'MJ::Outpaint::75::1::23513fe6-45f9-4515-91f9-8210fde7fc88::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Custom Zoom',
+      custom: 'MJ::CustomZoom::23513fe6-45f9-4515-91f9-8210fde7fc88'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: '⬅️',
+      custom: 'MJ::JOB::pan_left::1::23513fe6-45f9-4515-91f9-8210fde7fc88::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: '➡️',
+      custom: 'MJ::JOB::pan_right::1::23513fe6-45f9-4515-91f9-8210fde7fc88::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: '⬆️',
+      custom: 'MJ::JOB::pan_up::1::23513fe6-45f9-4515-91f9-8210fde7fc88::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: '⬇️',
+      custom: 'MJ::JOB::pan_down::1::23513fe6-45f9-4515-91f9-8210fde7fc88::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: '❤️',
+      custom: 'MJ::BOOKMARK::23513fe6-45f9-4515-91f9-8210fde7fc88'
+    }
+  ],
+  width: 1024,
+  height: 1024
+}
+uploading image https://cdn.discordapp.com/attachments/1016373031741968479/1218212044235477022/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_23513fe6-45f9-4515-91f9-8210fde7fc88.png?ex=6606d760&is=65f46260&hm=320b585400f7d927c1baa23d1ca69ef8a5ba6a7c42a0916435b9c78158a569ec& illustrative
+cloudinary res: http://res.cloudinary.com/dkxssdk96/image/upload/v1710514785/laa7fajop1zuaprrxusv.png
+upscale message {
+  event: 'upscale',
+  data: {
+    event: 'upscale',
+    meta: '{"id":"1218209111645093948","flags":0,"content":"**die cut sticker, decal, contour cut, pitch black background, llustration, detailed, with color, One ghoul and one goblin** - Remix (Strong) by <@674368750807547915> (fast)","hash":"6085737c-0748-46a2-9b9e-d62147c5d8d1","progress":"done","uri":"https://cdn.discordapp.com/attachments/1016373031741968479/1218209111171399790/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_6085737c-0748-46a2-9b9e-d62147c5d8d1.png?ex=6606d4a5&is=65f45fa5&hm=097bfb8eea6c1f025da6b3100b175edad57cac0186702ffe393eb218b5264986&","proxy_url":"https://media.discordapp.net/attachments/1016373031741968479/1218209111171399790/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_6085737c-0748-46a2-9b9e-d62147c5d8d1.png?ex=6606d4a5&is=65f45fa5&hm=097bfb8eea6c1f025da6b3100b175edad57cac0186702ffe393eb218b5264986&","options":[{"type":2,"style":2,"label":"U1","custom":"MJ::JOB::upsample::1::6085737c-0748-46a2-9b9e-d62147c5d8d1"},{"type":2,"style":2,"label":"U2","custom":"MJ::JOB::upsample::2::6085737c-0748-46a2-9b9e-d62147c5d8d1"},{"type":2,"style":2,"label":"U3","custom":"MJ::JOB::upsample::3::6085737c-0748-46a2-9b9e-d62147c5d8d1"},{"type":2,"style":2,"label":"U4","custom":"MJ::JOB::upsample::4::6085737c-0748-46a2-9b9e-d62147c5d8d1"},{"type":2,"style":2,"label":"🔄","custom":"MJ::JOB::reroll::0::6085737c-0748-46a2-9b9e-d62147c5d8d1::SOLO"},{"type":2,"style":2,"label":"V1","custom":"MJ::JOB::variation::1::6085737c-0748-46a2-9b9e-d62147c5d8d1"},{"type":2,"style":2,"label":"V2","custom":"MJ::JOB::variation::2::6085737c-0748-46a2-9b9e-d62147c5d8d1"},{"type":2,"style":2,"label":"V3","custom":"MJ::JOB::variation::3::6085737c-0748-46a2-9b9e-d62147c5d8d1"},{"type":2,"style":2,"label":"V4","custom":"MJ::JOB::variation::4::6085737c-0748-46a2-9b9e-d62147c5d8d1"}],"width":2048,"height":2048}',
+    activeIndex: 2,
+    prompt: 'die cut sticker, decal, contour cut, pitch black background,   llustration, detailed, with color,  One ghoul and one goblin',
+    caption: 'One ghoul and one goblin',
+    shape: { id: 'de1', label: 'Contour Cut', ar: '1:1', grid: true },
+    style: 'illustrative'
+  },
+  wsId: 'c999db1e-68b9-4d05-be6c-95eb51f5124b'
+}
+responseObj Upscale {
+  id: '1218212254487548084',
+  flags: 0,
+  content: '**die cut sticker, decal, contour cut, pitch black background, llustration, detailed, with color, One ghoul and one goblin** - Image #2 <@674368750807547915>',
+  hash: 'bd8c9bdb-0490-43cf-8d92-8f3d485fe60b',
+  progress: 'done',
+  uri: 'https://cdn.discordapp.com/attachments/1016373031741968479/1218212254105735228/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_bd8c9bdb-0490-43cf-8d92-8f3d485fe60b.png?ex=6606d792&is=65f46292&hm=5a0643701aed9ac6bbea41651f2f49c3cf38fb589ddb814528ad7b703370bc07&',
+  proxy_url: 'https://media.discordapp.net/attachments/1016373031741968479/1218212254105735228/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_bd8c9bdb-0490-43cf-8d92-8f3d485fe60b.png?ex=6606d792&is=65f46292&hm=5a0643701aed9ac6bbea41651f2f49c3cf38fb589ddb814528ad7b703370bc07&',
+  options: [
+    {
+      type: 2,
+      style: 2,
+      label: 'Upscale (Subtle)',
+      custom: 'MJ::JOB::upsample_v6_2x_subtle::1::bd8c9bdb-0490-43cf-8d92-8f3d485fe60b::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Upscale (Creative)',
+      custom: 'MJ::JOB::upsample_v6_2x_creative::1::bd8c9bdb-0490-43cf-8d92-8f3d485fe60b::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Vary (Subtle)',
+      custom: 'MJ::JOB::low_variation::1::bd8c9bdb-0490-43cf-8d92-8f3d485fe60b::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Vary (Strong)',
+      custom: 'MJ::JOB::high_variation::1::bd8c9bdb-0490-43cf-8d92-8f3d485fe60b::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Vary (Region)',
+      custom: 'MJ::Inpaint::1::bd8c9bdb-0490-43cf-8d92-8f3d485fe60b::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Zoom Out 2x',
+      custom: 'MJ::Outpaint::50::1::bd8c9bdb-0490-43cf-8d92-8f3d485fe60b::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Zoom Out 1.5x',
+      custom: 'MJ::Outpaint::75::1::bd8c9bdb-0490-43cf-8d92-8f3d485fe60b::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Custom Zoom',
+      custom: 'MJ::CustomZoom::bd8c9bdb-0490-43cf-8d92-8f3d485fe60b'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: '⬅️',
+      custom: 'MJ::JOB::pan_left::1::bd8c9bdb-0490-43cf-8d92-8f3d485fe60b::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: '➡️',
+      custom: 'MJ::JOB::pan_right::1::bd8c9bdb-0490-43cf-8d92-8f3d485fe60b::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: '⬆️',
+      custom: 'MJ::JOB::pan_up::1::bd8c9bdb-0490-43cf-8d92-8f3d485fe60b::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: '⬇️',
+      custom: 'MJ::JOB::pan_down::1::bd8c9bdb-0490-43cf-8d92-8f3d485fe60b::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: '❤️',
+      custom: 'MJ::BOOKMARK::bd8c9bdb-0490-43cf-8d92-8f3d485fe60b'
+    }
+  ],
+  width: 1024,
+  height: 1024
+}
+uploading image https://cdn.discordapp.com/attachments/1016373031741968479/1218212254105735228/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_bd8c9bdb-0490-43cf-8d92-8f3d485fe60b.png?ex=6606d792&is=65f46292&hm=5a0643701aed9ac6bbea41651f2f49c3cf38fb589ddb814528ad7b703370bc07& illustrative
+cloudinary res: http://res.cloudinary.com/dkxssdk96/image/upload/v1710514835/assh6a75m2yxusmyxtdj.png
+upscale message {
+  event: 'upscale',
+  data: {
+    event: 'upscale',
+    meta: '{"id":"1218209111645093948","flags":0,"content":"**die cut sticker, decal, contour cut, pitch black background, llustration, detailed, with color, One ghoul and one goblin** - Remix (Strong) by <@674368750807547915> (fast)","hash":"6085737c-0748-46a2-9b9e-d62147c5d8d1","progress":"done","uri":"https://cdn.discordapp.com/attachments/1016373031741968479/1218209111171399790/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_6085737c-0748-46a2-9b9e-d62147c5d8d1.png?ex=6606d4a5&is=65f45fa5&hm=097bfb8eea6c1f025da6b3100b175edad57cac0186702ffe393eb218b5264986&","proxy_url":"https://media.discordapp.net/attachments/1016373031741968479/1218209111171399790/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_6085737c-0748-46a2-9b9e-d62147c5d8d1.png?ex=6606d4a5&is=65f45fa5&hm=097bfb8eea6c1f025da6b3100b175edad57cac0186702ffe393eb218b5264986&","options":[{"type":2,"style":2,"label":"U1","custom":"MJ::JOB::upsample::1::6085737c-0748-46a2-9b9e-d62147c5d8d1"},{"type":2,"style":2,"label":"U2","custom":"MJ::JOB::upsample::2::6085737c-0748-46a2-9b9e-d62147c5d8d1"},{"type":2,"style":2,"label":"U3","custom":"MJ::JOB::upsample::3::6085737c-0748-46a2-9b9e-d62147c5d8d1"},{"type":2,"style":2,"label":"U4","custom":"MJ::JOB::upsample::4::6085737c-0748-46a2-9b9e-d62147c5d8d1"},{"type":2,"style":2,"label":"🔄","custom":"MJ::JOB::reroll::0::6085737c-0748-46a2-9b9e-d62147c5d8d1::SOLO"},{"type":2,"style":2,"label":"V1","custom":"MJ::JOB::variation::1::6085737c-0748-46a2-9b9e-d62147c5d8d1"},{"type":2,"style":2,"label":"V2","custom":"MJ::JOB::variation::2::6085737c-0748-46a2-9b9e-d62147c5d8d1"},{"type":2,"style":2,"label":"V3","custom":"MJ::JOB::variation::3::6085737c-0748-46a2-9b9e-d62147c5d8d1"},{"type":2,"style":2,"label":"V4","custom":"MJ::JOB::variation::4::6085737c-0748-46a2-9b9e-d62147c5d8d1"}],"width":2048,"height":2048}',
+    activeIndex: 4,
+    prompt: 'die cut sticker, decal, contour cut, pitch black background,   llustration, detailed, with color,  One ghoul and one goblin',
+    caption: 'One ghoul and one goblin',
+    shape: { id: 'de1', label: 'Contour Cut', ar: '1:1', grid: true },
+    style: 'illustrative'
+  },
+  wsId: 'c999db1e-68b9-4d05-be6c-95eb51f5124b'
+}
+responseObj Upscale {
+  id: '1218212354253127871',
+  flags: 0,
+  content: '**die cut sticker, decal, contour cut, pitch black background, llustration, detailed, with color, One ghoul and one goblin** - Image #4 <@674368750807547915>',
+  hash: '8e3f88ac-1431-4e1d-962d-d8af0278cf39',
+  progress: 'done',
+  uri: 'https://cdn.discordapp.com/attachments/1016373031741968479/1218212353938817104/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_8e3f88ac-1431-4e1d-962d-d8af0278cf39.png?ex=6606d7aa&is=65f462aa&hm=c6bef9526205affbd94a739815aba8bb2ec2282ae16f91bccf29cf9bc14f52e2&',
+  proxy_url: 'https://media.discordapp.net/attachments/1016373031741968479/1218212353938817104/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_8e3f88ac-1431-4e1d-962d-d8af0278cf39.png?ex=6606d7aa&is=65f462aa&hm=c6bef9526205affbd94a739815aba8bb2ec2282ae16f91bccf29cf9bc14f52e2&',
+  options: [
+    {
+      type: 2,
+      style: 2,
+      label: 'Upscale (Subtle)',
+      custom: 'MJ::JOB::upsample_v6_2x_subtle::1::8e3f88ac-1431-4e1d-962d-d8af0278cf39::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Upscale (Creative)',
+      custom: 'MJ::JOB::upsample_v6_2x_creative::1::8e3f88ac-1431-4e1d-962d-d8af0278cf39::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Vary (Subtle)',
+      custom: 'MJ::JOB::low_variation::1::8e3f88ac-1431-4e1d-962d-d8af0278cf39::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Vary (Strong)',
+      custom: 'MJ::JOB::high_variation::1::8e3f88ac-1431-4e1d-962d-d8af0278cf39::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Vary (Region)',
+      custom: 'MJ::Inpaint::1::8e3f88ac-1431-4e1d-962d-d8af0278cf39::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Zoom Out 2x',
+      custom: 'MJ::Outpaint::50::1::8e3f88ac-1431-4e1d-962d-d8af0278cf39::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Zoom Out 1.5x',
+      custom: 'MJ::Outpaint::75::1::8e3f88ac-1431-4e1d-962d-d8af0278cf39::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: 'Custom Zoom',
+      custom: 'MJ::CustomZoom::8e3f88ac-1431-4e1d-962d-d8af0278cf39'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: '⬅️',
+      custom: 'MJ::JOB::pan_left::1::8e3f88ac-1431-4e1d-962d-d8af0278cf39::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: '➡️',
+      custom: 'MJ::JOB::pan_right::1::8e3f88ac-1431-4e1d-962d-d8af0278cf39::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: '⬆️',
+      custom: 'MJ::JOB::pan_up::1::8e3f88ac-1431-4e1d-962d-d8af0278cf39::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: '⬇️',
+      custom: 'MJ::JOB::pan_down::1::8e3f88ac-1431-4e1d-962d-d8af0278cf39::SOLO'
+    },
+    {
+      type: 2,
+      style: 2,
+      label: '❤️',
+      custom: 'MJ::BOOKMARK::8e3f88ac-1431-4e1d-962d-d8af0278cf39'
+    }
+  ],
+  width: 1024,
+  height: 1024
+}
+uploading image https://cdn.discordapp.com/attachments/1016373031741968479/1218212353938817104/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_8e3f88ac-1431-4e1d-962d-d8af0278cf39.png?ex=6606d7aa&is=65f462aa&hm=c6bef9526205affbd94a739815aba8bb2ec2282ae16f91bccf29cf9bc14f52e2& illustrative
+cloudinary res: http://res.cloudinary.com/dkxssdk96/image/upload/v1710514859/kcdazjm4v5jbhlqo6l6g.png
+submitCustomId {"type":5,"application_id":"936929561302675456","channel_id":"1016373031741968479","guild_id":"1016373031179923506","data":{"id":"1218212430199390210","custom_id":"MJ::RemixModal::6085737c-0748-46a2-9b9e-d62147c5d8d1::2::1","components":[{"type":1,"components":[{"type":4,"custom_id":"MJ::RemixModal::new_prompt","value":"die cut sticker, decal, contour cut, pitch black background,llustration, detailed, with color,  One ghoul and one goblin"}]}]},"session_id":"8bb7f5b79c7a49f7d0824ab4b8773a81","nonce":"1218212434481774592"}
+update 55% c999db1e-68b9-4d05-be6c-95eb51f5124b
+loading https://cdn.discordapp.com/ephemeral-attachments/1016373031741968479/1218212564828422285/78aa84f0-c122-4efb-b4ec-d1d40e4cd743_grid_0.webp?ex=6606d7dc&is=65f462dc&hm=21eed07fbfe5793a911d1d4bced7867e9839e62762d0ca2aba1262feb3b2e5ae& progress 55%
+update 75% c999db1e-68b9-4d05-be6c-95eb51f5124b
+loading https://cdn.discordapp.com/ephemeral-attachments/1016373031741968479/1218212719585656934/78aa84f0-c122-4efb-b4ec-d1d40e4cd743_grid_0.webp?ex=6606d801&is=65f46301&hm=838e30693f1f56745b2f9212f65ba0f5aa95c095a9c0be2302c3b9fc050c150e& progress 75%
+uploading image https://cdn.discordapp.com/attachments/1016373031741968479/1218212906345299968/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_78aa84f0-c122-4efb-b4ec-d1d40e4cd743.png?ex=6606d82e&is=65f4632e&hm=b39758e78fb83a5452e69bbe1df55e65b4a2b46630fa9a3f9d9b84b860a3db7e& illustrative
+cloudinary res: http://res.cloudinary.com/dkxssdk96/image/upload/v1710514991/k1iyssxrk4mjpews9e08.png
+upscale message {
+  event: 'upscale',
+  data: {
+    event: 'upscale',
+    meta: '{"id":"1218212906764861511","flags":0,"content":"**die cut sticker, decal, contour cut, pitch black background, llustration, detailed, with color, One ghoul and one goblin** - Remix (Strong) by <@674368750807547915> (fast)","hash":"78aa84f0-c122-4efb-b4ec-d1d40e4cd743","progress":"done","uri":"https://cdn.discordapp.com/attachments/1016373031741968479/1218212906345299968/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_78aa84f0-c122-4efb-b4ec-d1d40e4cd743.png?ex=6606d82e&is=65f4632e&hm=b39758e78fb83a5452e69bbe1df55e65b4a2b46630fa9a3f9d9b84b860a3db7e&","proxy_url":"https://media.discordapp.net/attachments/1016373031741968479/1218212906345299968/flapshatner_die_cut_sticker_decal_contour_cut_pitch_black_backg_78aa84f0-c122-4efb-b4ec-d1d40e4cd743.png?ex=6606d82e&is=65f4632e&hm=b39758e78fb83a5452e69bbe1df55e65b4a2b46630fa9a3f9d9b84b860a3db7e&","options":[{"type":2,"style":2,"label":"U1","custom":"MJ::JOB::upsample::1::78aa84f0-c122-4efb-b4ec-d1d40e4cd743"},{"type":2,"style":2,"label":"U2","custom":"MJ::JOB::upsample::2::78aa84f0-c122-4efb-b4ec-d1d40e4cd743"},{"type":2,"style":2,"label":"U3","custom":"MJ::JOB::upsample::3::78aa84f0-c122-4efb-b4ec-d1d40e4cd743"},{"type":2,"style":2,"label":"U4","custom":"MJ::JOB::upsample::4::78aa84f0-c122-4efb-b4ec-d1d40e4cd743"},{"type":2,"style":2,"label":"🔄","custom":"MJ::JOB::reroll::0::78aa84f0-c122-4efb-b4ec-d1d40e4cd743::SOLO"},{"type":2,"style":2,"label":"V1","custom":"MJ::JOB::variation::1::78aa84f0-c122-4efb-b4ec-d1d40e4cd743"},{"type":2,"style":2,"label":"V2","custom":"MJ::JOB::variation::2::78aa84f0-c122-4efb-b4ec-d1d40e4cd743"},{"type":2,"style":2,"label":"V3","custom":"MJ::JOB::variation::3::78aa84f0-c122-4efb-b4ec-d1d40e4cd743"},{"type":2,"style":2,"label":"V4","custom":"MJ::JOB::variation::4::78aa84f0-c122-4efb-b4ec-d1d40e4cd743"}],"width":2048,"height":2048}',
+    activeIndex: 4,
+    prompt: 'die cut sticker, decal, contour cut, pitch black background,   llustration, detailed, with color,  One ghoul and one goblin',
+    caption: 'One ghoul and one goblin',
+    shape: { id: 'de1', label: 'Contour Cut', ar: '1:1', grid: true },
+    style: 'illustrative'
+  },
+  wsId: 'c999db1e-68b9-4d05-be6c-95eb51f5124b'
+}
+connection c999db1e-68b9-4d05-be6c-95eb51f5124b closed
+connected
+connection ba291c6b-5837-4300-a471-4a5acd40d3d8 closed
+connected
+connection 66961678-aed3-4bfc-8d4c-e632cde3913f closed
+connected
