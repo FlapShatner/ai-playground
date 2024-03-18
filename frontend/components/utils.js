@@ -9,6 +9,9 @@ export function cn(...inputs) {
  return twMerge(clsx(inputs))
 }
 export const formatPrice = (price, quantity) => {
+ if (typeof price === 'string') {
+  price = parseInt(price)
+ }
  let result = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
@@ -61,6 +64,11 @@ export const addToCart = async (formData) => {
  } catch {
   console.log('error')
  }
+}
+
+export function makeLabel(inputString) {
+ const parts = inputString.split('Decal')
+ return parts.length > 1 ? parts[1].trim() : ''
 }
 
 export const findSuggProducts = async (tags) => {
@@ -150,10 +158,33 @@ export const getVariantType = (shape) => {
  }
 }
 
+function variantMatch(shape, variant) {
+ const simplifyString = (str) =>
+  str
+   .toLowerCase() // Convert to lowercase for case-insensitive comparison
+   .replace(/"/g, '') // Remove double quotes
+   .replace(/x/g, 'x') // Ensure consistent formatting
+   .replace(/horiz.*/g, 'horizontal') // Convert variations of "horizontal" to a standard format
+ const simplifiedLabel = simplifyString(shape.label)
+ const simplifiedTitle = simplifyString(variant.title)
+ return simplifiedTitle.includes(simplifiedLabel)
+}
+
 export const getProductVariant = (variants, shape) => {
- const imageLabel = shape.label.toLowerCase()
- const variant = variants.find((variant) => variant.title.toLowerCase().includes(imageLabel))
+ let imageLabel = shape.label
+ const variant = variants.find((item) => {
+  return item.title.includes(imageLabel)
+ })
  return variant
+}
+
+export const getDecalSizes = (product) => {
+ const variants = product.variants
+ const decalVariants = variants.filter((variant) => variant.title.includes('Decal'))
+ const sizes = decalVariants.map((variant) => {
+  return variant
+ })
+ return sizes
 }
 
 export async function generate(data) {

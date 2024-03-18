@@ -92,6 +92,7 @@ function Prompt() {
    sendMessage(JSON.stringify({ event: 'variations', data: message, wsId: wsId }))
   } else if (message.event === 'upscale') {
    handleUpscale(message)
+   setMessage(null)
    return
   }
  }, [message])

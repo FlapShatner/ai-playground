@@ -3,10 +3,10 @@ import { prompts } from './prePrompt'
 import { options } from './shapeOptions'
 
 export const generatedAtom = atom({
-  url: '',
-  publicId: '',
-  meta: {},
-  up: false,
+ url: '',
+ publicId: '',
+ meta: {},
+ up: false,
 })
 export const captionAtom = atom('')
 export const sizeAtom = atom('')

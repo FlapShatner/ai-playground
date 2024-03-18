@@ -1,8 +1,8 @@
 import React from 'react'
 import { useEffect, useState, useRef } from 'react'
-import { getCurrentProduct, formatPrice, cn, getVariantType, getProductVariant } from '../utils'
+import { getCurrentProduct, formatPrice, cn, getVariantType, getProductVariant, addToCart } from '../utils'
 import CloseIcon from '../icons/CloseIcon'
-
+import Price from './Price'
 import { useOnClickOutside } from 'usehooks-ts'
 import useIsSmall from '../hooks/useIsSmall'
 import VariantSelect from '../form/VariantSelect'
@@ -12,7 +12,7 @@ import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { sizeAtom, quantityAtom, isSuccessAtom, addingToCartAtom, generatedAtom, notesAtom, productAtom, isOrderingAtom } from '../atoms'
 import { set } from 'react-hook-form'
 
-function Form({ addVariantToCart }) {
+function Form() {
  const [product, setProduct] = useAtom(productAtom)
  const [size, setSize] = useAtom(sizeAtom)
  const [quantity, setQuantity] = useAtom(quantityAtom)
@@ -21,19 +21,47 @@ function Form({ addVariantToCart }) {
  const [productPrice, setProductPrice] = useState('')
  const [productTitle, setProductTitle] = useState('')
  const [disclaimer, setDisclaimer] = useState(false)
- const isAddingToCart = useAtomValue(addingToCartAtom)
+ const [isAddingToCart, setIsAddingToCart] = useAtom(addingToCartAtom)
  const isSuccess = useAtomValue(isSuccessAtom)
  const setIsOrdering = useSetAtom(isOrderingAtom)
+ const setIsSuccess = useSetAtom(isSuccessAtom)
 
  const clickRef = useRef()
  useOnClickOutside(clickRef, () => setDisclaimer(false))
  const isSmall = useIsSmall()
 
+ //  console.log('formData', formData)
+
+ const addVariantToCart = async (variant) => {
+  const formData = {
+   id: variant.id,
+   quantity: quantity,
+   sections: 'ajax-cart',
+  }
+  setIsAddingToCart(true)
+  const res = await addToCart({
+   ...formData,
+   properties: {
+    _image: generated.url,
+    notes: notes,
+   },
+  })
+  if (res) {
+   const ajaxCart = document.querySelector('.minicart__content')
+   ajaxCart.innerHTML = res.sections['ajax-cart']
+   setIsAddingToCart(false)
+   setIsSuccess(true)
+   setTimeout(() => {
+    setIsSuccess(false)
+   }, 3000)
+  }
+ }
+
  useEffect(() => {
   const fetchProduct = async () => {
    const currentProduct = await getCurrentProduct()
    setProduct(currentProduct)
-   setProductPrice(currentProduct.price)
+   //    setProductPrice(currentProduct.price)
   }
   fetchProduct()
  }, [])
@@ -54,34 +82,25 @@ function Form({ addVariantToCart }) {
  }, [generated])
 
  const onCancel = () => {
-  setQuantity(0)
   setIsOrdering(false)
  }
 
  if (!product) return <h1>Loading...</h1>
 
- const price = formatPrice(productPrice, quantity)
- const variant = getProductVariant(product.variants, generated.shape)
+ const isDecal = generated.shape.id == 'de1'
+ const variant = isDecal ? size : getProductVariant(product.variants, generated.shape)
+ console.log('variant', variant)
 
  return (
   <div className='flex w-full'>
    <DevTools />
    <div className={cn('w-full flex flex-col justify-end gap-4 text-txt-primary pl-0', isSmall && 'max-w-[700px] m-auto')}>
     <div className='text-2xl w-full text-end'>{`AI Designed ${productTitle}, ${generated.shape.label}`}</div>
-    <span className={cn('text-4xl font-black text-end', isSmall && 'text-4xl')}>{price}</span>
 
+    <Price variant={variant} />
     <div className={cn('flex flex-col items-end gap-4 ml-auto', isSmall && 'flex-row')}>
-     <div>{variant}</div>
-     {/* <VariantSelect
-      size={size}
-      setSize={setSize}
-      variants={variants}
-      setProductPrice={setProductPrice}
-     /> */}
-     <Quantity
-      quantity={quantity}
-      setQuantity={setQuantity}
-     />
+     {generated.shape.id == 'de1' && <VariantSelect product={product} />}
+     <Quantity />
     </div>
 
     <div className='relative'>
@@ -127,9 +146,9 @@ function Form({ addVariantToCart }) {
       Cancel
      </div>
      <button
-      disabled={size === '' || quantity === 0}
+      disabled={(isDecal && size === '') || quantity === 0}
       className={cn('bg-accent cursor-pointer w-full text-black text-xl font-semibold rounded-md p-4 py-6 disabled:opacity-20 disabled:cursor-not-allowed')}
-      onClick={addVariantToCart}>
+      onClick={() => addVariantToCart(variant)}>
       {isAddingToCart ? 'Adding to card...' : 'Add to cart'}
      </button>
     </div>
