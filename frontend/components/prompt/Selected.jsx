@@ -21,7 +21,7 @@ import {
 function Option({ children, className, optionId }) {
  const [isError, setIsError] = useState(false)
  const [message, setMessage] = useAtom(messageAtom)
- const [history, setHistory] = useLocalStorage('history', [])
+ const [history, setHistory] = useLocalStorage('history-new', [])
  const [generated, setGenerated] = useAtom(generatedAtom)
  const activeIndex = useAtomValue(activeIndexAtom)
  const imageStyle = useAtomValue(imageStyleAtom)

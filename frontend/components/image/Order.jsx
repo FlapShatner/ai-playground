@@ -6,8 +6,8 @@ import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { isOrderingAtom, generatedAtom, activeIndexAtom, isUpscalingAtom, captionAtom, imageStyleAtom, promptAtom, messageAtom, wsIdAtom } from '../atoms'
 
 function Order() {
- const [history, setHistory] = useLocalStorage('history', [])
- const [windowProduct, setWindowProduct] = useLocalStorage('windowProduct', [])
+ const [history, setHistory] = useLocalStorage('history-new', [])
+ const [windowProduct, setWindowProduct] = useLocalStorage('windowProduct', {})
  const [wsId, setWsId] = useAtom(wsIdAtom)
  const [isOrdering, setIsOrdering] = useAtom(isOrderingAtom)
  const [generated, setGenerated] = useAtom(generatedAtom)
@@ -65,18 +65,7 @@ function Order() {
    up: true,
   }
   handleUpscale(callData, wsId)
-
-  // upscale(meta, activeIndex?.index + 1).then(async (res) => {
-  //   if (!res.ok) {
-  //     console.log(res.error)
-  //     return
-  //   }
-  //   const json = await res.json()
-  //   const up = true
-  //   setGenerated({ url: json.imgData.url, publicId: json.imgData.publicId, meta: json.meta, up: up, shape: shape })
-  //   addToHistory(caption, json.imgData.url, json.imgData.publicId, imageStyle.id, json.meta, up, shape)
-  //   setIsUpscaling(false)
-  // })
+  setMessage(null)
  }
 
  const goToUrl = (url) => {

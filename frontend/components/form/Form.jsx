@@ -1,6 +1,7 @@
 import React from 'react'
 import { useEffect, useState, useRef } from 'react'
 import { getCurrentProduct, formatPrice, cn, getVariantType, getProductVariant, addToCart } from '../utils'
+import { toast } from 'react-toastify'
 import CloseIcon from '../icons/CloseIcon'
 import Price from './Price'
 import { useOnClickOutside } from 'usehooks-ts'
@@ -18,13 +19,11 @@ function Form() {
  const [quantity, setQuantity] = useAtom(quantityAtom)
  const [notes, setNotes] = useAtom(notesAtom)
  const [generated, setGenerated] = useAtom(generatedAtom)
- const [productPrice, setProductPrice] = useState('')
  const [productTitle, setProductTitle] = useState('')
  const [disclaimer, setDisclaimer] = useState(false)
  const [isAddingToCart, setIsAddingToCart] = useAtom(addingToCartAtom)
  const isSuccess = useAtomValue(isSuccessAtom)
  const setIsOrdering = useSetAtom(isOrderingAtom)
- const setIsSuccess = useSetAtom(isSuccessAtom)
 
  const clickRef = useRef()
  useOnClickOutside(clickRef, () => setDisclaimer(false))
@@ -50,10 +49,11 @@ function Form() {
    const ajaxCart = document.querySelector('.minicart__content')
    ajaxCart.innerHTML = res.sections['ajax-cart']
    setIsAddingToCart(false)
-   setIsSuccess(true)
-   setTimeout(() => {
-    setIsSuccess(false)
-   }, 3000)
+   toast.success('Item added to cart', { theme: 'dark' })
+   //    setIsSuccess(true)
+   //    setTimeout(() => {
+   //     setIsSuccess(false)
+   //    }, 3000)
   }
  }
 

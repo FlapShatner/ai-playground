@@ -1,27 +1,41 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import useWebSocket, { ReadyState } from 'react-use-websocket'
 import { useLocalStorage } from 'usehooks-ts'
+import { toast } from 'react-toastify'
 import useIsSmall from '../hooks/useIsSmall'
 import { upscale, cn, getSuggest, assemblePrompt, assembleCallData } from '../utils'
 import useError from '../hooks/useError'
 import Shape from './Shape'
 import Options from './Options'
+import OptionsGrid from './OptionsGrid'
 import Guide from '../Guide'
 import Help from '../icons/Help'
 import Paste from '../icons/Paste'
 import StyleSelect from './StyleSelect'
 import { DevTools } from 'jotai-devtools'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
-import { captionAtom, generatedAtom, imageStyleAtom, promptAtom, isGeneratingAtom, wsIdAtom, shapeAtom, messageAtom, isUpscalingAtom } from '../atoms'
+import {
+ captionAtom,
+ generatedAtom,
+ imageStyleAtom,
+ promptAtom,
+ isGeneratingAtom,
+ wsIdAtom,
+ shapeAtom,
+ messageAtom,
+ isUpscalingAtom,
+ isMakingVariantsAtom,
+ isErrorAtom,
+} from '../atoms'
 
 function Prompt() {
- const [history, setHistory] = useLocalStorage('history', [])
+ const [history, setHistory] = useLocalStorage('history-new', [])
  const [showAlert, setShowAlert] = useState(false)
  const [caption, setCaption] = useAtom(captionAtom)
  const [isUpscaling, setIsUpscaling] = useAtom(isUpscalingAtom)
+ const [isGenerating, setIsGenerating] = useAtom(isGeneratingAtom)
  const [generated, setGenerated] = useAtom(generatedAtom)
  const [prompt, setPrompt] = useAtom(promptAtom)
- const [isGenerating, setIsGenerating] = useAtom(isGeneratingAtom)
  const [wsId, setWsId] = useAtom(wsIdAtom)
  const imageStyle = useAtomValue(imageStyleAtom)
  const shape = useAtomValue(shapeAtom)
@@ -30,11 +44,19 @@ function Prompt() {
  const { isError, useIsError } = useError()
  const isSmall = useIsSmall()
 
- const WS_URL = 'wss://tunnel.ink-dev.com/'
+ const WS_URL = 'wss://mj-backend-i2y7w.ondigitalocean.app/'
  const { sendJsonMessage, sendMessage, lastJsonMessage, readyState } = useWebSocket(WS_URL, {
   share: true,
   shouldReconnect: () => true,
  })
+
+ const connectionStatus = {
+  [ReadyState.CONNECTING]: 'Connecting',
+  [ReadyState.OPEN]: 'Open',
+  [ReadyState.CLOSING]: 'Closing',
+  [ReadyState.CLOSED]: 'Closed',
+  [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
+ }[readyState]
 
  const addToHistory = (generatedObj) => {
   let newHistory = [...history]
@@ -85,15 +107,20 @@ function Prompt() {
 
  useEffect(() => {
   if (!message) return
-  if (message.event === 'generate') {
-   sendMessage(JSON.stringify({ event: 'generate', data: message, wsId: wsId }))
-  } else if (message.event === 'variations') {
-   console.log('sending variations message', message)
-   sendMessage(JSON.stringify({ event: 'variations', data: message, wsId: wsId }))
-  } else if (message.event === 'upscale') {
-   handleUpscale(message)
-   setMessage(null)
-   return
+  if (connectionStatus === 'Open') {
+   if (message.event === 'generate') {
+    sendMessage(JSON.stringify({ event: 'generate', data: message, wsId: wsId }))
+   } else if (message.event === 'variations') {
+    console.log('sending variations message', message)
+    sendMessage(JSON.stringify({ event: 'variations', data: message, wsId: wsId }))
+   } else if (message.event === 'upscale') {
+    handleUpscale(message)
+    setMessage(null)
+    return
+   }
+  } else {
+   console.log('Connection not open')
+   useIsError()
   }
  }, [message])
 
@@ -102,7 +129,9 @@ function Prompt() {
  }
 
  const handleClick = () => {
+  console.log('clicked')
   if (shape.id == '') {
+   toast.warning('Please choose a product to generate a design', { theme: 'dark', position: 'top-left' })
    setShowAlert(true)
    setTimeout(() => {
     setShowAlert(false)
@@ -140,11 +169,11 @@ function Prompt() {
    <DevTools />
 
    <div className='flex flex-col gap-4 w-full'>
-    <Options />
+    <OptionsGrid />
     <div className='w-full'>
-     <div className={cn('text-red-500 font-bold text-center w-full m-auto mb-1', !showAlert && 'hidden')}>
+     {/* <div className={cn('text-red-500 font-bold text-center w-full m-auto mb-1', !showAlert && 'hidden')}>
       Please choose a product above to generate a design
-     </div>
+     </div> */}
      <textarea
       className={cn('px-2 py-1 h-48 placeholder:opacity-60 border border-border', isSmall && 'h-12')}
       id='prompt'
