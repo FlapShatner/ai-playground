@@ -24,6 +24,15 @@ export const theme = {
    pholder: "url('https://res.cloudinary.com/dkxssdk96/image/upload/v1706821466/square-pholder_iwtdfz.png')",
   },
  },
+ container: {
+  maxWidth: {
+   sm: '100%',
+   md: '100%',
+   lg: '100%',
+   xl: '100%',
+   '2xl': '100%',
+  },
+ },
 }
 
 export const plugins = []

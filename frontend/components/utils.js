@@ -5,6 +5,8 @@ import { commonPrompt } from './prePrompt'
 
 import { v4 as uuid } from 'uuid'
 
+export const wsUrl = 'wss://tunnel.ink-dev.com/'
+
 export function cn(...inputs) {
  return twMerge(clsx(inputs))
 }

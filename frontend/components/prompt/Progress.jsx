@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { cn } from '../utils'
+import { cn, wsUrl } from '../utils'
 import useIsSmall from '../hooks/useIsSmall'
 import useWebSocket, { ReadyState } from 'react-use-websocket'
 import { useAtomValue, useAtom } from 'jotai'
@@ -8,7 +8,7 @@ import { progressAtom } from '../atoms'
 function Progress() {
  const [progress, setProgress] = useAtom(progressAtom)
  const isSmall = useIsSmall()
- const WS_URL = 'wss://mj-backend-i2y7w.ondigitalocean.app/'
+ const WS_URL = wsUrl
  const { lastJsonMessage } = useWebSocket(WS_URL, {
   share: true,
   shouldReconnect: () => true,

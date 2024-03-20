@@ -3,13 +3,10 @@ import useWebSocket, { ReadyState } from 'react-use-websocket'
 import { useLocalStorage } from 'usehooks-ts'
 import { toast } from 'react-toastify'
 import useIsSmall from '../hooks/useIsSmall'
-import { upscale, cn, getSuggest, assemblePrompt, assembleCallData } from '../utils'
+import { upscale, cn, getSuggest, assemblePrompt, assembleCallData, wsUrl } from '../utils'
+import Step from './Step'
 import useError from '../hooks/useError'
-import Shape from './Shape'
-import Options from './Options'
 import OptionsGrid from './OptionsGrid'
-import Guide from '../Guide'
-import Help from '../icons/Help'
 import Paste from '../icons/Paste'
 import StyleSelect from './StyleSelect'
 import { DevTools } from 'jotai-devtools'
@@ -44,7 +41,7 @@ function Prompt() {
  const { isError, useIsError } = useError()
  const isSmall = useIsSmall()
 
- const WS_URL = 'wss://mj-backend-i2y7w.ondigitalocean.app/'
+ const WS_URL = wsUrl
  const { sendJsonMessage, sendMessage, lastJsonMessage, readyState } = useWebSocket(WS_URL, {
   share: true,
   shouldReconnect: () => true,
@@ -171,11 +168,13 @@ function Prompt() {
    <div className='flex flex-col gap-4 w-full'>
     <OptionsGrid />
     <div className='w-full'>
-     {/* <div className={cn('text-red-500 font-bold text-center w-full m-auto mb-1', !showAlert && 'hidden')}>
-      Please choose a product above to generate a design
-     </div> */}
+     <Step
+      step='2'
+      title='Describe your design'
+     />
+
      <textarea
-      className={cn('px-2 py-1 h-48 placeholder:opacity-60 border border-border', isSmall && 'h-12')}
+      className={cn('px-2 py-1 h-48 mt-2 placeholder:opacity-60 border border-border', isSmall && 'h-12')}
       id='prompt'
       value={prompt}
       onKeyDown={handleKeyDown}
@@ -183,7 +182,6 @@ function Prompt() {
       type='text'
       placeholder='Enter a prompt here'
      />
-
      {generated && (
       <div
        onClick={handlePaste}
@@ -210,7 +208,10 @@ function Prompt() {
     {isGenerating ? (
      <div className={cn('flex items-center justify-center gap-3 text-lg  font-semibold')}>Generating...</div>
     ) : (
-     <span className='text-lg font-semibold'>Generate A New Design</span>
+     <Step
+      step='4'
+      title='Generate a new design'
+     />
     )}
    </div>
   </form>

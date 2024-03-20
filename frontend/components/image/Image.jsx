@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import useWebSocket from 'react-use-websocket'
 import { useLocalStorage } from 'usehooks-ts'
-import { cn, generate } from '../utils'
+import { cn, generate, wsUrl } from '../utils'
 import useIsSmall from '../hooks/useIsSmall'
 import Grid from './Grid'
 import Upscaled from './Upscaled'
@@ -34,7 +34,7 @@ function Image() {
  const [isUpscaling, setIsUpscaling] = useAtom(isUpscalingAtom)
  const isGenerated = generated?.url.length > 0
 
- const WS_URL = 'wss://mj-backend-i2y7w.ondigitalocean.app/'
+ const WS_URL = wsUrl
  const { lastJsonMessage } = useWebSocket(WS_URL, {
   share: true,
   shouldReconnect: () => true,
