@@ -27,14 +27,15 @@ function StyleSelect() {
    <Step
     step='3'
     title='Choose a style'
+    desc='Choose from a variety of styles to get the look you want'
    />
    <div className='w-full mt-2 m-auto '>
     <div
      onClick={handleClick}
-     className='cursor-pointer border border-border flex items-center justify-between gap-2 w-full bg-bg-secondary'>
+     className='cursor-pointer border border-border rounded-md flex items-center justify-between gap-2 w-full bg-bg-secondary'>
      <div className='flex items-center w-full gap-2'>
       <img
-       className='w-16'
+       className='w-16 rounded-md'
        src={imageStyle.img}
        alt={imageStyle.img}
       />

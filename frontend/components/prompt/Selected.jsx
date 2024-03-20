@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { getVariants, upscale, cn, assemblePrompt, assembleCallData, makeString } from '../utils'
 import useWebSocket, { ReadyState } from 'react-use-websocket'
 import { useLocalStorage } from 'usehooks-ts'
+import Help from '../icons/Help'
 import useIsSmall from '../hooks/useIsSmall'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import {
@@ -16,13 +17,16 @@ import {
  progressAtom,
  wsIdAtom,
  isGeneratingAtom,
+ selectedGuideAtom,
 } from '../atoms'
+import SelectedGuide from '../info/SelectedGuide'
 
 function Option({ children, className, optionId }) {
  const [isError, setIsError] = useState(false)
  const [message, setMessage] = useAtom(messageAtom)
  const [history, setHistory] = useLocalStorage('history-new', [])
  const [generated, setGenerated] = useAtom(generatedAtom)
+
  const activeIndex = useAtomValue(activeIndexAtom)
  const imageStyle = useAtomValue(imageStyleAtom)
  const caption = useAtomValue(captionAtom)
@@ -77,7 +81,7 @@ function Option({ children, className, optionId }) {
   <div
    onClick={handleClick}
    className={cn(
-    'cursor-pointer border border-accent p-4 text-center text-accent font-semibold w-48 bg-bg-secondary rounded-md ',
+    'cursor-pointer border-2 border-accent p-4 text-center text-accent font-semibold bg-bg-secondary rounded-md ',
     className,
     isSmall && 'w-auto mx-4'
    )}>
@@ -87,6 +91,7 @@ function Option({ children, className, optionId }) {
 }
 
 function Selected() {
+ const [selectedGuide, setSelectedGuide] = useAtom(selectedGuideAtom)
  const isMakingVariants = useAtomValue(isMakingVariantsAtom)
  const isUpscaling = useAtomValue(isUpscalingAtom)
  const isSmall = useIsSmall()
@@ -94,6 +99,12 @@ function Selected() {
   <div className={cn('flex gap-4 w-full justify-center mt-3 mb-3', isSmall && 'flex-col')}>
    <Option optionId='vars'>{isMakingVariants ? 'Making Variations' : 'Make Variations'}</Option>
    <Option optionId='up'>{isUpscaling ? 'Upscaling' : 'Upscale'}</Option>
+   <SelectedGuide />
+   <div
+    onClick={() => setSelectedGuide(true)}
+    className='grid place-content-center border-2 border-accent rounded-md cursor-pointer font-semibold w-14 text-4xl text-accent bg-bg-secondary'>
+    ?
+   </div>
   </div>
  )
 }

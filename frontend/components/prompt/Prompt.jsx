@@ -4,6 +4,8 @@ import { useLocalStorage } from 'usehooks-ts'
 import { toast } from 'react-toastify'
 import useIsSmall from '../hooks/useIsSmall'
 import { upscale, cn, getSuggest, assemblePrompt, assembleCallData, wsUrl } from '../utils'
+import Help from '../icons/Help'
+import PromptGuide from '../info/PromptGuide'
 import Step from './Step'
 import useError from '../hooks/useError'
 import OptionsGrid from './OptionsGrid'
@@ -21,6 +23,7 @@ import {
  shapeAtom,
  messageAtom,
  isUpscalingAtom,
+ promptGuideAtom,
  isMakingVariantsAtom,
  isErrorAtom,
 } from '../atoms'
@@ -37,7 +40,7 @@ function Prompt() {
  const imageStyle = useAtomValue(imageStyleAtom)
  const shape = useAtomValue(shapeAtom)
  const [message, setMessage] = useAtom(messageAtom)
-
+ const [promptGuide, setPromptGuide] = useAtom(promptGuideAtom)
  const { isError, useIsError } = useError()
  const isSmall = useIsSmall()
 
@@ -164,17 +167,26 @@ function Prompt() {
  return (
   <form className={cn('flex flex-col w-full justify-end', isSmall && 'w-full max-w-[700px] m-auto')}>
    <DevTools />
-
    <div className='flex flex-col gap-4 w-full'>
     <OptionsGrid />
     <div className='w-full'>
-     <Step
-      step='2'
-      title='Describe your design'
-     />
+     <div className='flex justify-between'>
+      <Step
+       step='2'
+       title='Describe your design'
+       desc='Anything you can imagine, describe it here and generate a new design based on your idea.'
+      />
+      <Help
+       size='24px'
+       color='#d2ac53'
+       className='cursor-pointer min-w-6'
+       id='promptGuide'
+      />
+      <PromptGuide />
+     </div>
 
      <textarea
-      className={cn('px-2 py-1 h-48 mt-2 placeholder:opacity-60 border border-border', isSmall && 'h-12')}
+      className={cn('px-2 py-1 h-48 mt-2 placeholder:opacity-60 border border-border rounded-md', isSmall && 'h-12')}
       id='prompt'
       value={prompt}
       onKeyDown={handleKeyDown}
