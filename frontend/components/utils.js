@@ -2,7 +2,7 @@ import { clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { commonPrompt } from './prePrompt'
 
-export const wsUrl = 'wss://tunnel.ink-dev.com/'
+export const wsUrl = 'wss://mj-backend-i2y7w.ondigitalocean.app/'
 
 export function cn(...inputs) {
  return twMerge(clsx(inputs))

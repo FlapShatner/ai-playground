@@ -4,6 +4,6 @@
 {% endcomment %}
 {% assign path = vite-tag | replace: '~/', '../' | replace: '@/', '../' %}
 {% if path == "/frontend/entrypoints/themeApp.jsx" or path == "themeApp.jsx" %}
-  <script src="{{ 'themeApp-a18c679b.js' | asset_url | split: '?' | first }}" type="module" crossorigin="anonymous"></script>
+  <script src="{{ 'themeApp-abb3f42e.js' | asset_url | split: '?' | first }}" type="module" crossorigin="anonymous"></script>
   {{ 'themeApp-05afe7a3.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
 {% endif %}
