@@ -7,25 +7,14 @@ import Grid from './Grid'
 import Upscaled from './Upscaled'
 import Progress from '../prompt/Progress'
 import { useAtomValue, useAtom, useSetAtom } from 'jotai'
-import {
- generatedAtom,
- captionAtom,
- isGeneratingAtom,
- isMakingVariantsAtom,
- isUpscalingAtom,
- shapeAtom,
- isWideAtom,
- detailModeAtom,
- promptAtom,
- imageStyleAtom,
-} from '../atoms'
+import { generatedAtom, captionAtom, isGeneratingAtom, isMakingVariantsAtom, isUpscalingAtom, detailModeAtom, promptAtom } from '../atoms'
 import Generating from './Generating'
 import Placeholder from './Placeholder'
 import Stack from './Stack'
 
 function Image() {
  const [history, setHistory] = useLocalStorage('history-new', [])
- const [detailMode, setDetailMode] = useAtom(detailModeAtom)
+ const setDetailMode = useSetAtom(detailModeAtom)
  const setPrompt = useSetAtom(promptAtom)
  const [generated, setGenerated] = useAtom(generatedAtom)
  const [caption, setCaption] = useAtom(captionAtom)
@@ -94,7 +83,6 @@ function Image() {
    ) : (
     <Placeholder />
    )}
-   {/* {(isGenerating || isMakingVariants) && <Progress />} */}
   </div>
  )
 }

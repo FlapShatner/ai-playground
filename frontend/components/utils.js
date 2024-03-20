@@ -1,9 +1,6 @@
 import { clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { cld } from './cloudinary'
 import { commonPrompt } from './prePrompt'
-
-import { v4 as uuid } from 'uuid'
 
 export const wsUrl = 'wss://tunnel.ink-dev.com/'
 
@@ -25,7 +22,6 @@ export const getCart = async () => {
  try {
   const cart = await fetch(window.Shopify.routes.root + 'cart.js')
   const cartJson = await cart.json()
-  // console.log("cart", cartJson)
   return cartJson
  } catch {
   console.log('error')
@@ -44,7 +40,6 @@ export const getSelectedVariant = () => {
 }
 
 export const getCurrentProduct = async () => {
- // const url = getCurrentUrl()
  const productId = 'ai-designed-custom-decal'
  const product = await fetch(window.Shopify.routes.root + 'products/' + productId + '.js')
  const productJson = await product.json()
@@ -61,7 +56,6 @@ export const addToCart = async (formData) => {
    body: JSON.stringify(formData),
   })
   const resultJson = await result.json()
-  // console.log("resultJson", resultJson)
   return resultJson
  } catch {
   console.log('error')
@@ -160,18 +154,6 @@ export const getVariantType = (shape) => {
  }
 }
 
-function variantMatch(shape, variant) {
- const simplifyString = (str) =>
-  str
-   .toLowerCase() // Convert to lowercase for case-insensitive comparison
-   .replace(/"/g, '') // Remove double quotes
-   .replace(/x/g, 'x') // Ensure consistent formatting
-   .replace(/horiz.*/g, 'horizontal') // Convert variations of "horizontal" to a standard format
- const simplifiedLabel = simplifyString(shape.label)
- const simplifiedTitle = simplifyString(variant.title)
- return simplifiedTitle.includes(simplifiedLabel)
-}
-
 export const getProductVariant = (variants, shape) => {
  let imageLabel = shape.label
  const variant = variants.find((item) => {
@@ -190,7 +172,6 @@ export const getDecalSizes = (product) => {
 }
 
 export async function generate(data) {
- // const { prompt, style } = data
  try {
   const resp = await fetch('/a/image/gen', {
    method: 'POST',
@@ -211,7 +192,6 @@ export async function generate(data) {
 
 export const getVariants = async (callData) => {
  const { meta, activeIndex, fullPrompt, wsId } = callData
- console.log('meta', meta, 'i', activeIndex, fullPrompt, 'wsId', wsId)
  try {
   const resp = await fetch('/a/image/var', {
    method: 'POST',
@@ -225,11 +205,9 @@ export const getVariants = async (callData) => {
     wsId: wsId,
    }),
   })
-  console.log('resp', resp)
   if (!resp.ok) {
    throw new Error('Failed to generate image')
   }
-
   return resp
  } catch {
   console.log('error')

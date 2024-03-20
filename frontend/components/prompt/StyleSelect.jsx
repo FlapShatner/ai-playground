@@ -9,10 +9,10 @@ import { imageStyleAtom, isOverlayAtom } from '../atoms'
 
 function StyleSelect() {
  const [imageStyle, setImageStyle] = useAtom(imageStyleAtom)
+ const [isOverlay, setIsOverlay] = useAtom(isOverlayAtom)
  const wrapRef = useRef(null)
  const [isHover, setIsHover] = useState(null)
  const [isOpen, setIsOpen] = useState(false)
- const [isOverlay, setIsOverlay] = useAtom(isOverlayAtom)
 
  const handleClick = () => {
   setIsOpen(!isOpen)

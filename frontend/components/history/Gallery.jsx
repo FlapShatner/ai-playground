@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-
 import { useLocalStorage } from 'usehooks-ts'
-import { cn } from '../utils'
 import { useAtom, useSetAtom } from 'jotai'
 import { generatedAtom, captionAtom, imageStyleAtom, detailModeAtom } from '../atoms'
+import { cn } from '../utils'
 import HistoryModal from './HistoryModal'
 import GalleryItem from './GalleryItem'
 

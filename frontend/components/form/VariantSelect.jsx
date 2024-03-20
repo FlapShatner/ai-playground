@@ -13,7 +13,6 @@ function VariantSelect({ product }) {
  const [isHover, setIsHover] = useState(null)
  const [isOpen, setIsOpen] = useState(false)
  const [size, setSize] = useAtom(sizeAtom)
-
  const ref = useRef()
  const handleClick = (e) => {
   e.stopPropagation()

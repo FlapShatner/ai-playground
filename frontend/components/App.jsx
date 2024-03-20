@@ -8,12 +8,12 @@ import Image from './image/Image'
 import Form from './form/Form'
 import Suggestions from './suggestions/Suggestions'
 import Banner from './banner/Banner'
-import { useAtom, useAtomValue, useSetAtom } from 'jotai'
+import { useAtomValue, useSetAtom } from 'jotai'
 import { generatedAtom, isSuccessAtom, cartAtom, isOrderingAtom } from './atoms'
 import 'react-toastify/dist/ReactToastify.css'
 
 export default function App({ home }) {
- const [isSuccess, setIsSuccess] = useAtom(isSuccessAtom)
+ const isSuccess = useAtomValue(isSuccessAtom)
  const generated = useAtomValue(generatedAtom)
  const isOrdering = useAtomValue(isOrderingAtom)
  const setCart = useSetAtom(cartAtom)

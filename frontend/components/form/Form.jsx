@@ -14,22 +14,20 @@ import { sizeAtom, quantityAtom, isSuccessAtom, addingToCartAtom, generatedAtom,
 import { set } from 'react-hook-form'
 
 function Form() {
- const [product, setProduct] = useAtom(productAtom)
- const [size, setSize] = useAtom(sizeAtom)
- const [quantity, setQuantity] = useAtom(quantityAtom)
- const [notes, setNotes] = useAtom(notesAtom)
- const [generated, setGenerated] = useAtom(generatedAtom)
  const [productTitle, setProductTitle] = useState('')
  const [disclaimer, setDisclaimer] = useState(false)
+ const [product, setProduct] = useAtom(productAtom)
+ const [notes, setNotes] = useAtom(notesAtom)
  const [isAddingToCart, setIsAddingToCart] = useAtom(addingToCartAtom)
- const isSuccess = useAtomValue(isSuccessAtom)
  const setIsOrdering = useSetAtom(isOrderingAtom)
+ const isSuccess = useAtomValue(isSuccessAtom)
+ const generated = useAtomValue(generatedAtom)
+ const size = useAtomValue(sizeAtom)
+ const quantity = useAtomValue(quantityAtom)
 
  const clickRef = useRef()
  useOnClickOutside(clickRef, () => setDisclaimer(false))
  const isSmall = useIsSmall()
-
- //  console.log('formData', formData)
 
  const addVariantToCart = async (variant) => {
   const formData = {
@@ -50,10 +48,6 @@ function Form() {
    ajaxCart.innerHTML = res.sections['ajax-cart']
    setIsAddingToCart(false)
    toast.success('Item added to cart', { theme: 'dark' })
-   //    setIsSuccess(true)
-   //    setTimeout(() => {
-   //     setIsSuccess(false)
-   //    }, 3000)
   }
  }
 
@@ -61,7 +55,6 @@ function Form() {
   const fetchProduct = async () => {
    const currentProduct = await getCurrentProduct()
    setProduct(currentProduct)
-   //    setProductPrice(currentProduct.price)
   }
   fetchProduct()
  }, [])
@@ -89,7 +82,6 @@ function Form() {
 
  const isDecal = generated.shape.id == 'de1'
  const variant = isDecal ? size : getProductVariant(product.variants, generated.shape)
- console.log('variant', variant)
 
  return (
   <div className='flex w-full'>

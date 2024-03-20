@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { cn, makeString, upscale } from '../utils'
 import useError from '../hooks/useError'
 import { useLocalStorage } from 'usehooks-ts'
@@ -8,17 +8,15 @@ import { isOrderingAtom, generatedAtom, activeIndexAtom, isUpscalingAtom, captio
 function Order() {
  const [history, setHistory] = useLocalStorage('history-new', [])
  const [windowProduct, setWindowProduct] = useLocalStorage('windowProduct', {})
- const [wsId, setWsId] = useAtom(wsIdAtom)
  const [isOrdering, setIsOrdering] = useAtom(isOrderingAtom)
  const [generated, setGenerated] = useAtom(generatedAtom)
  const activeIndex = useAtomValue(activeIndexAtom)
- const [caption, setCaption] = useAtom(captionAtom)
+ const wsId = useAtomValue(wsIdAtom)
  const imageStyle = useAtomValue(imageStyleAtom)
+ const setCaption = useSetAtom(captionAtom)
  const setIsUpscaling = useSetAtom(isUpscalingAtom)
- const [message, setMessage] = useAtom(messageAtom)
- const [prompt, setPrompt] = useAtom(promptAtom)
-
- const shape = generated.shape
+ const setMessage = useSetAtom(messageAtom)
+ const setPrompt = useSetAtom(promptAtom)
 
  const addToHistory = (generatedObj) => {
   let newHistory = [...history]
@@ -28,7 +26,6 @@ function Order() {
 
  const handleUpscale = async (message, wsId) => {
   const response = await upscale(message, wsId)
-  console.log('response', response)
   if (response.ok) {
    const { imgData, meta, prompt, caption, shape, event } = response.resp
    const generatedObj = {

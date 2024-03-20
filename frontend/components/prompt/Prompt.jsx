@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import useWebSocket, { ReadyState } from 'react-use-websocket'
 import { useLocalStorage } from 'usehooks-ts'
 import { toast } from 'react-toastify'
 import useIsSmall from '../hooks/useIsSmall'
-import { upscale, cn, getSuggest, assemblePrompt, assembleCallData, wsUrl } from '../utils'
+import { upscale, cn, assemblePrompt, wsUrl, getSuggest } from '../utils'
 import Help from '../icons/Help'
 import PromptGuide from '../info/PromptGuide'
+import Suggestions from '../suggestions/Suggestions'
 import Step from './Step'
 import useError from '../hooks/useError'
 import OptionsGrid from './OptionsGrid'
@@ -23,24 +24,24 @@ import {
  shapeAtom,
  messageAtom,
  isUpscalingAtom,
- promptGuideAtom,
- isMakingVariantsAtom,
- isErrorAtom,
+ modalIsOpenAtom,
+ suggestionsAtom,
 } from '../atoms'
 
 function Prompt() {
  const [history, setHistory] = useLocalStorage('history-new', [])
  const [showAlert, setShowAlert] = useState(false)
- const [caption, setCaption] = useAtom(captionAtom)
- const [isUpscaling, setIsUpscaling] = useAtom(isUpscalingAtom)
+ const setCaption = useSetAtom(captionAtom)
+ const setIsUpscaling = useSetAtom(isUpscalingAtom)
+ const setModalIsOpen = useSetAtom(modalIsOpenAtom)
+ const setSuggestions = useSetAtom(suggestionsAtom)
  const [isGenerating, setIsGenerating] = useAtom(isGeneratingAtom)
  const [generated, setGenerated] = useAtom(generatedAtom)
+ const [message, setMessage] = useAtom(messageAtom)
  const [prompt, setPrompt] = useAtom(promptAtom)
  const [wsId, setWsId] = useAtom(wsIdAtom)
  const imageStyle = useAtomValue(imageStyleAtom)
  const shape = useAtomValue(shapeAtom)
- const [message, setMessage] = useAtom(messageAtom)
- const [promptGuide, setPromptGuide] = useAtom(promptGuideAtom)
  const { isError, useIsError } = useError()
  const isSmall = useIsSmall()
 
@@ -82,7 +83,6 @@ function Prompt() {
 
  const handleUpscale = async (message, wsId) => {
   const response = await upscale(message, wsId)
-  console.log('response', response)
   if (response.ok) {
    const { imgData, meta, prompt, caption, shape, event } = response.resp
    const generatedObj = {
@@ -111,7 +111,6 @@ function Prompt() {
    if (message.event === 'generate') {
     sendMessage(JSON.stringify({ event: 'generate', data: message, wsId: wsId }))
    } else if (message.event === 'variations') {
-    console.log('sending variations message', message)
     sendMessage(JSON.stringify({ event: 'variations', data: message, wsId: wsId }))
    } else if (message.event === 'upscale') {
     handleUpscale(message)
@@ -128,8 +127,7 @@ function Prompt() {
   setPrompt(e.target.value)
  }
 
- const handleClick = () => {
-  console.log('clicked')
+ const handleClick = async () => {
   if (shape.id == '') {
    toast.warning('Please choose a product to generate a design', { theme: 'dark', position: 'top-left' })
    setShowAlert(true)
@@ -147,6 +145,12 @@ function Prompt() {
     style: imageStyle.id,
     wsId: wsId,
     shape: shape,
+   }
+   const suggestions = await getSuggest(prompt)
+   console.log('suggestions', suggestions)
+   if (suggestions.length > 0) {
+    setSuggestions(suggestions)
+    setModalIsOpen(true)
    }
    setMessage(callData, wsId)
    setIsGenerating(true)
@@ -167,6 +171,7 @@ function Prompt() {
  return (
   <form className={cn('flex flex-col w-full justify-end', isSmall && 'w-full max-w-[700px] m-auto')}>
    <DevTools />
+   <Suggestions />
    <div className='flex flex-col gap-4 w-full'>
     <OptionsGrid />
     <div className='w-full'>

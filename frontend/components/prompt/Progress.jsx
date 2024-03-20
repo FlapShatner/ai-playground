@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { cn, wsUrl } from '../utils'
 import useIsSmall from '../hooks/useIsSmall'
-import useWebSocket, { ReadyState } from 'react-use-websocket'
-import { useAtomValue, useAtom } from 'jotai'
+import useWebSocket from 'react-use-websocket'
+import { useAtom } from 'jotai'
 import { progressAtom } from '../atoms'
 
 function Progress() {
@@ -13,12 +13,9 @@ function Progress() {
   share: true,
   shouldReconnect: () => true,
  })
- //  const progress = '20%'
  useEffect(() => {
-  console.log('progress', lastJsonMessage)
   if (lastJsonMessage) {
    if (lastJsonMessage.event === 'status') {
-    console.log('lastJsonMessage', lastJsonMessage)
     setProgress(lastJsonMessage.status)
    }
   }

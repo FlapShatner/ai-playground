@@ -1,11 +1,11 @@
 import React from 'react'
 import { cn } from '../utils'
-import { useAtom } from 'jotai'
+import { useAtom, useSetAtom } from 'jotai'
 import { shapeAtom, sizeLabelAtom } from '../atoms'
 
 function SelectOption({ option, setIsOpen }) {
  const [shape, setShape] = useAtom(shapeAtom)
- const [sizeLabel, setSizeLabel] = useAtom(sizeLabelAtom)
+ const setSizeLabel = useSetAtom(sizeLabelAtom)
  const handleClick = (e) => {
   e.stopPropagation()
   setIsOpen(false)

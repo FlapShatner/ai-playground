@@ -1,13 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { cn } from '../utils'
-import Checkbox from './Checkbox'
 import OptionSelect from './OptionSelect'
-import { useAtom } from 'jotai'
+import { useAtom, useSetAtom } from 'jotai'
 import { shapeAtom, productTypeAtom, sizeLabelAtom } from '../atoms'
 
 function Option({ product }) {
  const [productType, setProductType] = useAtom(productTypeAtom)
- const [sizeLabel, setSizeLabel] = useAtom(sizeLabelAtom)
+ const setSizeLabel = useSetAtom(sizeLabelAtom)
  const [shape, setShape] = useAtom(shapeAtom)
  const productData = { id: product.id, label: product.label }
 

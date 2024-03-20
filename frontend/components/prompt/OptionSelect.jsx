@@ -3,13 +3,13 @@ import { cn } from '../utils'
 import { useOnClickOutside } from 'usehooks-ts'
 import Chevron from '../icons/Chevron'
 import SelectOption from './SelectOption'
-import { useAtom } from 'jotai'
+import { useAtom, useAtomValue } from 'jotai'
 import { shapeAtom, sizeLabelAtom } from '../atoms'
 
 function OptionSelect({ product, isChecked, handleSelect }) {
  const [isOpen, setIsOpen] = useState(false)
- const [sizeLabel, setSizeLabel] = useAtom(sizeLabelAtom)
- const [shape, setShape] = useAtom(shapeAtom)
+ const sizeLabel = useAtomValue(sizeLabelAtom)
+ const shape = useAtomValue(shapeAtom)
  const clickRef = useRef()
  useOnClickOutside(clickRef, () => setIsOpen(false))
  const handleClick = (e) => {

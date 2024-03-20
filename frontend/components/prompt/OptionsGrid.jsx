@@ -3,8 +3,6 @@ import Option from './Option'
 import Step from './Step'
 import Help from '../icons/Help'
 import OptionsGuide from '../info/OptionsGuide'
-import { useAtom } from 'jotai'
-import { productTypeAtom } from '../atoms'
 import { products } from '../options'
 
 function OptionsGrid() {
