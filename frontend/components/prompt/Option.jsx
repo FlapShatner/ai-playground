@@ -2,10 +2,11 @@ import React from 'react'
 import { cn } from '../utils'
 import OptionSelect from './OptionSelect'
 import { useAtom, useSetAtom } from 'jotai'
-import { shapeAtom, productTypeAtom, sizeLabelAtom } from '../atoms'
+import { shapeAtom, productTypeAtom, sizeLabelAtom, generatedAtom } from '../atoms'
 
 function Option({ product }) {
  const [productType, setProductType] = useAtom(productTypeAtom)
+ const setGenerated = useSetAtom(generatedAtom)
  const setSizeLabel = useSetAtom(sizeLabelAtom)
  const [shape, setShape] = useAtom(shapeAtom)
  const productData = { id: product.id, label: product.label }

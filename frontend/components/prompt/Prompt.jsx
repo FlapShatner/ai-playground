@@ -26,6 +26,7 @@ import {
  isUpscalingAtom,
  modalIsOpenAtom,
  suggestionsAtom,
+ isOrderingAtom,
 } from '../atoms'
 
 function Prompt() {
@@ -41,6 +42,7 @@ function Prompt() {
  const [prompt, setPrompt] = useAtom(promptAtom)
  const [wsId, setWsId] = useAtom(wsIdAtom)
  const imageStyle = useAtomValue(imageStyleAtom)
+ const isOrdering = useAtomValue(isOrderingAtom)
  const shape = useAtomValue(shapeAtom)
  const { isError, useIsError } = useError()
  const isSmall = useIsSmall()
@@ -129,7 +131,7 @@ function Prompt() {
 
  const handleClick = async () => {
   if (shape.id == '') {
-   toast.warning('Please choose a product to generate a design', { theme: 'dark', position: 'top-left' })
+   toast.warning('Please choose a product to generate a design', { theme: 'colored', hideProgressBar: true, position: 'top-left' })
    setShowAlert(true)
    setTimeout(() => {
     setShowAlert(false)
@@ -168,11 +170,18 @@ function Prompt() {
   setPrompt(history[0].prompt)
  }
 
+ const handleClickNew = () => {
+  setGenerated({ url: '', publicId: '', meta: {}, up: false })
+  setPrompt('')
+ }
+
+ const newButton = generated.url.length > 0 && !isOrdering ? true : false
+
  return (
   <form className={cn('flex flex-col w-full justify-end', isSmall && 'w-full max-w-[700px] m-auto')}>
    <DevTools />
    <Suggestions />
-   <div className='flex flex-col gap-4 w-full'>
+   <div className={cn('flex flex-col gap-4 w-full', newButton && 'opacity-30 pointer-events-none')}>
     <OptionsGrid />
     <div className='w-full'>
      <div className='flex justify-between'>
@@ -191,7 +200,7 @@ function Prompt() {
      </div>
 
      <textarea
-      className={cn('px-2 py-1 h-48 mt-2 placeholder:opacity-60 border border-border rounded-md', isSmall && 'h-12')}
+      className={cn('px-2 py-1 h-12 mt-2 placeholder:opacity-60 border border-border rounded-md', isSmall && 'h-12')}
       id='prompt'
       value={prompt}
       onKeyDown={handleKeyDown}
@@ -217,20 +226,30 @@ function Prompt() {
     </div>
    </div>
 
-   <div
-    role='button'
-    type='submit'
-    className='cursor-pointer border-2 flex justify-center sm:p-4 bg-bg-secondary active:scale-95 hover:bg-bg-primary text-accent border-accent h-[71px] w-full sm:w-full items-center mt-8 rounded-md'
-    onClick={handleClick}>
-    {isGenerating ? (
-     <div className={cn('flex items-center justify-center gap-3 text-lg  font-semibold')}>Generating...</div>
-    ) : (
-     <Step
-      step='4'
-      title='Generate a new design'
-     />
-    )}
-   </div>
+   {newButton ? (
+    <div
+     role='button'
+     type='submit'
+     className='cursor-pointer border-2 flex justify-center sm:p-4 bg-bg-secondary active:scale-95 hover:bg-bg-primary text-accent border-accent h-[71px] w-full sm:w-full items-center mt-8 rounded-md'
+     onClick={handleClickNew}>
+     <div className={cn('flex items-center justify-center gap-3 text-lg  font-semibold')}>Start a new design</div>
+    </div>
+   ) : (
+    <div
+     role='button'
+     type='submit'
+     className='cursor-pointer border-2 flex justify-center sm:p-4 bg-bg-secondary active:scale-95 hover:bg-bg-primary text-accent border-accent h-[71px] w-full sm:w-full items-center mt-8 rounded-md'
+     onClick={handleClick}>
+     {isGenerating ? (
+      <div className={cn('flex items-center justify-center gap-3 text-lg  font-semibold')}>Generating...</div>
+     ) : (
+      <Step
+       step='4'
+       title='Generate a new design'
+      />
+     )}
+    </div>
+   )}
   </form>
  )
 }

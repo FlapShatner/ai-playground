@@ -11,7 +11,7 @@ function useError() {
  const [isError, setIsError] = useState(false)
  const useIsError = () => {
   //   setIsError(true)
-  toast.error('Something went wrong. Please try again.', { theme: 'dark' })
+  toast.error('Something went wrong. Please try again.', { theme: 'colored', hideProgressBar: true })
   setTimeout(() => {
    setIsError(false)
    setIsGenerating(false)

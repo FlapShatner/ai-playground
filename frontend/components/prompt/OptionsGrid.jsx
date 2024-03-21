@@ -13,7 +13,7 @@ function OptionsGrid() {
     <Step
      step='1'
      title='Choose a product'
-     desc="You've got options! We'll print your new design in any of these formats"
+     desc="You've got options! Create your new design in any of these formats"
     />
     <Help
      size='24px'

@@ -56,3 +56,11 @@ export const messageAtom = atom(null)
 export const promptGuideAtom = atom(false)
 export const optionsGuideAtom = atom(false)
 export const selectedGuideAtom = atom(false)
+
+export const showNewButtonAtom = atom(false)
+export const optionStates = {
+ prompt: 'prompt',
+ form: 'form',
+ back: 'back',
+}
+export const optionsStateAtom = atom(optionStates.prompt)

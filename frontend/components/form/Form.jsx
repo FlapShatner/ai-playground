@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react'
 import { getCurrentProduct, formatPrice, cn, getVariantType, getProductVariant, addToCart, getCart } from '../utils'
 import { toast } from 'react-toastify'
 import CloseIcon from '../icons/CloseIcon'
+import Fallback from './Fallback'
 import Price from './Price'
 import { useOnClickOutside } from 'usehooks-ts'
 import useIsSmall from '../hooks/useIsSmall'
@@ -59,7 +60,7 @@ function Form() {
    const ajaxCart = document.querySelector('.minicart__content')
    ajaxCart.innerHTML = res.sections['ajax-cart']
    setIsAddingToCart(false)
-   toast.success('Item added to cart', { theme: 'dark' })
+   toast.success('Item added to cart', { theme: 'colored', hideProgressBar: true })
   }
  }
 
@@ -90,7 +91,7 @@ function Form() {
   setIsOrdering(false)
  }
 
- if (!product) return <h1>Loading...</h1>
+ if (!product) return <Fallback />
 
  const isDecal = generated.shape.id == 'de1'
  const variant = isDecal ? size : getProductVariant(product.variants, generated.shape)

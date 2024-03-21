@@ -12,6 +12,14 @@
     background: #d2ac5344;
 }
 
+:root {
+    --toastify-text-color-info: #1A1A1A;
+    --toastify-text-color-success: #1A1A1A;
+    --toastify-text-color-warning: #1A1A1A;
+    --toastify-text-color-error: #1A1A1A;
+}
+
+
 .arrow-down {
     position: relative;
     height: 16px;

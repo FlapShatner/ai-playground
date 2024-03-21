@@ -5,6 +5,7 @@ import useIsSmall from './hooks/useIsSmall'
 import Gallery from './history/Gallery'
 import Prompt from './prompt/Prompt'
 import Image from './image/Image'
+import BackToGenerate from './BackToGenerate'
 import Form from './form/Form'
 import Suggestions from './suggestions/Suggestions'
 import Banner from './banner/Banner'
@@ -24,7 +25,11 @@ export default function App({ home }) {
 
  return (
   <div className='bg-bg-primary w-full max-w-[1200px] 2xl:max-w-[1600px] m-auto relative'>
-   <ToastContainer pauseOnHover={false} />
+   <ToastContainer
+    pauseOnHover={false}
+    theme='colored'
+    hideProgressBar
+   />
    <Banner />
    <div className='w-full m-auto h-auto flex bg-bg-primary '>
     <img
@@ -39,6 +44,7 @@ export default function App({ home }) {
     <div className='w-full gap-4 flex flex-col-reverse lg:flex-row justify-center p-4 m-auto'>
      <div className={cn('flex flex-row gap-4 w-full justify-center', isSmall && 'flex-col-reverse')}>
       {isOrdering && !isWindow ? <Form /> : <Prompt />}
+      {/* <BackToGenerate /> */}
       <Image />
      </div>
     </div>
