@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect, useState, useRef } from 'react'
-import { getCurrentProduct, formatPrice, cn, getVariantType, getProductVariant, addToCart } from '../utils'
+import { getCurrentProduct, formatPrice, cn, getVariantType, getProductVariant, addToCart, getCart } from '../utils'
 import { toast } from 'react-toastify'
 import CloseIcon from '../icons/CloseIcon'
 import Price from './Price'
@@ -10,7 +10,7 @@ import VariantSelect from '../form/VariantSelect'
 import Quantity from '../form/Quantity'
 import { DevTools } from 'jotai-devtools'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
-import { sizeAtom, quantityAtom, isSuccessAtom, addingToCartAtom, generatedAtom, notesAtom, productAtom, isOrderingAtom } from '../atoms'
+import { sizeAtom, quantityAtom, isSuccessAtom, addingToCartAtom, generatedAtom, notesAtom, productAtom, isOrderingAtom, cartAtom } from '../atoms'
 import { set } from 'react-hook-form'
 
 function Form() {
@@ -20,6 +20,7 @@ function Form() {
  const [notes, setNotes] = useAtom(notesAtom)
  const [isAddingToCart, setIsAddingToCart] = useAtom(addingToCartAtom)
  const setIsOrdering = useSetAtom(isOrderingAtom)
+ const setCart = useSetAtom(cartAtom)
  const isSuccess = useAtomValue(isSuccessAtom)
  const generated = useAtomValue(generatedAtom)
  const size = useAtomValue(sizeAtom)
@@ -28,6 +29,16 @@ function Form() {
  const clickRef = useRef()
  useOnClickOutside(clickRef, () => setDisclaimer(false))
  const isSmall = useIsSmall()
+
+ const cartCount = document.querySelector('.cart-count')
+ const updateCount = async () => {
+  const cart = await getCart()
+  setCart(cart)
+  if (cartCount) {
+   cartCount.innerHTML = cart.item_count
+   cartCount.classList.remove('hidden')
+  }
+ }
 
  const addVariantToCart = async (variant) => {
   const formData = {
@@ -44,6 +55,7 @@ function Form() {
    },
   })
   if (res) {
+   updateCount()
    const ajaxCart = document.querySelector('.minicart__content')
    ajaxCart.innerHTML = res.sections['ajax-cart']
    setIsAddingToCart(false)

@@ -69,20 +69,20 @@ function Order() {
   window.location.href = url
  }
 
+ const checkIsWindow = () => {
+  if (generated.shape.id == 'wi1') {
+   setWindowProduct(generated)
+   goToUrl('/products/ai-truck-back-window-graphics')
+  }
+ }
+
  const handleOrder = async () => {
   if (generated.up) {
-   if (generated.shape.id == 'wi1') {
-    setWindowProduct(generated)
-    goToUrl('/products/ai-truck-back-window-graphics')
-   }
+   checkIsWindow()
    setIsOrdering(true)
   } else {
    await upscaleImage()
-   if (generated.shape.id == 'wi1') {
-    setWindowProduct(generated)
-    goToUrl('/products/ai-truck-back-window-graphics')
-    return
-   }
+   checkIsWindow()
    setIsOrdering(true)
   }
  }

@@ -20,20 +20,6 @@ export default function App({ home }) {
 
  const isSmall = useIsSmall()
 
- const cartCount = document.querySelector('.cart-count')
-
- useEffect(() => {
-  const updateCount = async () => {
-   const cart = await getCart()
-   setCart(cart)
-   if (cartCount) {
-    cartCount.innerHTML = cart.item_count
-    cartCount.classList.remove('hidden')
-   }
-  }
-  updateCount()
- }, [isSuccess])
-
  const isWindow = generated?.shape?.id == 'window'
 
  return (

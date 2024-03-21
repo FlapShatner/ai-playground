@@ -6,7 +6,7 @@ import { quantityAtom } from '../atoms'
 
 function Price({ variant }) {
  if (!variant) return null
- const quantity = useAtom(quantityAtom)
+ const quantity = useAtomValue(quantityAtom)
  const isSmall = useIsSmall()
  const price = formatPrice(variant.price, quantity)
 
