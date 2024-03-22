@@ -5,20 +5,17 @@ import Step from './Step'
 import { cn } from '../utils'
 import Chevron from '../icons/Chevron'
 import { useAtom } from 'jotai'
-import { imageStyleAtom, isOverlayAtom } from '../atoms'
+import { imageStyleAtom } from '../atoms'
 
 function StyleSelect() {
  const [imageStyle, setImageStyle] = useAtom(imageStyleAtom)
- const [isOverlay, setIsOverlay] = useAtom(isOverlayAtom)
  const wrapRef = useRef(null)
  const [isHover, setIsHover] = useState(null)
  const [isOpen, setIsOpen] = useState(false)
 
  const handleClick = () => {
   setIsOpen(!isOpen)
-  setIsOverlay(!isOverlay)
  }
- const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop - 400)
 
  return (
   <div

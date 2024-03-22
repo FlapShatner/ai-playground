@@ -1,27 +1,24 @@
-import { useEffect } from 'react'
-import { getCart, cn } from './utils'
+import { cn } from './utils'
 import { ToastContainer } from 'react-toastify'
 import useIsSmall from './hooks/useIsSmall'
 import Gallery from './history/Gallery'
 import Prompt from './prompt/Prompt'
 import Image from './image/Image'
-import BackToGenerate from './BackToGenerate'
 import Form from './form/Form'
 import Suggestions from './suggestions/Suggestions'
 import Banner from './banner/Banner'
-import { useAtomValue, useSetAtom } from 'jotai'
-import { generatedAtom, isSuccessAtom, cartAtom, isOrderingAtom } from './atoms'
+import { useAtomValue } from 'jotai'
+import { generatedAtom, isOrderingAtom } from './atoms'
 import 'react-toastify/dist/ReactToastify.css'
 
 export default function App({ home }) {
- const isSuccess = useAtomValue(isSuccessAtom)
  const generated = useAtomValue(generatedAtom)
  const isOrdering = useAtomValue(isOrderingAtom)
- const setCart = useSetAtom(cartAtom)
 
  const isSmall = useIsSmall()
 
  const isWindow = generated?.shape?.id == 'window'
+
 
  return (
   <div className='bg-bg-primary w-full max-w-[1200px] 2xl:max-w-[1600px] m-auto relative'>
@@ -44,7 +41,6 @@ export default function App({ home }) {
     <div className='w-full gap-4 flex flex-col-reverse lg:flex-row justify-center p-4 m-auto'>
      <div className={cn('flex flex-row gap-4 w-full justify-center', isSmall && 'flex-col-reverse')}>
       {isOrdering && !isWindow ? <Form /> : <Prompt />}
-      {/* <BackToGenerate /> */}
       <Image />
      </div>
     </div>

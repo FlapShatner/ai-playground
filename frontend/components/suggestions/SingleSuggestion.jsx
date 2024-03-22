@@ -1,10 +1,10 @@
-import React from 'react'
+
 
 function SingleSuggestion({ s }) {
   return (
     <div className='cursor-pointer min-w-36 max-w-[200px] p-2 flex flex-col'>
       <a target='_blank' rel='noopener noreferrer' href={s.url}>
-        <div>
+        <div className="min-h-36">
           <img src={s.image} />
         </div>
         <p className='text-accent text-xs mt-2'>{s.title}</p>

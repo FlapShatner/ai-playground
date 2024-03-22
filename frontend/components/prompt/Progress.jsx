@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
-import { cn, wsUrl } from '../utils'
+import { cn } from '../utils'
+import { wsUrl } from '../config'
 import useIsSmall from '../hooks/useIsSmall'
 import useWebSocket from 'react-use-websocket'
 import { useAtom } from 'jotai'

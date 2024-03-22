@@ -6,50 +6,54 @@ import { crop } from '@cloudinary/url-gen/actions/resize'
 import { compass } from '@cloudinary/url-gen/qualifiers/gravity'
 import Detail from './Detail'
 import { useAtom, useAtomValue } from 'jotai'
-import { generatedAtom, imageArrayAtom, detailModeAtom, isWideAtom } from '../atoms'
+import { generatedAtom, imageArrayAtom, detailModeAtom } from '../atoms'
 
 function Grid({ sendMessage }) {
-  const [imageArray, setImageArray] = useAtom(imageArrayAtom)
-  const generated = useAtomValue(generatedAtom)
-  const detailMode = useAtomValue(detailModeAtom)
+ const [imageArray, setImageArray] = useAtom(imageArrayAtom)
+ const generated = useAtomValue(generatedAtom)
+ const detailMode = useAtomValue(detailModeAtom)
 
-  if (!generated) {
-    return <div>Loading...</div>
+ if (!generated) {
+  return <div>Loading...</div>
+ }
+ useEffect(() => {
+  const arr = () => {
+   const transformations = {
+    topleft: 'north_west',
+    topright: 'north_east',
+    btmleft: 'south_west',
+    btmright: 'south_east',
+   }
+
+   return Object.entries(transformations).map(([key, value], i) => {
+    const image = cld.image(generated.publicId)
+    image.resize(crop().width(0.5).height(0.5).gravity(compass(value)))
+    return { id: i, label: key, image: image, shape: generated.shape }
+   })
   }
-  useEffect(() => {
-    const arr = () => {
-      const transformations = {
-        topleft: 'north_west',
-        topright: 'north_east',
-        btmleft: 'south_west',
-        btmright: 'south_east',
-      }
+  setImageArray(arr)
+ }, [generated])
 
-      return Object.entries(transformations).map(([key, value], i) => {
-        const image = cld.image(generated.publicId)
-        image.resize(crop().width(0.5).height(0.5).gravity(compass(value)))
-        return { id: i, label: key, image: image, shape: generated.shape }
-      })
-    }
-    setImageArray(arr)
-  }, [generated])
-
-  return (
+ return (
+  <>
+   {detailMode ? (
+    <Detail sendMessage={sendMessage} />
+   ) : (
     <>
-      {detailMode ? (
-        <Detail sendMessage={sendMessage} />
-      ) : (
-        <>
-          <div className={cn('grid grid-cols-2 gap-2 p-2 max-w-[700px] 2xl:max-w-[1000px]')}>
-            {imageArray.map((img, i) => (
-              <GridImage img={img} i={i} key={i} />
-            ))}
-          </div>
-          <span className='text-center mb-1 text-accent'>Click to choose one of these images or enter a new prompt to try again</span>
-        </>
-      )}
+     <div className={cn('grid grid-cols-2 gap-2 p-2 max-w-[700px] 2xl:max-w-[1000px]')}>
+      {imageArray.map((img, i) => (
+       <GridImage
+        img={img}
+        i={i}
+        key={i}
+       />
+      ))}
+     </div>
+     <span className='text-center mb-1 text-accent'>Click to choose one of these images or enter a new prompt to try again</span>
     </>
-  )
+   )}
+  </>
+ )
 }
 
 export default Grid

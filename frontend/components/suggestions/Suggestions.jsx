@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, lazy, Suspense } from 'react'
 import Modal from 'react-modal'
 import { useLockedBody } from 'usehooks-ts'
-import SingleSuggestion from './SingleSuggestion'
+// import SingleSuggestion from './SingleSuggestion'
+import SuggFallback from './SuggFallback'
 import LeftArrow from '../icons/leftArrow'
 import Arrow from '../icons/Arrow'
 import { useAtom, useAtomValue } from 'jotai'
@@ -27,6 +28,7 @@ const customStyles = {
 }
 
 function Suggestions() {
+  const SingleSuggestion = lazy(() => import('./SingleSuggestion'))
  const [locked, setLocked] = useLockedBody(false, 'root')
  const [modalIsOpen, setModalIsOpen] = useAtom(modalIsOpenAtom)
  const suggestions = useAtomValue(suggestionsAtom)
@@ -62,7 +64,7 @@ function Suggestions() {
     <LeftArrow
      width='16'
      color='#d2ac53'
-    />{' '}
+    />
     Back To Your AI Design
    </div>
    <p className='text-txt-primary text-lg mx-4 my-2'>While you wait, here are some of our designs you might like!</p>
@@ -81,10 +83,13 @@ function Suggestions() {
      className='overflow-x-scroll gap-4 flex px-4 scroll-smooth'>
      {suggestions.length > 0 &&
       suggestions.map((s, i) => (
+        
+        <Suspense key={i} fallback={<SuggFallback/>}>
        <SingleSuggestion
         key={i}
         s={s}
        />
+        </Suspense>
       ))}
     </div>
     <div

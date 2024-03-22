@@ -3,10 +3,15 @@ import useWebSocket, { ReadyState } from 'react-use-websocket'
 import { useLocalStorage } from 'usehooks-ts'
 import { toast } from 'react-toastify'
 import useIsSmall from '../hooks/useIsSmall'
-import { upscale, cn, assemblePrompt, wsUrl, getSuggest } from '../utils'
+import { cn, assemblePrompt } from '../utils'
+import { upscale } from '../utils/apiUtils'
+import { getSuggest } from '../utils/suggUtils'
+import { wsUrl } from '../config'
+import SubmitPrompt from './SubmitPrompt'
 import Help from '../icons/Help'
 import PromptGuide from '../info/PromptGuide'
 import Suggestions from '../suggestions/Suggestions'
+import TextArea from './TextArea'
 import Step from './Step'
 import useError from '../hooks/useError'
 import OptionsGrid from './OptionsGrid'
@@ -28,7 +33,6 @@ import {
  suggestionsAtom,
  isOrderingAtom,
 } from '../atoms'
-
 function Prompt() {
  const [history, setHistory] = useLocalStorage('history-new', [])
  const [showAlert, setShowAlert] = useState(false)
@@ -111,10 +115,15 @@ function Prompt() {
   if (!message) return
   if (connectionStatus === 'Open') {
    if (message.event === 'generate') {
+    console.log('Sending generate')
     sendMessage(JSON.stringify({ event: 'generate', data: message, wsId: wsId }))
+    setMessage(null)
    } else if (message.event === 'variations') {
+    console.log('Sending variations')
     sendMessage(JSON.stringify({ event: 'variations', data: message, wsId: wsId }))
+    setMessage(null)
    } else if (message.event === 'upscale') {
+    console.log('Sending upscale')
     handleUpscale(message)
     setMessage(null)
     return
@@ -124,10 +133,6 @@ function Prompt() {
    useIsError()
   }
  }, [message])
-
- const handleChange = (e) => {
-  setPrompt(e.target.value)
- }
 
  const handleClick = async () => {
   if (shape.id == '') {
@@ -159,15 +164,8 @@ function Prompt() {
   }
  }
 
- const handleKeyDown = (e) => {
-  if (e.key === 'Enter' && !e.shiftKey) {
-   e.preventDefault()
-   handleClick()
-  }
- }
-
  const handlePaste = () => {
-  setPrompt(history[0].prompt)
+  setPrompt(history[0].caption)
  }
 
  const handleClickNew = () => {
@@ -198,16 +196,7 @@ function Prompt() {
       />
       <PromptGuide />
      </div>
-
-     <textarea
-      className={cn('px-2 py-1 h-12 mt-2 placeholder:opacity-60 border border-border rounded-md', isSmall && 'h-12')}
-      id='prompt'
-      value={prompt}
-      onKeyDown={handleKeyDown}
-      onChange={handleChange}
-      type='text'
-      placeholder='Enter a prompt here'
-     />
+     <TextArea handleClick={handleClick} />
      {generated && (
       <div
        onClick={handlePaste}
@@ -222,33 +211,16 @@ function Prompt() {
     </div>
     <div className=' w-full'>
      <StyleSelect />
-     <div className={cn('text-red-500 text-center m-auto mt-1 font-bold', !isError && 'hidden')}>Something went wrong, please try again</div>
     </div>
    </div>
-
    {newButton ? (
-    <div
-     role='button'
-     type='submit'
-     className='cursor-pointer border-2 flex justify-center sm:p-4 bg-bg-secondary active:scale-95 hover:bg-bg-primary text-accent border-accent h-[71px] w-full sm:w-full items-center mt-8 rounded-md'
-     onClick={handleClickNew}>
-     <div className={cn('flex items-center justify-center gap-3 text-lg  font-semibold')}>Start a new design</div>
-    </div>
+    <SubmitPrompt onClick={handleClickNew}>Start a new design</SubmitPrompt>
    ) : (
-    <div
-     role='button'
-     type='submit'
-     className='cursor-pointer border-2 flex justify-center sm:p-4 bg-bg-secondary active:scale-95 hover:bg-bg-primary text-accent border-accent h-[71px] w-full sm:w-full items-center mt-8 rounded-md'
+    <SubmitPrompt
+     step={!isGenerating}
      onClick={handleClick}>
-     {isGenerating ? (
-      <div className={cn('flex items-center justify-center gap-3 text-lg  font-semibold')}>Generating...</div>
-     ) : (
-      <Step
-       step='4'
-       title='Generate a new design'
-      />
-     )}
-    </div>
+     Generating...
+    </SubmitPrompt>
    )}
   </form>
  )

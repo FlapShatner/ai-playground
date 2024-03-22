@@ -1,5 +1,6 @@
 import React from 'react'
-import { cn, makeString, upscale } from '../utils'
+import { cn, makeString } from '../utils'
+import { upscale } from '../utils/apiUtils'
 import useError from '../hooks/useError'
 import { useLocalStorage } from 'usehooks-ts'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
