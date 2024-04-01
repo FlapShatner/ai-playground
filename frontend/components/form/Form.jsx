@@ -16,75 +16,82 @@ import { getCurrentProduct } from '../utils/ajaxUtils'
 import { sizeAtom, generatedAtom, productAtom, isOrderingAtom } from '../atoms'
 
 function Form() {
- const [productTitle, setProductTitle] = useState('')
- const [disclaimer, setDisclaimer] = useState(false)
- const [product, setProduct] = useAtom(productAtom)
- const generated = useAtomValue(generatedAtom)
- const size = useAtomValue(sizeAtom)
+    const [productTitle, setProductTitle] = useState('')
+    const [disclaimer, setDisclaimer] = useState(false)
+    const [product, setProduct] = useAtom(productAtom)
+    const generated = useAtomValue(generatedAtom)
+    const size = useAtomValue(sizeAtom)
 
- const isDecal = generated.shape.id == 'de1'
- const variant = isDecal ? size : getProductVariant(product.variants, generated.shape)
+    const isDecal = generated.shape.id == 'de1'
+    const variant = isDecal ? size : getProductVariant(product.variants, generated.shape)
 
- const titles = {
-  decal: 'Decal',
-  print: 'Digital Print',
-  banner: 'Banner',
-  window: 'Truck Back Window Graphics',
-  tshirt: 'T-Shirt',
-  '3dprint': '3D Printed Model',
- }
+    const titles = {
+        decal: 'Decal',
+        print: 'Digital Print',
+        banner: 'Banner',
+        window: 'Truck Back Window Graphics',
+        tshirt: 'T-Shirt',
+        '3dprint': '3D Printed Model',
+    }
 
- const clickRef = useRef()
- useOnClickOutside(clickRef, () => setDisclaimer(false))
- const isSmall = useIsSmall()
+    const clickRef = useRef()
+    useOnClickOutside(clickRef, () => setDisclaimer(false))
+    const isSmall = useIsSmall()
 
- useEffect(() => {
-  const fetchProduct = async () => {
-   const currentProduct = await getCurrentProduct()
-   setProduct(currentProduct)
-  }
-  fetchProduct()
- }, [])
+    useEffect(() => {
+        const fetchProduct = async () => {
+            const currentProduct = await getCurrentProduct()
+            setProduct(currentProduct)
+        }
+        fetchProduct()
+    }, [])
 
- useEffect(() => {
-  const shape = generated.shape
-  const variantType = getVariantType(shape)
-  setProductTitle(titles[variantType])
- }, [generated])
+    useEffect(() => {
+        const shape = generated.shape
+        const variantType = getVariantType(shape)
+        setProductTitle(titles[variantType])
+    }, [generated])
 
- if (!product) return <Fallback />
+    if (!product) return <Fallback />
 
- return (
-  <div className='flex w-full'>
-   <DevTools />
-   <div className={cn('w-full flex flex-col justify-end gap-4 text-txt-primary pl-0', isSmall && 'max-w-[700px] m-auto')}>
-    <div className='text-2xl w-full text-end'>{`AI Designed ${productTitle}, ${generated.shape.label}`}</div>
-    <Price variant={variant} />
-    <div className={cn('flex flex-col items-end gap-4 ml-auto', isSmall && 'flex-row')}>
-     {generated.shape.id == 'de1' && <VariantSelect product={product} />}
-     <Quantity />
-    </div>
-    <div className='relative'>
-     <p
-      onClick={() => setDisclaimer(!disclaimer)}
-      className='text-lg cursor-pointer underline text-end'>
-      Disclaimer*
-     </p>
-     {disclaimer && (
-      <Disclaimer
-       ref={clickRef}
-       setDisclaimer={setDisclaimer}
-      />
-     )}
-     <Notes />
-    </div>
-    <div className='flex justify-center w-full gap-4'>
-     <CancelCart />
-     <AddToCart />
-    </div>
-   </div>
-  </div>
- )
+    return (
+        <div className='flex w-full'>
+            <DevTools />
+            <div className={cn('w-full flex flex-col justify-end gap-4 text-txt-primary pl-0', isSmall && 'max-w-[700px] m-auto')}>
+                <div className='text-2xl w-full text-end'>{`AI Designed ${productTitle}, ${generated.shape.label}`}</div>
+                <Price variant={variant} />
+                <div className={cn('flex flex-col justify-between items-end sm:flex-row')}>
+                    <div className={cn('w-1/2', isSmall && 'w-full sm:pr-8')}>
+                        <p className='text-accent'>Please Note:</p>
+                        <p className='text-accent'>FonzAI is capable of generating all kinds of images. It is the buyers responsibility to abide by the law as it applies to copyrighted material.</p>
+                    </div>
+                    <div className={cn('flex flex-col items-end gap-4 ml-auto', isSmall && 'flex-row')}>
+                        {generated.shape.id == 'de1' && <VariantSelect product={product} />}
+                        <Quantity />
+                    </div>
+
+                </div>
+                <div className='relative'>
+                    <p
+                        onClick={() => setDisclaimer(!disclaimer)}
+                        className='text-lg cursor-pointer underline text-end'>
+                        Disclaimer*
+                    </p>
+                    {disclaimer && (
+                        <Disclaimer
+                            ref={clickRef}
+                            setDisclaimer={setDisclaimer}
+                        />
+                    )}
+                    <Notes />
+                </div>
+                <div className='flex justify-center w-full gap-4'>
+                    <CancelCart />
+                    <AddToCart />
+                </div>
+            </div>
+        </div>
+    )
 }
 
 export default Form
