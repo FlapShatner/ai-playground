@@ -13,7 +13,7 @@ const ProductsSelect = () => {
         setIsOpen(!isOpen)
     }
     return (
-        <div className='relative' >
+        <div className='relative ' >
             <div className='flex justify-between'>
                 <Step
                     step='1'
@@ -28,19 +28,22 @@ const ProductsSelect = () => {
                 />
                 <OptionsGuide />
             </div>
-            <div className='border border-border py-2 pl-4 text-lg text-accent rounded-md bg-bg-secondary flex justify-between items-center mt-2 cursor-pointer' onClick={handleClick}>Product <Chevron
-                className='h-16 sm:h-auto flex flex-col items-center'
-                direction='down'
-            /></div>
-            {isOpen && <div className='absolute z-10 bg-bg-secondary'>
-                {options.map((product) => (
-                    <ProductOption
-                        key={product.id}
-                        product={product}
-                    />
-                ))
-                }
-            </div>}
+            <div className='border border-border rounded-md' >
+                <div className=' py-2 pl-4 text-lg text-accent  bg-bg-secondary flex justify-between items-center rounded-md cursor-pointer' onClick={handleClick}>Product <Chevron
+                    className='h-16 sm:h-auto flex flex-col items-center'
+                    direction='down'
+                /></div>
+                {isOpen && <div className=' z-10 bg-bg-secondary w-full'>
+                    {options.map((product) => (
+                        <ProductOption
+                            key={product.id}
+                            product={product}
+                        />
+                    ))
+                    }
+                </div>}
+
+            </div>
         </div>
     );
 }

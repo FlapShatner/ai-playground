@@ -30,17 +30,19 @@ function ProductOption({ product }) {
     const isChecked = productData.id === productType.id
 
     const isWindow = product.id == 'wi'
+    const is3D = product.id == '3d'
 
     return (
 
         <div
             onClick={handleSelect}
             className={cn(
-                'flex items-center gap-2 py-1 border-2 border-txt-secondary px-2 cursor-pointer bg-bg-secondary hover:bg-bg-primary transition-all duration-200 ease-in-out',
+                'flex items-center gap-2 py-1 border border-txt-secondary px-2 cursor-pointer bg-bg-secondary hover:bg-bg-primary transition-all duration-200 ease-in-out',
                 product.isDisabled && 'opacity-45 pointer-events-none',
-                isChecked && 'border-accent bg-accent-tr hover:bg-accent-tr'
+                isChecked && 'border-accent bg-accent-tr hover:bg-accent-tr',
+                is3D && 'rounded-b-md'
             )}>
-            <div className='mr-auto flex flex-col justify-start'>
+            <div className='mr-auto flex flex-col justify-start rounded-b-md'>
                 <span className={cn(isWindow && 'text-sm')}>{product.label}</span>
                 {product.isDisabled && <span className='text-xs'>Coming soon</span>}
                 {product.isSelect && isChecked && (
