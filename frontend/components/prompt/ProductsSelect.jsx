@@ -33,7 +33,7 @@ const ProductsSelect = () => {
                     className='h-16 sm:h-auto flex flex-col items-center'
                     direction='down'
                 /></div>
-                {isOpen && <div className=' z-10 bg-bg-secondary w-full'>
+                {isOpen && <div className=' z-10 bg-bg-secondary w-full rounded-md'>
                     {options.map((product) => (
                         <ProductOption
                             key={product.id}

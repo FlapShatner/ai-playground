@@ -43,7 +43,7 @@ function ProductOption({ product }) {
                 is3D && 'rounded-b-md'
             )}>
             <div className='mr-auto flex flex-col justify-start rounded-b-md'>
-                <span className={cn(isWindow && 'text-sm')}>{product.label}</span>
+                <span >{product.label}</span>
                 {product.isDisabled && <span className='text-xs'>Coming soon</span>}
                 {product.isSelect && isChecked && (
                     <OptionSelect

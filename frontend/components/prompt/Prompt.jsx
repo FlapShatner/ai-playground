@@ -180,13 +180,16 @@ function Prompt() {
         <form className={cn('flex flex-col w-full justify-end', isSmall && 'w-full max-w-[700px] m-auto')}>
             <DevTools />
             <Suggestions />
-            <div className={cn('flex flex-col gap-4 w-full', newButton && 'opacity-30 pointer-events-none')}>
-                {/* <OptionsGrid /> */}
-                <ProductsSelect />
+            <div className={cn('flex flex-col gap-4 w-full overflow-y-scroll max-h-[calc(85vh-71px)] pr-2', newButton && 'opacity-30 pointer-events-none')}>
+                <OptionsGrid />
+                {/* <ProductsSelect /> */}
                 <div className='w-full'>
-                    <div className='flex justify-between'>
+                    <div className=' w-full'>
+                        <StyleSelect />
+                    </div>
+                    <div className='flex justify-between mt-4'>
                         <Step
-                            step='2'
+                            step='3'
                             title='Describe your design'
                             desc='Anything you can imagine, describe it here and generate a new design based on your idea.'
                         />
@@ -202,7 +205,7 @@ function Prompt() {
                     {generated && (
                         <div
                             onClick={handlePaste}
-                            className='text-xs text-accent hover:text-accent-bright underline px-1 py-[2px] w-max mt-1 ml-auto cursor-pointer flex gap-1 items-center -mb-4'>
+                            className='text-xs text-accent hover:text-accent-bright underline px-1 py-[2px] w-max mt-1 ml-auto cursor-pointer flex gap-1 items-center '>
                             <Paste
                                 size='14px'
                                 color='rgb(210 172 83)'
@@ -211,9 +214,7 @@ function Prompt() {
                         </div>
                     )}
                 </div>
-                <div className=' w-full'>
-                    <StyleSelect />
-                </div>
+
             </div>
             {newButton ? (
                 <SubmitPrompt onClick={handleClickNew}>Start a new design</SubmitPrompt>

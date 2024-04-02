@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { prompts } from '../prePrompt'
-
+import { CSSTransition } from 'react-transition-group';
 import Step from './Step'
 import { cn } from '../utils'
 import Chevron from '../icons/Chevron'
@@ -13,6 +13,8 @@ function StyleSelect() {
     const [isHover, setIsHover] = useState(null)
     const [isOpen, setIsOpen] = useState(false)
 
+    const nodeRef = useRef(null)
+
     const handleClick = () => {
         setIsOpen(!isOpen)
     }
@@ -22,22 +24,22 @@ function StyleSelect() {
             ref={wrapRef}
             className='relative grid sm:mt-0 '>
             <Step
-                step='3'
+                step='2'
                 title='Choose a style'
                 desc='Choose from a variety of styles to get the look you want'
             />
             <div className='w-full mt-2 m-auto '>
                 <div
                     onClick={handleClick}
-                    className='cursor-pointer border border-border rounded-md flex items-center justify-between gap-2 w-full bg-bg-secondary'>
+                    className={cn('cursor-pointer border border-border rounded-md flex items-center justify-between gap-2 w-full bg-accent-tr', isOpen && 'rounded-b-none')}>
                     <div className='flex items-center w-full gap-2'>
                         <img
                             className='w-16 rounded-md'
                             src={imageStyle.img}
-                            alt={imageStyle.img}
+                            alt={imageStyle.label}
                         />
                         <div className='w-full flex '>
-                            <span className='text-xl text-accent'>{imageStyle.label}</span>
+                            <span className='text-xl '>{imageStyle.label}</span>
                         </div>
                     </div>
                     <Chevron
@@ -46,13 +48,13 @@ function StyleSelect() {
                     />
                 </div>
                 {isOpen && (
-                    <div className='absolute bg-bg-secondary w-full h-64 overflow-y-scroll border-b border-border z-20'>
+                    <div className='absolute bg-bg-secondary w-full border-b border-border z-20'>
                         {prompts.map((item, i) => {
                             const handleClick = () => {
                                 setImageStyle(item)
                                 setIsOpen(false)
                             }
-
+                            const isLast = i === prompts.length - 1
                             let isActive = imageStyle == item
                             return (
                                 <div
@@ -61,13 +63,13 @@ function StyleSelect() {
                                     onMouseEnter={() => setIsHover(item.id)}
                                     onMouseLeave={() => setIsHover(null)}
                                     className={cn(
-                                        'cursor-pointer border border-border flex items-center gap-4 hover:border-accent hover:bg-bg-tertiary transition-transform ease-in-out ',
+                                        'cursor-pointer border border-border flex items-center gap-4 hover:border-accent hover:bg-bg-primary transition-transform ease-in-out', isLast && 'rounded-b-md', isActive && 'border-accent bg-accent-tr',
                                         isActive && 'hidden'
                                         // isHover == item.id && 'scale-[102%]'
                                     )}>
                                     <div className='h-[67px]'>
                                         <img
-                                            className={cn('border-l w-16 ')}
+                                            className={cn('border-l w-16 rounded-r-md ')}
                                             src={item.img}
                                             alt={item.label}
                                         />
