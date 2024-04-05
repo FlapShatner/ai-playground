@@ -74,7 +74,7 @@ function Image() {
                     <p className='text-center'>{generated.shape.label}</p>
                     <div
                         className={cn(
-                            'w-[85vh] max-w-[700px] 2xl:max-w-[1000px] min-h-[700px] flex flex-col overflow-hidden relative border border-border',
+                            'w-[80vh] max-w-[700px] 2xl:max-w-[1000px] min-h-[700px] flex flex-col overflow-hidden relative border border-border',
                             isSmall && 'w-full min-h-[400px]'
                         )}>
                         {generated.up ? <Upscaled /> : <>{isSquare ? <Grid /> : <Stack />} </>}

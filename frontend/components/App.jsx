@@ -38,7 +38,7 @@ export default function App({ home }) {
             <div
                 id='appTop'
                 className='bg-bg-primary w-full m-auto flex '>
-                <div className='w-full gap-4 flex flex-col-reverse lg:flex-row justify-center p-4 m-auto'>
+                <div className='w-full gap-4 flex flex-col-reverse lg:flex-row justify-center p-4 pb-2 m-auto'>
                     <div className={cn('flex flex-row gap-4 w-full justify-center', isSmall && 'flex-col-reverse')}>
                         {isOrdering && !isWindow ? <Form /> : <Prompt />}
                         <Image />

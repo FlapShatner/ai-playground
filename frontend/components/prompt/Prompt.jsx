@@ -187,7 +187,7 @@ function Prompt() {
             <DevTools />
             <Suggestions />
             <Promo />
-            <div className={cn('flex flex-col gap-4 w-full overflow-y-scroll max-h-[calc(85vh-71px)] pr-2', newButton && 'opacity-30 pointer-events-none')}>
+            <div className={cn('flex flex-col gap-4 w-full overflow-y-scroll max-h-[calc(80vh-86px)] p-4 pr-2 border-2 border-bg-secondary rounded-md', newButton && 'opacity-30 pointer-events-none')}>
                 <OptionsGrid />
                 {/* <ProductsSelect /> */}
                 <div className='w-full'>
