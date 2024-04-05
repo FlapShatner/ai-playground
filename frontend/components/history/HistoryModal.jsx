@@ -19,6 +19,12 @@ function HistoryModal({ isOpen, setIsOpen }) {
         setLocked(isOpen)
         return () => setLocked(false)
     }, [isOpen])
+
+    const handleClose = () => {
+        setLocked(false)
+        setIsOpen(false)
+    }
+
     const customStyles = {
         overlay: {
             backgroundColor: 'rgba(0,0,0,0.8)',
@@ -44,11 +50,11 @@ function HistoryModal({ isOpen, setIsOpen }) {
             isOpen={isOpen}
             shouldCloseOnEsc={true}
             shouldCloseOnOverlayClick={true}
-            onRequestClose={() => setIsOpen(false)}>
+            onRequestClose={handleClose}>
             <div className='flex justify-between p-4'>
                 <h3 className='text-4xl text-accent'>History</h3>
                 <CloseIcon
-                    onClick={() => setIsOpen(false)}
+                    onClick={handleClose}
                     className=' cursor-pointer'
                 />
             </div>

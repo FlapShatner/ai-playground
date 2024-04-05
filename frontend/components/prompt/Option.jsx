@@ -35,7 +35,7 @@ function Option({ product }) {
         <div
             onClick={handleSelect}
             className={cn(
-                'flex items-center gap-2 py-1 border-2 rounded-md border-txt-secondary px-2 cursor-pointer bg-bg-secondary hover:bg-bg-primary transition-all duration-200 ease-in-out',
+                'flex items-center gap-2 py-1 border-2 rounded-md border-txt-secondary h-[66px] px-2 cursor-pointer bg-bg-secondary hover:bg-bg-primary transition-all duration-200 ease-in-out',
                 product.isDisabled && 'opacity-45 pointer-events-none',
                 isChecked && 'border-accent bg-accent-tr hover:bg-accent-tr'
             )}>

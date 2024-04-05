@@ -19,6 +19,26 @@
     --toastify-text-color-error: #1A1A1A;
 }
 
+.bubble {
+
+    animation: bubble .5s;
+}
+
+@keyframes bubble {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
 
 .arrow-down {
     position: relative;

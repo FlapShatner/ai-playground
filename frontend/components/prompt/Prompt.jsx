@@ -18,6 +18,7 @@ import OptionsGrid from './OptionsGrid'
 import ProductsSelect from './ProductsSelect'
 import Paste from '../icons/Paste'
 import StyleSelect from './StyleSelect'
+import Promo from '../promo/Promo'
 import { DevTools } from 'jotai-devtools'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import {
@@ -33,6 +34,7 @@ import {
     modalIsOpenAtom,
     suggestionsAtom,
     isOrderingAtom,
+    isPromoOpenAtom
 } from '../atoms'
 function Prompt() {
     const [history, setHistory] = useLocalStorage('history-new', [])
@@ -41,6 +43,7 @@ function Prompt() {
     const setIsUpscaling = useSetAtom(isUpscalingAtom)
     const setModalIsOpen = useSetAtom(modalIsOpenAtom)
     const setSuggestions = useSetAtom(suggestionsAtom)
+    const [isPromoOpen, setIsPromoOpen] = useAtom(isPromoOpenAtom)
     const [isGenerating, setIsGenerating] = useAtom(isGeneratingAtom)
     const [generated, setGenerated] = useAtom(generatedAtom)
     const [message, setMessage] = useAtom(messageAtom)
@@ -154,6 +157,9 @@ function Prompt() {
                 wsId: wsId,
                 shape: shape,
             }
+            if (shape.id == "wi1") {
+                setIsPromoOpen(true)
+            }
             const suggestions = await getSuggest(prompt)
             console.log('suggestions', suggestions)
             if (suggestions.length > 0) {
@@ -180,6 +186,7 @@ function Prompt() {
         <form className={cn('flex flex-col w-full justify-end', isSmall && 'w-full max-w-[700px] m-auto')}>
             <DevTools />
             <Suggestions />
+            <Promo />
             <div className={cn('flex flex-col gap-4 w-full overflow-y-scroll max-h-[calc(85vh-71px)] pr-2', newButton && 'opacity-30 pointer-events-none')}>
                 <OptionsGrid />
                 {/* <ProductsSelect /> */}
@@ -225,6 +232,7 @@ function Prompt() {
                     Generating...
                 </SubmitPrompt>
             )}
+            {/* <div onClick={() => setIsPromoOpen(true)} className='border border-border bg-red-700 mt-4'>open promo</div> */}
         </form>
     )
 }
