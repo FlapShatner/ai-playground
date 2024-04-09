@@ -21,7 +21,7 @@ export default function App({ home }) {
 
 
     return (
-        <div className='bg-bg-primary w-full max-w-[1200px] 2xl:max-w-[1600px] m-auto relative'>
+        <div className='bg-bg-primary w-full max-w-[1200px] 2xl:max-w-[1400px] m-auto relative'>
             <ToastContainer
                 pauseOnHover={false}
                 theme='colored'

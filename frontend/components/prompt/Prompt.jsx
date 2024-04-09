@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import useWebSocket, { ReadyState } from 'react-use-websocket'
 import { useLocalStorage } from 'usehooks-ts'
 import { toast } from 'react-toastify'
@@ -39,6 +39,7 @@ import {
 function Prompt() {
     const [history, setHistory] = useLocalStorage('history-new', [])
     const [showAlert, setShowAlert] = useState(false)
+    const [highlightPrompt, setHighlightPrompt] = useState(false)
     const setCaption = useSetAtom(captionAtom)
     const setIsUpscaling = useSetAtom(isUpscalingAtom)
     const setModalIsOpen = useSetAtom(modalIsOpenAtom)
@@ -54,6 +55,8 @@ function Prompt() {
     const shape = useAtomValue(shapeAtom)
     const { isError, useIsError } = useError()
     const isSmall = useIsSmall()
+
+    const promptText = useRef(null)
 
     const WS_URL = wsUrl
     const { sendJsonMessage, sendMessage, lastJsonMessage, readyState } = useWebSocket(WS_URL, {
@@ -138,9 +141,35 @@ function Prompt() {
         }
     }, [message])
 
+    const alertToPrompt = () => {
+        promptText.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+        const triggerHighlight = (count) => {
+            if (count === 0) return;
+            setHighlightPrompt(true);
+            setTimeout(() => {
+                setHighlightPrompt(false);
+                setTimeout(() => {
+                    triggerHighlight(count - 1);
+                }, 300);
+            }, 300);
+        };
+
+        triggerHighlight(3); // Start the process 3 times
+
+    }
+
     const handleClick = async () => {
         if (shape.id == '') {
             toast.warning('Please choose a product to generate a design', { theme: 'colored', hideProgressBar: true, position: 'top-left' })
+            setShowAlert(true)
+            setTimeout(() => {
+                setShowAlert(false)
+            }, 3000)
+            return
+        }
+        if (prompt.length === 0) {
+            alertToPrompt()
+            toast.warning('Please enter a prompt to generate a design', { theme: 'colored', hideProgressBar: true, position: 'top-left' })
             setShowAlert(true)
             setTimeout(() => {
                 setShowAlert(false)
@@ -208,7 +237,11 @@ function Prompt() {
                         />
                         <PromptGuide />
                     </div>
-                    <TextArea handleClick={handleClick} />
+                    <div ref={promptText}>
+
+                        <TextArea highlightPrompt={highlightPrompt} handleClick={handleClick} />
+
+                    </div>
                     {generated && (
                         <div
                             onClick={handlePaste}
