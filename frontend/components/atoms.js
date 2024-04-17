@@ -27,6 +27,8 @@ export const isMakingVariantsAtom = atom(false)
 export const isUpscalingAtom = atom(false)
 export const isGeneratingAtom = atom(false)
 
+export const historyAtom = atom(false)
+
 export const progressAtom = atom('1%')
 export const wsIdAtom = atom(null)
 
@@ -55,3 +57,6 @@ export const optionStates = {
 }
 export const optionsStateAtom = atom(optionStates.prompt)
 export const isPromoOpenAtom = atom(false)
+
+export const timeLeftAtom = atom('')
+export const cooldownOpenAtom = atom(false)

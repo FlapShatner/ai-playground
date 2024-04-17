@@ -3,10 +3,12 @@ import { useLocalStorage } from 'usehooks-ts'
 import { cn } from '../utils'
 import HistoryModal from './HistoryModal'
 import GalleryItem from './GalleryItem'
+import { useAtom } from 'jotai'
+import { historyAtom } from '../atoms'
 
 function Gallery() {
   const [history, setHistory] = useLocalStorage('history-new', [])
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useAtom(historyAtom)
   return (
     <>
       <p

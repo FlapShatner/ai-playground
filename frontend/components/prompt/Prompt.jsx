@@ -4,6 +4,7 @@ import { useLocalStorage } from 'usehooks-ts'
 import { toast } from 'react-toastify'
 import useIsSmall from '../hooks/useIsSmall'
 import { cn, assemblePrompt } from '../utils'
+import { getHoursAndMinutes, getTimeLeft } from '../utils/coolDownUtils'
 import { upscale } from '../utils/apiUtils'
 import { getSuggest } from '../utils/suggUtils'
 import { wsUrl } from '../config'
@@ -34,10 +35,18 @@ import {
     modalIsOpenAtom,
     suggestionsAtom,
     isOrderingAtom,
-    isPromoOpenAtom
+    isPromoOpenAtom,
+    timeLeftAtom,
+    cooldownOpenAtom
 } from '../atoms'
+import Cooldown from '../cooldown/Cooldown'
 function Prompt() {
     const [history, setHistory] = useLocalStorage('history-new', [])
+    const [genMeta, setGenMeta] = useLocalStorage('genMeta', {
+        count: 0,
+        cooldown: false,
+        cooldownTime: 0,
+    })
     const [showAlert, setShowAlert] = useState(false)
     const [highlightPrompt, setHighlightPrompt] = useState(false)
     const setCaption = useSetAtom(captionAtom)
@@ -53,6 +62,8 @@ function Prompt() {
     const imageStyle = useAtomValue(imageStyleAtom)
     const isOrdering = useAtomValue(isOrderingAtom)
     const shape = useAtomValue(shapeAtom)
+    const [timeLeft, setTimeLeft] = useAtom(timeLeftAtom)
+    const [cooldownOpen, setCooldownOpen] = useAtom(cooldownOpenAtom)
     const { isError, useIsError } = useError()
     const isSmall = useIsSmall()
 
@@ -158,24 +169,8 @@ function Prompt() {
 
     }
 
-    const handleClick = async () => {
-        if (shape.id == '') {
-            toast.warning('Please choose a product to generate a design', { theme: 'colored', hideProgressBar: true, position: 'top-left' })
-            setShowAlert(true)
-            setTimeout(() => {
-                setShowAlert(false)
-            }, 3000)
-            return
-        }
-        if (prompt.length === 0) {
-            alertToPrompt()
-            toast.warning('Please enter a prompt to generate a design', { theme: 'colored', hideProgressBar: true, position: 'top-left' })
-            setShowAlert(true)
-            setTimeout(() => {
-                setShowAlert(false)
-            }, 3000)
-            return
-        }
+    const startGen = async (currMeta) => {
+        setGenMeta({ ...currMeta, count: currMeta.count + 1 })
         setGenerated({ url: '', publicId: '', meta: {}, up: false })
         if (prompt) {
             const callData = {
@@ -200,6 +195,42 @@ function Prompt() {
         }
     }
 
+    const handleClick = async () => {
+        if (shape.id == '') {
+            toast.warning('Please choose a product to generate a design', { theme: 'colored', hideProgressBar: true, position: 'top-left' })
+            return
+        }
+        if (prompt.length === 0) {
+            alertToPrompt()
+            toast.warning('Please enter a prompt to generate a design', { theme: 'colored', hideProgressBar: true, position: 'top-left' })
+            return
+        }
+        let currentGenMeta = { ...genMeta }
+        console.log("Cooldown Status:", currentGenMeta.cooldown);
+        console.log("Cooldown Time:", currentGenMeta.cooldownTime);
+        if (currentGenMeta.cooldown) {
+            const currTimeLeft = getTimeLeft(currentGenMeta.cooldownTime);
+            if (currTimeLeft <= 0) {
+                console.log("Resetting Cooldown", currTimeLeft);
+                currentGenMeta = { count: 0, cooldown: false, cooldownTime: 0 };
+                return startGen(currentGenMeta)
+            } else {
+                const { hours, minutes } = getHoursAndMinutes(currTimeLeft);
+                setTimeLeft(`${hours} hours and ${minutes} minutes`);
+                setCooldownOpen(true);
+                return;
+            }
+        }
+        if (genMeta.count >= 8) {
+            console.log("Setting Cooldown", genMeta.count);
+            setGenMeta({ count: 0, cooldown: true, cooldownTime: Date.now() });
+            setTimeLeft('24 hours');
+            setCooldownOpen(true);
+            return;
+        }
+        startGen(genMeta)
+    }
+
     const handlePaste = () => {
         setPrompt(history[0].caption)
     }
@@ -213,6 +244,7 @@ function Prompt() {
 
     return (
         <form className={cn('flex flex-col w-full justify-end', isSmall && 'w-full max-w-[700px] m-auto')}>
+            <Cooldown />
             <DevTools />
             <Suggestions />
             <Promo />
