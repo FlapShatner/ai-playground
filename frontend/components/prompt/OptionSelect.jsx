@@ -27,7 +27,7 @@ function OptionSelect({ product, isChecked, handleSelect }) {
       className={cn('w-full cursor-pointer relative rounded-b-md', !isChecked && 'opacity-50 pointer-events-none')}>
       <div
         onClick={handleClick}
-        className={cn('flex justify-between border border-border rounded-md pl-2 py-1 bg-bg-secondary items-center', isShape && 'border border-accent-tr bg-transparent', isOpen && 'rounded-b-none')}>
+        className={cn('flex justify-between border border-border rounded-md pl-2 py-1 bg-bg-secondary items-center ', isShape && 'border border-accent-tr bg-transparent', isOpen && 'rounded-b-none')}>
         {showSizeLabel ? sizeLabel : 'Select size'}
         <Chevron
           className={cn('sm:w-12')}

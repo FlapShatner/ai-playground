@@ -22,14 +22,14 @@ function Form() {
     const generated = useAtomValue(generatedAtom)
     const size = useAtomValue(sizeAtom)
 
-    const isDecal = generated.shape.id == 'de1'
-    const variant = isDecal ? size : getProductVariant(product.variants, generated.shape)
+
 
     const titles = {
         decal: 'Decal',
         print: 'Digital Print',
         banner: 'Banner',
         window: 'Truck Back Window Graphics',
+        mailbox: 'Mailbox Wrap',
         tshirt: 'T-Shirt',
         '3dprint': '3D Printed Model',
     }
@@ -46,6 +46,8 @@ function Form() {
         fetchProduct()
     }, [])
 
+
+
     useEffect(() => {
         const shape = generated.shape
         const variantType = getVariantType(shape)
@@ -53,6 +55,11 @@ function Form() {
     }, [generated])
 
     if (!product) return <Fallback />
+
+    const isDecal = generated.shape.id == 'de1'
+    const variant = isDecal ? size : getProductVariant(product.variants, generated.shape)
+    // const variant = ''
+
 
     return (
         <div className='flex w-full'>

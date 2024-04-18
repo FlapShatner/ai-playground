@@ -50,7 +50,18 @@ export const products = [
             options: [{ id: 'wi1', label: 'Choose size at checkout', ar: '4:1', grid: false }],
             isDisabled: false,
         },
+        {
+            id: 'mb',
+            label: 'Mailbox Wrap (includes mailbox)',
+            isSelect: true,
+            options: [
+                { id: 'mb1', label: `18.75"x8" Standard`, ar: '7:3', grid: true },
+                { id: 'mb2', label: `21"x11" XL`, ar: '21:11', grid: true },
+            ],
+            isDisabled: false,
+        },
         { id: 'ts', label: 'T-Shirt', isSelect: false, options: [{ id: 'ts1', label: 'Coming Soon' }], isDisabled: true },
         { id: '3d', label: '3D Printed Model', isSelect: false, options: [{ id: '3d1', label: 'Coming Soon' }], isDisabled: true },
     ],
+
 ]
