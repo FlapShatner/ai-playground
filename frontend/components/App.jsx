@@ -20,7 +20,7 @@ export default function App({ home }) {
  const isWindow = generated?.shape?.id == 'window'
 
  return (
-  <div className='bg-bg-primary w-full max-w-[1200px] 2xl:max-w-[1400px] m-auto max-h-screen relative'>
+  <div className='bg-bg-primary w-full max-w-[1200px] 2xl:max-w-[1400px] m-auto relative'>
    <ToastContainer
     pauseOnHover={false}
     theme='colored'

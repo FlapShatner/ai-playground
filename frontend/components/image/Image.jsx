@@ -63,7 +63,7 @@ function Image() {
 
  const isSmall = useIsSmall()
  const isSquare = generated?.shape?.grid ? true : false
- //  const isGenerating = true
+
  return (
   <div className='relative mt-auto mx-auto'>
    {isGenerating || isMakingVariants || isUpscaling ? (
@@ -72,7 +72,11 @@ function Image() {
     <div>
      <p className='text-center'>{caption}</p>
      <p className='text-center'>{generated.shape.label}</p>
-     <div className={cn('aspect-square max-h-[900px] flex flex-col overflow-hidden relative border border-border', isSmall && 'w-full min-h-[400px]')}>
+     <div
+      className={cn(
+       'w-[80vh] max-w-[700px] 2xl:max-w-[1000px] min-h-[82vh]  flex flex-col overflow-hidden relative border border-border',
+       isSmall && 'w-full min-h-[400px]'
+      )}>
       {generated.up ? <Upscaled /> : <>{isSquare ? <Grid /> : <Stack />} </>}
      </div>
     </div>

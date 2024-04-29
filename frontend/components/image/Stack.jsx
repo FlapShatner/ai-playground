@@ -36,7 +36,7 @@ function Stack({ sendMessage }) {
     <Detail sendMessage={sendMessage} />
    ) : (
     <>
-     <div className={cn('flex flex-col gap-2 p-2 ')}>
+     <div className={cn('flex flex-col gap-2 p-2 2xl:max-w-[1000px] max-w-[1800px]')}>
       {stackArray.map((img, i) => (
        <StackImage
         img={img}
