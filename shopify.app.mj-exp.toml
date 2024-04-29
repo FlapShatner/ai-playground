@@ -22,6 +22,3 @@ prefix = "a"
 
 [pos]
 embedded = false
-
-[build]
-dev_store_url = "squirrels-and-squirrels.myshopify.com"
