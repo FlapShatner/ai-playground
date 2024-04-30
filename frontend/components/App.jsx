@@ -10,11 +10,12 @@ import Banner from './banner/Banner'
 import { useAtomValue } from 'jotai'
 import { generatedAtom, isOrderingAtom } from './atoms'
 import 'react-toastify/dist/ReactToastify.css'
+import SignUp from './signup/signup'
 
-export default function App({ home }) {
+export default function App({ home, sectionId }) {
  const generated = useAtomValue(generatedAtom)
  const isOrdering = useAtomValue(isOrderingAtom)
-
+ console.log(sectionId)
  const isSmall = useIsSmall()
 
  const isWindow = generated?.shape?.id == 'window'
@@ -44,6 +45,7 @@ export default function App({ home }) {
      </div>
     </div>
    </div>
+   {/* <SignUp /> */}
    <Suggestions />
    <Gallery />
    <p className='w-full text-end text-xs opacity-30'>v.3.02</p>

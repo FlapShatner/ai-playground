@@ -1,11 +1,17 @@
 import React from 'react'
 import { useAtom } from 'jotai'
+import { useLocalStorage } from 'usehooks-ts'
 import { toast } from 'react-toastify'
 import { cn, getProductVariant } from '../utils'
 import { getCart, addToCart } from '../utils/ajaxUtils'
 import { generatedAtom, sizeAtom, quantityAtom, addingToCartAtom, productAtom, cartAtom, notesAtom } from '../atoms'
 
 function AddToCart() {
+ const [genMeta, setGenMeta] = useLocalStorage('genMeta', {
+  count: 0,
+  cooldown: false,
+  cooldownTime: 0,
+ })
  const cartCount = document.querySelector('.cart-count')
  const [product, setProduct] = useAtom(productAtom)
  const [generated, setGenerated] = useAtom(generatedAtom)
@@ -45,6 +51,11 @@ function AddToCart() {
    const ajaxCart = document.querySelector('.minicart__content')
    ajaxCart.innerHTML = res.sections['ajax-cart']
    setIsAddingToCart(false)
+   setGenMeta({
+    count: 0,
+    cooldown: false,
+    cooldownTime: 0,
+   })
    toast.success('Item added to cart', { theme: 'colored', hideProgressBar: true })
   }
  }

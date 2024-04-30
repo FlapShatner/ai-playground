@@ -250,7 +250,8 @@ function Prompt() {
    <div
     className={cn(
      'flex flex-col gap-4 w-full overflow-y-scroll max-h-[calc(80vh-86px)] p-4 pr-2 border-2 border-bg-secondary rounded-md',
-     newButton && 'opacity-30 pointer-events-none'
+     newButton && 'opacity-30 pointer-events-none',
+     isSmall && newButton && 'hidden'
     )}>
     <OptionsGrid />
     {/* <ProductsSelect /> */}

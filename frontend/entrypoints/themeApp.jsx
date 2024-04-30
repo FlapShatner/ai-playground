@@ -5,7 +5,7 @@ import App from '@/components/App'
 import './themeApp.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App home={home} />
-  </React.StrictMode>
+ <React.StrictMode>
+  <App home={home} />
+ </React.StrictMode>
 )
