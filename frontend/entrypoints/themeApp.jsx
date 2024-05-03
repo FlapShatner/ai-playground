@@ -6,6 +6,9 @@ import './themeApp.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
  <React.StrictMode>
-  <App home={home} />
+  <App
+   home={home}
+   sectionId={sectionId}
+  />
  </React.StrictMode>
 )

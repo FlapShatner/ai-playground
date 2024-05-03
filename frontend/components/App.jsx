@@ -1,5 +1,7 @@
+import React, { useEffect } from 'react'
 import { cn } from './utils'
 import { ToastContainer } from 'react-toastify'
+import { useLocalStorage } from 'usehooks-ts'
 import useIsSmall from './hooks/useIsSmall'
 import Gallery from './history/Gallery'
 import Prompt from './prompt/Prompt'
@@ -11,12 +13,26 @@ import { useAtomValue } from 'jotai'
 import { generatedAtom, isOrderingAtom } from './atoms'
 import 'react-toastify/dist/ReactToastify.css'
 import SignUp from './signup/signup'
+import { set } from 'react-hook-form'
 
 export default function App({ home, sectionId }) {
+ const [genMeta, setGenMeta] = useLocalStorage('genMeta', {
+  count: 0,
+  cooldown: false,
+  cooldownTime: 0,
+ })
+ const [signup, setSignup] = useLocalStorage('signup', false)
  const generated = useAtomValue(generatedAtom)
  const isOrdering = useAtomValue(isOrderingAtom)
- console.log(sectionId)
+ //  console.log(home, sectionId)
  const isSmall = useIsSmall()
+
+ useEffect(() => {
+  if (signup.isSignUp && !signup.used) {
+   setSignup({ isSignUp: true, used: true })
+   setGenMeta({ count: (genMeta.count = 4), cooldown: false, cooldownTime: 0 })
+  }
+ }, [])
 
  const isWindow = generated?.shape?.id == 'window'
 
@@ -45,7 +61,7 @@ export default function App({ home, sectionId }) {
      </div>
     </div>
    </div>
-   {/* <SignUp /> */}
+   {/* <SignUp sectionId={sectionId} /> */}
    <Suggestions />
    <Gallery />
    <p className='w-full text-end text-xs opacity-30'>v.3.02</p>

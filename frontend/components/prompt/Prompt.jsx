@@ -180,7 +180,7 @@ function Prompt() {
     wsId: wsId,
     shape: shape,
    }
-   if (shape.id == 'wi1') {
+   if (shape.id == 'wi1' && !isSmall) {
     setIsPromoOpen(true)
    }
    const suggestions = await getSuggest(prompt)
@@ -251,7 +251,8 @@ function Prompt() {
     className={cn(
      'flex flex-col gap-4 w-full overflow-y-scroll max-h-[calc(80vh-86px)] p-4 pr-2 border-2 border-bg-secondary rounded-md',
      newButton && 'opacity-30 pointer-events-none',
-     isSmall && newButton && 'hidden'
+     isSmall && newButton && 'hidden',
+     isSmall && 'max-h-full'
     )}>
     <OptionsGrid />
     {/* <ProductsSelect /> */}

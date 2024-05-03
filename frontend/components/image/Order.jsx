@@ -97,7 +97,7 @@ function Order() {
     'flex flex-col cursor-pointer border border-accent p-1 sm:p-4 text-center text-bg-secondary font-semibold m-4 bg-accent hover:bg-accent-bright rounded-md',
     isOrdering && 'hidden'
    )}>
-   <span className='text-xl'>Buy as a decal!!!</span>
+   <span className='text-xl'>Buy as a decal!</span>
    <span className='text-sm font-semibold'>Click to choose size and quantity</span>
   </div>
  )

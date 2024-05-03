@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function SignUp() {
+function SignUp({ sectionId }) {
  const [formData, setFormData] = useState({
   form_type: 'customer',
   utf8: '✓',
@@ -16,7 +16,7 @@ function SignUp() {
 
  const handleSubmit = (event) => {
   event.preventDefault()
-  fetch('/contact#contact_form', {
+  fetch(`/contact#newsletter-form-${sectionId}`, {
    method: 'POST',
    headers: {
     'Content-Type': 'application/x-www-form-urlencoded', // or 'application/json' if the server supports it
@@ -38,9 +38,9 @@ function SignUp() {
   <>
    <form
     onSubmit={handleSubmit}
-    id='contact_form'
+    id={`newsletter-form-${sectionId}`}
     acceptCharset='UTF-8'
-    className='contact-form'>
+    className='newsletter-form'>
     <input
      type='hidden'
      name='form_type'
@@ -52,12 +52,21 @@ function SignUp() {
      value={formData.utf8}
     />
     <input
+     type='hidden'
+     name='contact[tags]'
+     value='newsletter'
+    />
+    <input
+     type='hidden'
+     name='contact[context]'
+     value={`newsletter_${sectionId}`}
+    />
+    <input
      type='email'
      name='contact[email]'
      onChange={handleChange}
     />
     <button type='submit'>Send</button>
-    <div></div>
    </form>
   </>
  )

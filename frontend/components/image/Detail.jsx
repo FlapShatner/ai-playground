@@ -1,6 +1,7 @@
 import React from 'react'
 import { useAtomValue, useSetAtom } from 'jotai'
 import { detailImageAtom, detailModeAtom, isMakingVariantsAtom, isUpscalingAtom } from '../atoms'
+import useIsSmall from '../hooks/useIsSmall'
 import { cn } from '../utils'
 import Selected from '../prompt/Selected'
 import LeftArrow from '../icons/leftArrow'
@@ -13,11 +14,11 @@ function Detail({ sendMessage }) {
  const detailImage = useAtomValue(detailImageAtom)
  const isMakingVariants = useAtomValue(isMakingVariantsAtom)
  const isUpscaling = useAtomValue(isUpscalingAtom)
-
+ const isSmall = useIsSmall()
  const isWide = !detailImage.shape.grid
 
  return (
-  <div className='aspect-square flex flex-col justify-center'>
+  <div className={cn('aspect-square flex flex-col justify-center max-w-[90vw]', isSmall && 'aspect-auto')}>
    <div
     onClick={() => setDetailMode(false)}
     className='flex cursor-pointer items-center hover:text-accent-bright'>
@@ -25,7 +26,7 @@ function Detail({ sendMessage }) {
     <span className='text-lg font-semibold text-accent underline '>Back to grid</span>
    </div>
    <AdvancedImage
-    className={cn('sm:w-2/3 m-auto', isWide && 'sm:w-full')}
+    className={cn('sm:w-2/3 m-auto', isWide && 'sm:w-full max-w-[85vw]')}
     plugins={[placeholder({ mode: 'blur' })]}
     cldImg={detailImage.image}
    />

@@ -7,7 +7,8 @@
 </div>
 
 <script>
-  const home = {{ request.path | json }}
+  const home = {{ request.path | json }};
+  const sectionId = {{ section.id | json }};
 </script>
 
 {% schema %}
@@ -15,7 +16,7 @@
   "name": "playground",
   "templates": ["page", "product", "index"],
   "target": "section",
-  "stylesheet": "themeApp-30d50f2f.css",
+  "stylesheet": "themeApp-0f7ee53c.css",
   "settings": []
 }
 {% endschema %}

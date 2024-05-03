@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, lazy, Suspense } from 'react'
 import Modal from 'react-modal'
+import useIsSmall from '../hooks/useIsSmall'
 import { useLockedBody } from 'usehooks-ts'
 import SingleSuggestion from './SingleSuggestion'
 import SuggFallback from './SuggFallback'
@@ -8,26 +9,8 @@ import Arrow from '../icons/Arrow'
 import { useAtom, useAtomValue } from 'jotai'
 import { modalIsOpenAtom, suggestionsAtom } from '../atoms'
 
-const customStyles = {
- overlay: {
-  backgroundColor: 'rgba(0,0,0,0.6)',
- },
- content: {
-  padding: '0',
-  top: '60%',
-  left: '50%',
-  maxWidth: '60%',
-  maxHeight: '60%',
-  backgroundColor: '#1A1A1A',
-  right: 'auto',
-  bottom: 'auto',
-  marginRight: '-50%',
-  transform: 'translate(-50%, -50%)',
-  zIndex: 1000,
- },
-}
-
 function Suggestions() {
+ const isSmall = useIsSmall()
  // const SingleSuggestion = lazy(() => import('./SingleSuggestion'))
  const [locked, setLocked] = useLockedBody(false, 'root')
  const [modalIsOpen, setModalIsOpen] = useAtom(modalIsOpenAtom)
@@ -42,6 +25,25 @@ function Suggestions() {
    }
   }
  }
+ const customStyles = {
+  overlay: {
+   backgroundColor: 'rgba(0,0,0,0.6)',
+  },
+  content: {
+   padding: '0',
+   top: '60%',
+   left: '50%',
+   maxWidth: isSmall ? '90%' : '60%',
+   maxHeight: '60%',
+   backgroundColor: '#1A1A1A',
+   right: 'auto',
+   bottom: 'auto',
+   marginRight: '-50%',
+   transform: 'translate(-50%, -50%)',
+   zIndex: 1000,
+  },
+ }
+
  const handleClose = () => {
   setLocked(false)
   setModalIsOpen(false)

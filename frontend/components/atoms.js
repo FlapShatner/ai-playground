@@ -2,10 +2,10 @@ import { atom } from 'jotai'
 import { prompts } from './prePrompt'
 
 export const generatedAtom = atom({
-    url: '',
-    publicId: '',
-    meta: {},
-    up: false,
+ url: '',
+ publicId: '',
+ meta: {},
+ up: false,
 })
 export const captionAtom = atom('')
 export const sizeAtom = atom('')
@@ -51,9 +51,9 @@ export const selectedGuideAtom = atom(false)
 
 export const showNewButtonAtom = atom(false)
 export const optionStates = {
-    prompt: 'prompt',
-    form: 'form',
-    back: 'back',
+ prompt: 'prompt',
+ form: 'form',
+ back: 'back',
 }
 export const optionsStateAtom = atom(optionStates.prompt)
 export const isPromoOpenAtom = atom(false)
